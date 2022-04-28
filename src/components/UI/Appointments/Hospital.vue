@@ -25,7 +25,7 @@ const getImage = computed(() => {
       return hospitalLogo;
     case 2:
       return videoLogo;
-    case 4:
+    case 3:
       return videoLogo;
   }
 });

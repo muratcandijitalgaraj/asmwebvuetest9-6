@@ -14,7 +14,6 @@
             :key="key"
             :number="item.number"
           />
-          <NavItem title="Çıkış Yap" number="" :url="{}" :src="cikisLogo" @click="logOut" />
         </div>
       </ul>
     </nav>
@@ -33,17 +32,8 @@ import hesapLogo from "../../assets/img/sidebar/hesap.svg";
 import anketLogo from "../../assets/img/sidebar/anket.svg";
 import cikisLogo from "../../assets/img/sidebar/cikis.svg";
 import Badge from "../../components/UI/Badge.vue";
-import store from "../../store";
-import {useRouter} from "vue-router"
 
 import { ref } from "vue";
-const router = useRouter()
-
-const logOut= async () => {
-  await store.dispatch('auth/logOut')
-  router.push('/')
-}
-
 const links = ref([
   {
     src: girisLogo,
@@ -79,6 +69,11 @@ const links = ref([
   {
     src: anketLogo,
     title: "Anketimize katılın",
+    url: {},
+  },
+  {
+    src: cikisLogo,
+    title: "Çıkış Yap",
     url: {},
   },
 ]);
