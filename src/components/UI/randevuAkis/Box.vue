@@ -1,5 +1,11 @@
 <template>
-  <div class="wrapper d-flex flex-row justify-content-start align-items-center">
+  <div
+    :data="data"
+    @click="click"
+    :class="changeStyle"
+    class="wrapper d-flex flex-row justify-content-start align-items-center"
+    :id="data"
+  >
     <div class="circle d-flex justify-content-center align-items-center">
       <img :src="checkMark" alt="" class="checkMark" />
     </div>
@@ -8,9 +14,19 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 const props = defineProps({
   name: { required: true, type: String },
+  data: { required: true, type: Number },
+  changeStyle: { required: true, type: String },
 });
+const handle = ref(false);
+const click = () => {
+  if (props.data) {
+    document.getElementById(props.data).classList.add("active");
+    // alert(props.data);
+  }
+};
 </script>
 
 <style lang="scss" scoped>

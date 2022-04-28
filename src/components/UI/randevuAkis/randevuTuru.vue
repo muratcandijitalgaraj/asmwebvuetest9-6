@@ -21,7 +21,13 @@
       </div>
       <div class="name">Görüntülü Görüşme</div>
     </div> -->
-    <Box v-for="(item, key) in boxes" :key="key" :name="item.name" />
+    <Box
+      v-for="(item, key) in boxes"
+      :key="key"
+      :name="item.name"
+      :data="item.data"
+      :class="item.class"
+    />
   </div>
 </template>
 
@@ -35,7 +41,10 @@ const toggle = function () {
   isActive.value = !isActive.value;
 };
 
-const boxes = ref([{ name: "Hastane" }, { name: "Görüntülü Görüşme" }]);
+const boxes = ref([
+  { name: "Hastane", data: 1, class: "checked" },
+  { name: "Görüntülü Görüşme", data: 2, class: "checked" },
+]);
 </script>
 
 <style lang="scss" scoped>
