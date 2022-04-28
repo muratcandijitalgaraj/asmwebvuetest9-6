@@ -2,23 +2,39 @@
   <div class="main">
     <h3 class="title">Randeuvu türünü seçin</h3>
     <div
+      :class="{ active: isActive }"
+      @click="toggle"
       class="wrapper d-flex flex-row justify-content-start align-items-center"
     >
-      <div class="circle"></div>
+      <div class="circle d-flex justify-content-center align-items-center">
+        <img :src="checkMark" alt="" class="checkMark" />
+      </div>
       <div class="name">Hastane</div>
     </div>
     <div
+      :class="{ active: isActive }"
+      @click="toggle"
       class="wrapper d-flex flex-row justify-content-start align-items-center"
     >
-      <div class="circle"></div>
+      <div class="circle d-flex justify-content-center align-items-center">
+        <img :src="checkMark" alt="" class="checkMark" />
+      </div>
       <div class="name">Görüntülü Görüşme</div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
+//toggle functionality
+let isActive = ref(false);
+const toggle = function () {
+  isActive.value = !isActive.value;
+};
+</script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
   width: 249px;
   height: 22px;
@@ -62,5 +78,20 @@
   /* Primary */
 
   color: #3c4e69;
+}
+.checkMark {
+  display: none;
+}
+.active {
+  background: #32a5df;
+  .profileName {
+    color: white;
+  }
+  .circle {
+    background: white;
+  }
+  .checkMark {
+    display: inline-block;
+  }
 }
 </style>
