@@ -1,9 +1,9 @@
 <template>
   <div class="main">
     <h3 class="title">Randeuvu türünü seçin</h3>
-    <div
-      :class="{ active: isActive }"
+    <!-- <div
       @click="toggle"
+      :data="1"
       class="wrapper d-flex flex-row justify-content-start align-items-center"
     >
       <div class="circle d-flex justify-content-center align-items-center">
@@ -12,26 +12,30 @@
       <div class="name">Hastane</div>
     </div>
     <div
-      :class="{ active: isActive }"
       @click="toggle"
+      :data="2"
       class="wrapper d-flex flex-row justify-content-start align-items-center"
     >
       <div class="circle d-flex justify-content-center align-items-center">
         <img :src="checkMark" alt="" class="checkMark" />
       </div>
       <div class="name">Görüntülü Görüşme</div>
-    </div>
+    </div> -->
+    <Box v-for="(item, key) in boxes" :key="key" :name="item.name" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import Box from "./Box.vue";
 import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
 //toggle functionality
-let isActive = ref(false);
+let isActive = ref(0);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
+
+const boxes = ref([{ name: "Hastane" }, { name: "Görüntülü Görüşme" }]);
 </script>
 
 <style lang="scss" scoped>
