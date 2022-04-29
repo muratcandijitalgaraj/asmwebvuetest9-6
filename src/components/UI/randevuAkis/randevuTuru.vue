@@ -27,6 +27,7 @@
       :name="item.name"
       :data="item.data"
       :class="item.class"
+      :handle="item.handle"
     />
   </div>
 </template>
@@ -42,8 +43,8 @@ const toggle = function () {
 };
 
 const boxes = ref([
-  { name: "Hastane", data: 1, class: "checked" },
-  { name: "Görüntülü Görüşme", data: 2, class: "checked" },
+  { name: "Hastane", data: 1, handle: false },
+  { name: "Görüntülü Görüşme", data: 2, handle: false },
 ]);
 </script>
 

@@ -5,6 +5,7 @@
     :class="changeStyle"
     class="wrapper d-flex flex-row justify-content-start align-items-center"
     :id="data"
+    :handle="handle"
   >
     <div class="circle d-flex justify-content-center align-items-center">
       <img :src="checkMark" alt="" class="checkMark" />
@@ -19,12 +20,14 @@ const props = defineProps({
   name: { required: true, type: String },
   data: { required: true, type: Number },
   changeStyle: { required: true, type: String },
+  handle: { required: true, type: Boolean },
 });
-const handle = ref(false);
+// const handle = ref(false);
 const click = () => {
   if (props.data) {
     document.getElementById(props.data).classList.add("active");
     // alert(props.data);
+    props.handle = !props.handle;
   }
 };
 </script>
