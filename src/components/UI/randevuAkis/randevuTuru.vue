@@ -26,25 +26,23 @@
       :key="key"
       :name="item.name"
       :data="item.data"
-      :class="item.class"
-      :handle="item.handle"
+      v-model="appointmentType"
     />
   </div>
+
+  {{ appointmentType }}
 </template>
 
 <script setup>
 import { ref } from "vue";
 import Box from "./Box.vue";
-import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
+
 //toggle functionality
-let isActive = ref(0);
-const toggle = function () {
-  isActive.value = !isActive.value;
-};
+const appointmentType = ref(0);
 
 const boxes = ref([
-  { name: "Hastane", data: 1, handle: false },
-  { name: "Görüntülü Görüşme", data: 2, handle: false },
+  { name: "Hastane", data: 1},
+  { name: "Görüntülü Görüşme", data: 2},
 ]);
 </script>
 
