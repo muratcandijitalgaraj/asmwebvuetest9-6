@@ -29,8 +29,6 @@
       v-model="appointmentType"
     />
   </div>
-
-  {{ appointmentType }}
 </template>
 
 <script setup>
