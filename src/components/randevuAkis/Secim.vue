@@ -8,7 +8,7 @@
       <forWhomVue />
       <randevuTuruVue />
       <button class="button">
-        <div class="buttonText">Devam</div>
+        <div class="buttonText">Devams</div>
       </button>
     </div>
   </div>
