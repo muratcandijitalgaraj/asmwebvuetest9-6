@@ -5,6 +5,8 @@
     <template v-slot:section>
       <!-- your code comes here -->
       <div class="zemin">
+        <h2 class="bigTitle">Randevu Alın</h2>
+        <div class="greyLine"></div>
         <SecimVue />
       </div>
     </template>
@@ -25,5 +27,28 @@ import SecimVue from "../components/randevuAkis/Secim.vue";
   border-radius: 18px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  padding-top: 2rem;
+}
+.bigTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 130%;
+  /* identical to box height, or 29px */
+  /* Primary */
+  color: #3c4e69;
+  margin-left: 1rem;
+}
+.greyLine {
+  border: 1px solid #dae9f1;
+  margin: 30px 0;
+}
+@media only screen and (max-width: 992px) {
+  .zemin {
+    width: 100%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 18px;
+  }
 }
 </style>

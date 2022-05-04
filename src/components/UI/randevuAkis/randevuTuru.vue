@@ -1,51 +1,54 @@
 <template>
   <div class="main">
     <h3 class="title">Randeuvu türünü seçin</h3>
-    <!-- <div
-      @click="toggle"
-      :data="1"
-      class="wrapper d-flex flex-row justify-content-start align-items-center"
-    >
-      <div class="circle d-flex justify-content-center align-items-center">
-        <img :src="checkMark" alt="" class="checkMark" />
-      </div>
-      <div class="name">Hastane</div>
-    </div>
-    <div
-      @click="toggle"
-      :data="2"
-      class="wrapper d-flex flex-row justify-content-start align-items-center"
-    >
-      <div class="circle d-flex justify-content-center align-items-center">
-        <img :src="checkMark" alt="" class="checkMark" />
-      </div>
-      <div class="name">Görüntülü Görüşme</div>
-    </div> -->
+    {{ user?.givenName }} {{ user?.familyName }}
     <Box
       v-for="(item, key) in boxes"
       :key="key"
       :name="item.name"
       :data="item.data"
-      :class="item.class"
-      :handle="item.handle"
+      v-model="appointmentType"
     />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import Box from "./Box.vue";
-import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
-//toggle functionality
-let isActive = ref(0);
-const toggle = function () {
-  isActive.value = !isActive.value;
+//geçici olarka kullanıcı bilgilerini burada alıyoruz.
+import appAxios from "../../../utils/appAxios";
+import store from "../../../store";
+
+const user = ref({});
+let token = store.getters["auth/_token"];
+appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+
+const getUser = () => {
+  console.log("asaa");
+  console.log(token);
+  appAxios
+    .get("endpoint/profile-service/profile")
+    .then((res) => {
+      console.log(res.data);
+      user.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
 };
 
+//toggle functionality
+const appointmentType = ref(0);
+
 const boxes = ref([
-  { name: "Hastane", data: 1, handle: false },
-  { name: "Görüntülü Görüşme", data: 2, handle: false },
+  { name: "Hastane", data: 1 },
+  { name: "Görüntülü Görüşme", data: 2 },
 ]);
+
+onMounted(() => {
+  console.log("mounted");
+  getUser();
+});
 </script>
 
 <style lang="scss" scoped>

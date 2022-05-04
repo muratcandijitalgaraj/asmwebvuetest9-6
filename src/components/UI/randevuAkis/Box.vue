@@ -1,11 +1,9 @@
 <template>
   <div
-    :data="data"
     @click="click"
-    :class="changeStyle"
+    :class="{'active': getCheck}"
     class="wrapper d-flex flex-row justify-content-start align-items-center"
     :id="data"
-    :handle="handle"
   >
     <div class="circle d-flex justify-content-center align-items-center">
       <img :src="checkMark" alt="" class="checkMark" />
@@ -15,21 +13,37 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
 const props = defineProps({
   name: { required: true, type: String },
   data: { required: true, type: Number },
-  changeStyle: { required: true, type: String },
-  handle: { required: true, type: Boolean },
+  modelValue: {required: true, type: Number}
 });
+
+const emit = defineEmits(['update:modelValue'])
+
 // const handle = ref(false);
-const click = () => {
-  if (props.data) {
-    document.getElementById(props.data).classList.add("active");
-    // alert(props.data);
-    props.handle = !props.handle;
+const click = async () => {
+  await emit('update:modelValue', props.data)
+
+  if (props.modelValue === props.data) {
+    isCheck.value = true
+  } else {
+    isCheck.value = false
   }
-};
+}
+
+const isCheck = ref(false)
+
+const getCheck = computed(() => {
+  if (isCheck.value && props.data === props.modelValue) {
+    return true
+  }
+
+  return false
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -82,7 +96,7 @@ const click = () => {
 }
 .active {
   background: #32a5df;
-  .profileName {
+  .name {
     color: white;
   }
   .circle {
