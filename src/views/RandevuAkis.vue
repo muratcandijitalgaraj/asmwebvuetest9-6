@@ -21,7 +21,7 @@ import SecimVue from "../components/randevuAkis/Secim.vue";
 <style lang="scss" scoped>
 .zemin {
   width: 60%;
-  height: 100%;
+  height: auto;
   background: #f2f8fb;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
