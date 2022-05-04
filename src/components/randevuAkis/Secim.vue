@@ -1,7 +1,5 @@
 <template>
   <div class="main">
-    <h2 class="bigTitle">Randevu Alın</h2>
-    <div class="greyLine"></div>
     <div
       class="body d-flex flex-column align-items-center justify-content-center"
     >

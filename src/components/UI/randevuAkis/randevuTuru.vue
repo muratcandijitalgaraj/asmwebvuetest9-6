@@ -61,6 +61,7 @@ onMounted(() => {
   /* identical to box height, or 22px */
 
   letter-spacing: -0.01em;
+  margin-bottom: 1rem;
 
   /* Primary */
 

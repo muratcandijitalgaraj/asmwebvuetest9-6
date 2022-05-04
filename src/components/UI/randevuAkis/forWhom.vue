@@ -53,18 +53,19 @@ const toggle = function () {
   width: 249px;
   height: 22px;
 
+  /* text2-bold */
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 700;
   font-size: 17px;
   line-height: 130%;
-  /* identical to box height, or 22px */
 
+  /* identical to box height, or 22px */
   letter-spacing: -0.01em;
 
   /* Primary */
-
   color: #3c4e69;
+  margin-bottom: 1rem;
 }
 .profileName {
   /* baslik4 */
