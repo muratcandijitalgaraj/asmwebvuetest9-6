@@ -1,14 +1,21 @@
 <template>
   <div class="main">
+<<<<<<< HEAD
     <h2 class="bigTitle">Randevu Alın</h2>
     <div class="greyLine"></div>
+=======
+>>>>>>> main
     <div
       class="body d-flex flex-column align-items-center justify-content-center"
     >
       <forWhomVue />
       <randevuTuruVue />
       <button class="button">
+<<<<<<< HEAD
         <div class="buttonText">Devams</div>
+=======
+        <div class="buttonText">Devam</div>
+>>>>>>> main
       </button>
     </div>
   </div>
