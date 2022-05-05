@@ -21,6 +21,13 @@ export default {
       //   console.log(res.data);
       // });
     },
+
+    async getHospitals() {
+      await store.dispatch("auth/checkRefreshToken");
+      let token = store.getters["auth/_token"];
+      appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return await appAxios.get("endpoint/resource-service/facilities");
+    },
   },
 
   getters: {},

@@ -21,15 +21,14 @@ import store from "../../../store";
 const user = ref({});
 //this will be changed to hospital type
 
-const foo = async function () {
-  await store.dispatch("auth/checkRefreshToken");
-  let token = store.getters["auth/_token"];
-  appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
-  return await appAxios
-    .get("endpoint/resource-service/departments/filter")
+const foo = () => {
+  store
+    .dispatch("appointmentFlow/getHospitals")
     .then((res) => {
-      console.log("new data" + res.data);
-    });
+      console.log("newnew" + JSON.stringify(res.data));
+      console.log("newnew" + res.data.items[0].name);
+    })
+    .catch((err) => console.log(err.response));
 };
 
 onMounted(() => {
@@ -40,7 +39,6 @@ onMounted(() => {
       user.value = res.data;
     })
     .catch((err) => console.log(err.response));
-
   foo();
 });
 
