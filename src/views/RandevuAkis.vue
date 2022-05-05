@@ -7,8 +7,8 @@
       <div class="zemin">
         <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div>
-        <SecimVue />
-        <!-- <Flow2MainVue /> -->
+        <!-- <SecimVue /> -->
+        <Flow2MainVue />
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
