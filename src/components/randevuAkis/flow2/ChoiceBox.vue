@@ -1,7 +1,14 @@
 <template>
-  <div @click="click" :class="{ active: getCheck }" :id="data" class="choice">
+  <div
+    @click="click"
+    :class="{ active: getCheck }"
+    :id="data"
+    class="choice d-flex flex-column justify-content-center align-items-center"
+  >
     <div class="choiceTitle">{{ title }}</div>
-    <div class="blueLine"></div>
+    <div class="blueLineContainer d-flex align-items-end">
+      <div class="blueLine"></div>
+    </div>
   </div>
 </template>
 
@@ -39,6 +46,10 @@ const getCheck = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.choice {
+  height: 100%;
+  margin-left: 1rem;
+}
 .choiceTitle {
   margin: 0 1rem 0 1rem;
   /* text02 */
@@ -55,9 +66,25 @@ const getCheck = computed(() => {
   /* Primary */
   color: #3c4e69;
 }
+.blueLineContainer {
+  position: relative;
+  bottom: -0.8rem;
+}
+.blueLine {
+  width: 25px;
+  height: 5px;
+  display: none;
+
+  /* Secondary */
+  background: #32a5df;
+  border-radius: 4px 4px 0px 0px;
+}
 .active {
   .choiceTitle {
     color: #32a5df;
+  }
+  .blueLine {
+    display: block;
   }
 }
 </style>
