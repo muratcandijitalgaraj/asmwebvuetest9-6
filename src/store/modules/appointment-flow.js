@@ -7,9 +7,14 @@ import store from "../index";
 export default {
   namespaced: true,
 
-  state: {},
+  state: { section: "lool" },
 
-  mutations: {},
+  mutations: {
+    showHospitals(state) {
+      // mutate state
+      state.section = 3;
+    },
+  },
 
   actions: {
     async getUser() {

@@ -64,17 +64,18 @@ const data = ref([
   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
 ]);
 
-const data2 = ref(null);
+const data2 = ref();
 
 const foo = () => {
   store
     .dispatch("appointmentFlow/getHospitals")
     .then((res) => {
-      console.log("newnew" + JSON.stringify(res.data.items[0]));
+      console.log("newnew" + JSON.stringify(res.data.items));
       console.log("newnew" + res.data.items[0].name);
       data2.value = res.data.items;
     })
     .catch((err) => console.log(err.response));
+  console.log(store.state);
 };
 
 onMounted(() => {

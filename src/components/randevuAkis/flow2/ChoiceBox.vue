@@ -32,6 +32,7 @@ const click = async () => {
   } else {
     isCheck.value = false;
   }
+  console.log(props.title);
 };
 
 const isCheck = ref(false);
