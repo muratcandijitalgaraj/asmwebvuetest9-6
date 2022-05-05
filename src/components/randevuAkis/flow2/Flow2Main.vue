@@ -9,6 +9,18 @@
         v-model="appointmentType"
       />
     </div>
+    <div class="bodyContainer">
+      <div class="bigTitle">Bölüm Seçin</div>
+      <input type="text" placeholder="Search.." />
+      <div
+        v-for="(item, key) in data"
+        :key="key"
+        :name="item.name"
+        class="whiteBox"
+      >
+        <div class="title">{{ item.name }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,6 +40,8 @@ const bigBoxData = ref([
   { title: "Doktor", data: 2 },
   { title: "Hastane", data: 3 },
 ]);
+
+const data = ref([{ name: "one" }, { name: "two" }, { name: "three" }]);
 </script>
 
 <style lang="scss" scoped>
