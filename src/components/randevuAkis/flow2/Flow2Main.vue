@@ -11,7 +11,14 @@
     </div>
     <div class="bodyContainer">
       <div class="bigTitle">Bölüm Seçin</div>
-      <input type="text" placeholder="Search.." />
+      <div class="searchContainer d-flex align-items-center">
+        <input class="searchInput" type="text" placeholder="Search.." />
+        <div
+          class="logoContainer d-flex justify-content-center align-items-center"
+        >
+          <img :src="searchLogo" alt="" class="searchLogo" />
+        </div>
+      </div>
       <div
         v-for="(item, key) in data"
         :key="key"
@@ -27,6 +34,7 @@
 <script setup>
 import { ref } from "vue";
 import ChoiceBox from "./ChoiceBox.vue";
+import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 //:class="{ active: isActive }" @click="toggle"
 //toggle functionality
 const appointmentType = ref(0);
@@ -61,7 +69,41 @@ const data = ref([
     #ffffff;
 }
 .bodyContainer {
-  border: solid;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+.bigTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 130%;
+
+  /* identical to box height, or 22px */
+  letter-spacing: -0.01em;
+
+  /* Primary */
+  color: #3c4e69;
+  margin-bottom: 22px;
+}
+.searchContainer {
+  width: 60%;
+  height: 48px;
+  background: #ffffff;
+
+  /* Form Shadow */
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.03);
+  border-radius: 6px;
+  border: none;
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+.searchInput {
+  width: 90%;
+  height: 100%;
+  border: none;
+}
+.searchLogo {
 }
 .whiteBox {
   width: 60%;
