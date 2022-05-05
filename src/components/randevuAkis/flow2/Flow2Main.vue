@@ -12,7 +12,11 @@
     <div class="bodyContainer">
       <div class="bigTitle">Bölüm Seçin</div>
       <div class="searchContainer d-flex align-items-center">
-        <input class="searchInput" type="text" placeholder="Search.." />
+        <input
+          class="searchInput"
+          type="text"
+          :placeholder="`${reactiveTitle} arayın`"
+        />
         <div
           class="logoContainer d-flex justify-content-center align-items-center"
         >
@@ -42,6 +46,8 @@ let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
+//you'll change the reactivity here
+const reactiveTitle = ref("Bölüm");
 
 const bigBoxData = ref([
   { title: "Bölüm", data: 1 },
@@ -114,5 +120,15 @@ const data = ref([
   border-radius: 6px;
   margin-bottom: 1rem;
   padding-left: 1rem;
+}
+
+@media only screen and (max-width: 992px) {
+  .searchContainer,
+  .whiteBox {
+    width: 100%;
+  }
+  .bodyContainer {
+    margin-right: 50px;
+  }
 }
 </style>
