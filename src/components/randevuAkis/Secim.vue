@@ -6,7 +6,7 @@
       <forWhomVue />
       <randevuTuruVue />
       <button class="button">
-        <div class="buttonText">Devams</div>
+        <div class="buttonText">Devam</div>
       </button>
     </div>
   </div>
@@ -19,7 +19,7 @@ import randevuTuruVue from "../UI/randevuAkis/randevuTuru.vue";
 
 <style lang="scss" scoped>
 .main {
-  padding: 30px;
+  padding: 0 30px;
 }
 .bigTitle {
   font-family: "Nunito Sans";

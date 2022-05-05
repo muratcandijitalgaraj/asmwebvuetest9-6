@@ -32,6 +32,9 @@ const toggle = function () {
 </script>
 
 <style lang="scss" scoped>
+.main {
+  margin-bottom: 30px;
+}
 .profileWrapper {
   width: 341px;
   height: 47px;
