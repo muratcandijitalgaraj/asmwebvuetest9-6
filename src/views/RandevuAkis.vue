@@ -7,7 +7,8 @@
       <div class="zemin">
         <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div>
-        <SecimVue />
+        <!-- <SecimVue /> -->
+        <Flow2MainVue />
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
@@ -16,6 +17,7 @@
 
 <script setup>
 import SecimVue from "../components/randevuAkis/Secim.vue";
+import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
 </script>
 
 <style lang="scss" scoped>
