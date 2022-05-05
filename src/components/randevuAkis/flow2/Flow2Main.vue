@@ -16,7 +16,7 @@
         v-for="(item, key) in data"
         :key="key"
         :name="item.name"
-        class="whiteBox"
+        class="whiteBox d-flex align-items-center"
       >
         <div class="title">{{ item.name }}</div>
       </div>
@@ -41,7 +41,12 @@ const bigBoxData = ref([
   { title: "Hastane", data: 3 },
 ]);
 
-const data = ref([{ name: "one" }, { name: "two" }, { name: "three" }]);
+const data = ref([
+  { name: "Ağrı Tedavisi (Algoloji)" },
+  { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
+  { name: "Ağrı Tedavisi (Algoloji)" },
+  { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -54,5 +59,18 @@ const data = ref([{ name: "one" }, { name: "two" }, { name: "three" }]);
       rgba(255, 255, 255, 0.2) 100%
     ),
     #ffffff;
+}
+.bodyContainer {
+  border: solid;
+}
+.whiteBox {
+  width: 60%;
+  height: 47px;
+  background: #ffffff;
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
 }
 </style>
