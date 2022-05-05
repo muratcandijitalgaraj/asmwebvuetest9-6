@@ -20,21 +20,16 @@ import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 
 const user = ref({});
-let token = store.getters["auth/_token"];
-appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-const getUser = () => {
-  console.log("asaa");
-  appAxios
-    .get("endpoint/profile-service/profile")
+onMounted(() => {
+  store
+    .dispatch("appointmentFlow/getUser")
     .then((res) => {
       console.log(res.data);
       user.value = res.data;
     })
-    .catch((err) => {
-      console.log(err.response);
-    });
-};
+    .catch((err) => console.log(err.response));
+});
 
 //toggle functionality
 const appointmentType = ref(0);
@@ -43,10 +38,6 @@ const boxes = ref([
   { name: "Hastane", data: 1 },
   { name: "Görüntülü Görüşme", data: 2 },
 ]);
-
-onMounted(() => {
-  getUser();
-});
 </script>
 
 <style lang="scss" scoped>
