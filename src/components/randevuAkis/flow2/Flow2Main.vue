@@ -24,7 +24,7 @@
         </div>
       </div>
       <div
-        v-for="(item, key) in data"
+        v-for="(item, key) in data2"
         :key="key"
         :name="item.name"
         class="whiteBox d-flex align-items-center"
@@ -36,7 +36,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import appAxios from "../../../utils/appAxios";
+import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 //:class="{ active: isActive }" @click="toggle"
@@ -61,6 +63,23 @@ const data = ref([
   { name: "Ağrı Tedavisi (Algoloji)" },
   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
 ]);
+
+const data2 = ref(null);
+
+const foo = () => {
+  store
+    .dispatch("appointmentFlow/getHospitals")
+    .then((res) => {
+      console.log("newnew" + JSON.stringify(res.data.items[0]));
+      console.log("newnew" + res.data.items[0].name);
+      data2.value = res.data.items;
+    })
+    .catch((err) => console.log(err.response));
+};
+
+onMounted(() => {
+  foo();
+});
 </script>
 
 <style lang="scss" scoped>
