@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <h3 class="title">Randeuvu türünü seçin</h3>
-    {{ user?.givenName }} {{ user?.familyName }}
     <Box
       v-for="(item, key) in boxes"
       :key="key"
@@ -22,6 +21,17 @@ import store from "../../../store";
 const user = ref({});
 //this will be changed to hospital type
 
+const foo = async function () {
+  await store.dispatch("auth/checkRefreshToken");
+  let token = store.getters["auth/_token"];
+  appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+  return await appAxios
+    .get("endpoint/resource-service/departments/filter")
+    .then((res) => {
+      console.log("new data" + res.data);
+    });
+};
+
 onMounted(() => {
   store
     .dispatch("appointmentFlow/getUser")
@@ -30,6 +40,8 @@ onMounted(() => {
       user.value = res.data;
     })
     .catch((err) => console.log(err.response));
+
+  foo();
 });
 
 //toggle functionality

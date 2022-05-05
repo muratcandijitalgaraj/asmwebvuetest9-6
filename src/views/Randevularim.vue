@@ -4,20 +4,25 @@
     <template v-slot:sidebar><Sidebar /></template>
     <template v-slot:section>
       <div class="main-container col-md-12 col-lg-8 col-xl-8 col-xxl-9">
-
         <div class="titles d-flex justify-content-between align-items-center">
           <span class="bigTitle">Randevularınız</span>
           <span class="smallTitle">Hepsini Göster</span>
         </div>
 
         <Appointments
-            v-for="(item, key) in appointments"
-            :price="item.price"
-            :key="key"
-            :hospital-data="{title: item.facilityName, subTitle: item.facilityName,}"
-            :doctor-data="{title: item.resources[0].resourceName, branch: item.resources[0].departmentName}"
-            :date="item.from"
-            :type="item.appointmentType"
+          v-for="(item, key) in appointments"
+          :price="item.price"
+          :key="key"
+          :hospital-data="{
+            title: item.facilityName,
+            subTitle: item.facilityName,
+          }"
+          :doctor-data="{
+            title: item.resources[0].resourceName,
+            branch: item.resources[0].departmentName,
+          }"
+          :date="item.from"
+          :type="item.appointmentType"
         />
       </div>
     </template>
@@ -28,17 +33,20 @@
 <script setup>
 import Appointments from "../components/UI/Appointments/Appointments.vue";
 
-import store from "../store"
-import {ref, onBeforeMount, onMounted} from "vue";
+import store from "../store";
+import { ref, onBeforeMount, onMounted } from "vue";
 
-const appointments = ref([])
+const appointments = ref([]);
 
 onMounted(() => {
-  store.dispatch('appointments/getAppointments')
-      .then(res => appointments.value = res?.data?.items)
-      .catch(err => console.log(err.response))
-})
-
+  store
+    .dispatch("appointments/getAppointments")
+    .then((res) => {
+      appointments.value = res?.data?.items;
+      console.log(res.data);
+    })
+    .catch((err) => console.log(err.response));
+});
 </script>
 
 <style scoped lang="scss">
