@@ -9,7 +9,7 @@
       <div class="circle d-flex justify-content-center align-items-center">
         <img :src="checkMark" alt="" class="checkMark" />
       </div>
-      <div class="profileName">Mehmet Yılmaz</div>
+      <div class="profileName">{{ user.givenName }} {{ user.familyName }}</div>
     </div>
     <div
       class="ekleWrapper d-flex flex-row justify-content-start align-items-center"
@@ -21,9 +21,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import checkMark from "../../../assets/img/randevuAkis/checkMark.svg";
 import icon from "../../../assets/img/randevuAkis/addUser.svg";
+import appAxios from "../../../utils/appAxios";
+import store from "../../../store";
+
+const user = ref({});
+
+onMounted(() => {
+  store
+    .dispatch("appointmentFlow/getUser")
+    .then((res) => {
+      console.log(res.data);
+      user.value = res.data;
+    })
+    .catch((err) => console.log(err.response));
+});
+
 //toggle functionality
 let isActive = ref(false);
 const toggle = function () {

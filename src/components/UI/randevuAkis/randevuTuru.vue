@@ -20,6 +20,7 @@ import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 
 const user = ref({});
+//this will be changed to hospital type
 
 onMounted(() => {
   store
