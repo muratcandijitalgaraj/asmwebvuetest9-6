@@ -1,15 +1,40 @@
 <template>
-  <div class="choice">
+  <div @click="click" :class="{ active: getCheck }" :id="data" class="choice">
     <div class="choiceTitle">{{ title }}</div>
     <div class="blueLine"></div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
+
 const props = defineProps({
   title: { required: true, type: String },
   data: { required: true, type: Number },
   modelValue: { required: true, type: Number },
+});
+
+const emit = defineEmits(["update:modelValue"]);
+
+// const handle = ref(false);
+const click = async () => {
+  await emit("update:modelValue", props.data);
+
+  if (props.modelValue === props.data) {
+    isCheck.value = true;
+  } else {
+    isCheck.value = false;
+  }
+};
+
+const isCheck = ref(false);
+
+const getCheck = computed(() => {
+  if (isCheck.value && props.data === props.modelValue) {
+    return true;
+  }
+
+  return false;
 });
 </script>
 
@@ -31,6 +56,8 @@ const props = defineProps({
   color: #3c4e69;
 }
 .active {
-  border: 1rem solid blue;
+  .choiceTitle {
+    color: #32a5df;
+  }
 }
 </style>

@@ -5,6 +5,8 @@
         v-for="(item, index) in bigBoxData"
         :key="index"
         :title="item.title"
+        :data="item.data"
+        v-model="appointmentType"
       />
     </div>
   </div>
@@ -13,17 +15,18 @@
 <script setup>
 import { ref } from "vue";
 import ChoiceBox from "./ChoiceBox.vue";
-//toggle functionality
 //:class="{ active: isActive }" @click="toggle"
+//toggle functionality
+const appointmentType = ref(0);
 let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
 
 const bigBoxData = ref([
-  { title: "Bölüm" },
-  { title: "Doktor" },
-  { title: "Hastane" },
+  { title: "Bölüm", data: 1 },
+  { title: "Doktor", data: 2 },
+  { title: "Hastane", data: 3 },
 ]);
 </script>
 
