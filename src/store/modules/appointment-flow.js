@@ -10,7 +10,7 @@ export default {
   state: { section: 1 },
 
   mutations: {
-    showHospitals(state, payload) {
+    switchContent(state, payload) {
       if (payload == "Bölüm") {
         state.section = 1;
       } else if (payload == "Doktor") {

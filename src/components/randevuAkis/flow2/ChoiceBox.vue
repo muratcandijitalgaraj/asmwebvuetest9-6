@@ -36,7 +36,7 @@ const click = async () => {
   }
   //we can give a number in state.section according to the title
   console.log(props.title);
-  store.commit("appointmentFlow/showHospitals", props.title);
+  store.commit("appointmentFlow/switchContent", props.title);
 };
 
 const isCheck = ref(false);

@@ -85,10 +85,26 @@ const showInitialRequest = async () => {
     console.log(error);
   }
 };
-
+const showClinics = async () => {
+  try {
+    const res = await store.dispatch("appointmentFlow/getClinics");
+    data.value = res.data.items;
+  } catch (error) {
+    console.log(error);
+  }
+};
 const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getHospitals");
+    data.value = res.data.items;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const showDoctors = async () => {
+  try {
+    const res = await store.dispatch("appointmentFlow/getDoctors");
     data.value = res.data.items;
   } catch (error) {
     console.log(error);
@@ -101,16 +117,18 @@ watch(
     if (stateChange == 1) {
       console.log("watch bölüm");
       displayHandler.value = 1;
-      showHospitals();
       reactiveTitle.value = "Bölüm";
+      showClinics();
     } else if (stateChange == 2) {
       console.log("watch doktor");
       displayHandler.value = 2;
       reactiveTitle.value = "Doktor";
+      showDoctors();
     } else if (stateChange == 3) {
       console.log("watch hospitals");
       displayHandler.value = 3;
       reactiveTitle.value = "Hastane";
+      showHospitals();
     }
   }
 );
@@ -119,15 +137,6 @@ const showStore = (e) => {
   e.preventDefault();
   console.log(store.state.appointmentFlow.section);
   displayHandler.value = store.state.appointmentFlow.section;
-
-  // if (store.state.appointmentFlow.section == 1) {
-  //   console.log("bölüm");
-  // } else if (store.state.appointmentFlow.section == 2) {
-  //   console.log("doktor");
-  // } else if (store.state.appointmentFlow.section == 3) {
-  //   console.log("hospitals");
-  //   showHospitals();
-  // }
 };
 
 onMounted(() => {
