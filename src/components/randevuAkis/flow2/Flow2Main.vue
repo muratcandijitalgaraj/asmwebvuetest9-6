@@ -71,10 +71,10 @@ const displayHandler = ref();
 const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
   try {
-    const stateRes = await store.dispatch("appointmentFlow/getHospitals");
-    console.log("newnew" + JSON.stringify(stateRes.data.items));
-    console.log("newnew" + stateRes.data.items[0].name);
-    data2.value = stateRes.data.items;
+    const res = await store.dispatch("appointmentFlow/getHospitals");
+    console.log("newnew" + JSON.stringify(res.data.items));
+    console.log("newnew" + res.data.items[0].name);
+    data2.value = res.data.items;
     //for some reason, you ahve to specify from which state you're getting data
     console.log(store.state.appointmentFlow.section);
     //change displayhandler according to the state
@@ -86,28 +86,28 @@ const showInitialRequest = async () => {
 };
 
 const showHospitals = async () => {
-  await store
-    .dispatch("appointmentFlow/getHospitals")
-    .then((res) => {
-      data2.value = res.data.items;
+  try {
+    const res = await store.dispatch("appointmentFlow/getHospitals");
+    data2.value = res.data.items;
 
-      displayHandler.value = store.state.appointmentFlow.section;
-      console.log(displayHandler.value);
-    })
-    .catch((err) => console.log(err.response));
+    displayHandler.value = store.state.appointmentFlow.section;
+    console.log(displayHandler.value);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const showStore = (e) => {
   e.preventDefault();
   console.log(store.state.appointmentFlow.section);
-  if (store.state.appointmentFlow.section == 1) {
-    console.log("bölüm");
-  } else if (store.state.appointmentFlow.section == 2) {
-    console.log("doktor");
-  } else if (store.state.appointmentFlow.section == 3) {
-    console.log("hospitals");
-    showHospitals();
-  }
+  // if (store.state.appointmentFlow.section == 1) {
+  //   console.log("bölüm");
+  // } else if (store.state.appointmentFlow.section == 2) {
+  //   console.log("doktor");
+  // } else if (store.state.appointmentFlow.section == 3) {
+  //   console.log("hospitals");
+  //   showHospitals();
+  // }
 };
 
 onMounted(() => {
