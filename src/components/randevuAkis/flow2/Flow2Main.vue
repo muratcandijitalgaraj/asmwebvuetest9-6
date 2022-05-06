@@ -73,7 +73,7 @@ const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
   try {
     const res = await store.dispatch("appointmentFlow/getHospitals");
-    console.log("newnew" + JSON.stringify(res.data.items));
+    console.log(JSON.stringify(res.data.items));
     console.log("newnew" + res.data.items[0].name);
     data.value = res.data.items;
     //for some reason, you ahve to specify from which state you're getting data
@@ -89,6 +89,7 @@ const showClinics = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items;
+    console.log(JSON.stringify(res.data.items));
   } catch (error) {
     console.log(error);
   }
@@ -97,6 +98,7 @@ const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getHospitals");
     data.value = res.data.items;
+    console.log(JSON.stringify(res.data.items));
   } catch (error) {
     console.log(error);
   }
@@ -106,6 +108,7 @@ const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     data.value = res.data.items;
+    console.log(JSON.stringify(res.data.items));
   } catch (error) {
     console.log(error);
   }
@@ -115,17 +118,14 @@ watch(
   () => store.state.appointmentFlow.section,
   (stateChange) => {
     if (stateChange == 1) {
-      console.log("watch bölüm");
       displayHandler.value = 1;
       reactiveTitle.value = "Bölüm";
       showClinics();
     } else if (stateChange == 2) {
-      console.log("watch doktor");
       displayHandler.value = 2;
       reactiveTitle.value = "Doktor";
       showDoctors();
     } else if (stateChange == 3) {
-      console.log("watch hospitals");
       displayHandler.value = 3;
       reactiveTitle.value = "Hastane";
       showHospitals();
@@ -135,13 +135,11 @@ watch(
 
 const showStore = (e) => {
   e.preventDefault();
-  console.log(store.state.appointmentFlow.section);
   displayHandler.value = store.state.appointmentFlow.section;
 };
 
 onMounted(() => {
   // showInitialRequest();
-  console.log("heyyo" + store.state.appointmentFlow.section);
 });
 </script>
 
