@@ -24,7 +24,7 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
-      <div v-if="displayHandler != 2">
+      <div v-if="displayHandler !== 2">
         <div
           v-for="(item, key) in data"
           :key="key"
@@ -61,12 +61,12 @@ const bigBoxData = ref([
   { title: "Hastane", data: 3 },
 ]);
 
-const data2 = ref([
-  { name: "Ağrı Tedavisi (Algoloji)" },
-  { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
-  { name: "Ağrı Tedavisi (Algoloji)" },
-  { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
-]);
+// const data2 = ref([
+//   { name: "Ağrı Tedavisi (Algoloji)" },
+//   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
+//   { name: "Ağrı Tedavisi (Algoloji)" },
+//   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
+// ]);
 const data = ref();
 
 const displayHandler = ref(2);
