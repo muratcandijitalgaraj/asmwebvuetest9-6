@@ -63,13 +63,9 @@ const data = ref([
   { name: "Ağrı Tedavisi (Algoloji)" },
   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
 ]);
-
 const data2 = ref();
-// const foo2 = () => {
-//   if (store.state.section == undefined) {
-//     alert("yaa");
-//   }
-// };
+
+const displayHandler = ref();
 const foo = async () => {
   await store
     .dispatch("appointmentFlow/getHospitals")
@@ -77,7 +73,16 @@ const foo = async () => {
       console.log("newnew" + JSON.stringify(res.data.items));
       console.log("newnew" + res.data.items[0].name);
       data2.value = res.data.items;
+      //for some reason, you ahve to specify from which state you're getting data
       console.log(store.state.appointmentFlow.section);
+      //change displayhandler according to the state
+      displayHandler.value = store.state.appointmentFlow.section;
+
+      // things to do next:
+      // each section will take a number
+      // you'll mutate the state accordingly
+      // then it'll check the state.section
+      // will display the relevant fields with v-if
     })
     .catch((err) => console.log(err.response));
 };
