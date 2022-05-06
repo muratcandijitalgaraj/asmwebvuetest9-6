@@ -14,6 +14,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import store from "../../../store";
+import appointmentFlow from "../../../store/modules/appointment-flow";
 
 const props = defineProps({
   title: { required: true, type: String },
@@ -32,7 +34,9 @@ const click = async () => {
   } else {
     isCheck.value = false;
   }
+  //we can give a number in state.section according to the title
   console.log(props.title);
+  store.commit("appointmentFlow/showHospitals", props.title);
 };
 
 const isCheck = ref(false);

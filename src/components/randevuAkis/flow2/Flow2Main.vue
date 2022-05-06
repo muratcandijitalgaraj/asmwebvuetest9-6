@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div @click="showStore" class="main">
     <div class="longBox d-flex align-items-center justify-content-start">
       <ChoiceBox
         v-for="(item, index) in bigBoxData"
@@ -66,7 +66,7 @@ const data = ref([
 const data2 = ref();
 
 const displayHandler = ref();
-const foo = async () => {
+const showInitialRequest = async () => {
   await store
     .dispatch("appointmentFlow/getHospitals")
     .then((res) => {
@@ -77,6 +77,7 @@ const foo = async () => {
       console.log(store.state.appointmentFlow.section);
       //change displayhandler according to the state
       displayHandler.value = store.state.appointmentFlow.section;
+      console.log(displayHandler.value);
 
       // things to do next:
       // each section will take a number
@@ -87,8 +88,14 @@ const foo = async () => {
     .catch((err) => console.log(err.response));
 };
 
+const showStore = (e) => {
+  e.preventDefault();
+  console.log(store.state.appointmentFlow.section);
+};
+
 onMounted(() => {
-  foo();
+  showInitialRequest();
+  console.log("heyyo" + store.state.appointmentFlow.section);
 });
 </script>
 

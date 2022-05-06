@@ -10,9 +10,14 @@ export default {
   state: { section: 1 },
 
   mutations: {
-    showHospitals(state) {
-      // mutate state
-      state.section = 3;
+    showHospitals(state, payload) {
+      if (payload == "Doktor") {
+        state.section = 2;
+      } else if (payload == "Bölüm") {
+        state.section = 1;
+      } else if (payload == "Hastane") {
+        state.section = 3;
+      }
     },
   },
 
@@ -34,6 +39,8 @@ export default {
       return await appAxios.get("endpoint/resource-service/facilities");
     },
   },
+
+  // doktor endpoint =>         "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
 
   getters: {},
 };
