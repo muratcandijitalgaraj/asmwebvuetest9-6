@@ -11,7 +11,7 @@
       />
     </div>
     <div class="bodyContainer">
-      <div class="bigTitle">Bölüm Seçin</div>
+      <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
       <div class="searchContainer d-flex align-items-center">
         <input
           class="searchInput"
@@ -45,15 +45,16 @@ import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
-//:class="{ active: isActive }" @click="toggle"
-//toggle functionality
 const appointmentType = ref(0);
+const data = ref();
+const displayHandler = ref(2);
+const reactiveTitle = ref("Bölüm");
+
 let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
 //you'll change the reactivity here
-const reactiveTitle = ref("Bölüm");
 
 const bigBoxData = ref([
   { title: "Bölüm", data: 1 },
@@ -67,9 +68,6 @@ const bigBoxData = ref([
 //   { name: "Ağrı Tedavisi (Algoloji)" },
 //   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
 // ]);
-const data = ref();
-
-const displayHandler = ref(2);
 
 const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
@@ -92,9 +90,6 @@ const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getHospitals");
     data.value = res.data.items;
-
-    // displayHandler.value = store.state.appointmentFlow.section;
-    // console.log(displayHandler.value);
   } catch (error) {
     console.log(error);
   }
@@ -106,9 +101,16 @@ watch(
     if (stateChange == 1) {
       console.log("watch bölüm");
       displayHandler.value = 1;
+      showHospitals();
+      reactiveTitle.value = "Bölüm";
     } else if (stateChange == 2) {
       console.log("watch doktor");
       displayHandler.value = 2;
+      reactiveTitle.value = "Doktor";
+    } else if (stateChange == 3) {
+      console.log("watch hospitals");
+      displayHandler.value = 3;
+      reactiveTitle.value = "Hastane";
     }
   }
 );
@@ -129,7 +131,7 @@ const showStore = (e) => {
 };
 
 onMounted(() => {
-  showInitialRequest();
+  // showInitialRequest();
   console.log("heyyo" + store.state.appointmentFlow.section);
 });
 </script>
