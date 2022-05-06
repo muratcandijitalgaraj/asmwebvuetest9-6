@@ -24,14 +24,17 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
-      <div
-        v-for="(item, key) in data2"
-        :key="key"
-        :name="item.name"
-        class="whiteBox d-flex align-items-center"
-      >
-        <div class="title">{{ item.name }}</div>
+      <div v-if="displayHandler == 1">
+        <div
+          v-for="(item, key) in data"
+          :key="key"
+          :name="item.name"
+          class="whiteBox d-flex align-items-center"
+        >
+          <div class="title">{{ item.name }}</div>
+        </div>
       </div>
+      <div v-if="displayHandler == 2">iki</div>
     </div>
   </div>
 </template>
@@ -58,15 +61,15 @@ const bigBoxData = ref([
   { title: "Hastane", data: 3 },
 ]);
 
-const data = ref([
+const data2 = ref([
   { name: "Ağrı Tedavisi (Algoloji)" },
   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
   { name: "Ağrı Tedavisi (Algoloji)" },
   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
 ]);
-const data2 = ref();
+const data = ref();
 
-const displayHandler = ref();
+const displayHandler = ref(2);
 
 const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
@@ -74,12 +77,12 @@ const showInitialRequest = async () => {
     const res = await store.dispatch("appointmentFlow/getHospitals");
     console.log("newnew" + JSON.stringify(res.data.items));
     console.log("newnew" + res.data.items[0].name);
-    data2.value = res.data.items;
+    data.value = res.data.items;
     //for some reason, you ahve to specify from which state you're getting data
     console.log(store.state.appointmentFlow.section);
-    //change displayhandler according to the state
-    displayHandler.value = store.state.appointmentFlow.section;
-    console.log(displayHandler.value);
+    // //change displayhandler according to the state
+    // displayHandler.value = store.state.appointmentFlow.section;
+    // console.log(displayHandler.value);
   } catch (error) {
     console.log(error);
   }
@@ -88,10 +91,10 @@ const showInitialRequest = async () => {
 const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getHospitals");
-    data2.value = res.data.items;
+    data.value = res.data.items;
 
-    displayHandler.value = store.state.appointmentFlow.section;
-    console.log(displayHandler.value);
+    // displayHandler.value = store.state.appointmentFlow.section;
+    // console.log(displayHandler.value);
   } catch (error) {
     console.log(error);
   }
@@ -101,7 +104,11 @@ watch(
   () => store.state.appointmentFlow.section,
   (stateChange) => {
     if (stateChange == 1) {
-      console.log("watch" + 2);
+      console.log("watch bölüm");
+      displayHandler.value = 1;
+    } else if (stateChange == 2) {
+      console.log("watch doktor");
+      displayHandler.value = 2;
     }
   }
 );
