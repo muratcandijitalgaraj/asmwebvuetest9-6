@@ -38,6 +38,22 @@ export default {
       appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
       return await appAxios.get("endpoint/resource-service/facilities");
     },
+    async getClinics() {
+      await store.dispatch("auth/checkRefreshToken");
+      let token = store.getters["auth/_token"];
+      appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return await appAxios.get(
+        "endpoint/resource-service/departments/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
+      );
+    },
+    async getDoctors() {
+      await store.dispatch("auth/checkRefreshToken");
+      let token = store.getters["auth/_token"];
+      appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return await appAxios.get(
+        "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
+      );
+    },
   },
 
   // doktor endpoint =>         "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
