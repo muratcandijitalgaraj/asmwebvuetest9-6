@@ -24,7 +24,7 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
-      <div v-if="displayHandler == 1">
+      <div v-if="displayHandler != 2">
         <div
           v-for="(item, key) in data"
           :key="key"

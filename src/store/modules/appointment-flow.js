@@ -11,10 +11,10 @@ export default {
 
   mutations: {
     showHospitals(state, payload) {
-      if (payload == "Doktor") {
-        state.section = 2;
-      } else if (payload == "Bölüm") {
+      if (payload == "Bölüm") {
         state.section = 1;
+      } else if (payload == "Doktor") {
+        state.section = 2;
       } else if (payload == "Hastane") {
         state.section = 3;
       }
