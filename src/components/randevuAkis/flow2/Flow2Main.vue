@@ -65,17 +65,21 @@ const data = ref([
 ]);
 
 const data2 = ref();
-
-const foo = () => {
-  store
+// const foo2 = () => {
+//   if (store.state.section == undefined) {
+//     alert("yaa");
+//   }
+// };
+const foo = async () => {
+  await store
     .dispatch("appointmentFlow/getHospitals")
     .then((res) => {
       console.log("newnew" + JSON.stringify(res.data.items));
       console.log("newnew" + res.data.items[0].name);
       data2.value = res.data.items;
+      console.log(store.state.appointmentFlow.section);
     })
     .catch((err) => console.log(err.response));
-  console.log(store.state);
 };
 
 onMounted(() => {

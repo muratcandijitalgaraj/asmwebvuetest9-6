@@ -7,7 +7,7 @@ import store from "../index";
 export default {
   namespaced: true,
 
-  state: { section: "lool" },
+  state: { section: 1 },
 
   mutations: {
     showHospitals(state) {
