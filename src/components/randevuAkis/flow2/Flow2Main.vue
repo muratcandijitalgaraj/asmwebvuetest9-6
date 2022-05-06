@@ -97,9 +97,20 @@ const showHospitals = async () => {
   }
 };
 
+watch(
+  () => store.state.appointmentFlow.section,
+  (stateChange) => {
+    if (stateChange == 1) {
+      console.log("watch" + 2);
+    }
+  }
+);
+
 const showStore = (e) => {
   e.preventDefault();
   console.log(store.state.appointmentFlow.section);
+  displayHandler.value = store.state.appointmentFlow.section;
+
   // if (store.state.appointmentFlow.section == 1) {
   //   console.log("bölüm");
   // } else if (store.state.appointmentFlow.section == 2) {
