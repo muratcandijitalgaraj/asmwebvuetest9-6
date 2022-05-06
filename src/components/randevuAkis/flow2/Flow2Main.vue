@@ -1,5 +1,5 @@
 <template>
-  <div @click="showStore" class="main">
+  <div class="main">
     <div class="longBox d-flex align-items-center justify-content-start">
       <ChoiceBox
         v-for="(item, index) in bigBoxData"
@@ -7,6 +7,7 @@
         :title="item.title"
         :data="item.data"
         v-model="appointmentType"
+        @click="showStore"
       />
     </div>
     <div class="bodyContainer">
@@ -36,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
@@ -66,7 +67,9 @@ const data = ref([
 const data2 = ref();
 
 const displayHandler = ref();
+
 const showInitialRequest = async () => {
+  //should get bölüm instead of hospitals I guess
   await store
     .dispatch("appointmentFlow/getHospitals")
     .then((res) => {
@@ -88,13 +91,33 @@ const showInitialRequest = async () => {
     .catch((err) => console.log(err.response));
 };
 
+const showHospitals = async () => {
+  await store
+    .dispatch("appointmentFlow/getHospitals")
+    .then((res) => {
+      data2.value = res.data.items;
+
+      displayHandler.value = store.state.appointmentFlow.section;
+      console.log(displayHandler.value);
+    })
+    .catch((err) => console.log(err.response));
+};
+
 const showStore = (e) => {
   e.preventDefault();
   console.log(store.state.appointmentFlow.section);
+  if (store.state.appointmentFlow.section == 1) {
+    console.log("bölüm");
+  } else if (store.state.appointmentFlow.section == 2) {
+    console.log("doktor");
+  } else if (store.state.appointmentFlow.section == 3) {
+    console.log("hospitals");
+    showHospitals();
+  }
 };
 
 onMounted(() => {
-  showInitialRequest();
+  // showInitialRequest();
   console.log("heyyo" + store.state.appointmentFlow.section);
 });
 </script>
