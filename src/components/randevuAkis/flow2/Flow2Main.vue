@@ -70,25 +70,19 @@ const displayHandler = ref();
 
 const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
-  await store
-    .dispatch("appointmentFlow/getHospitals")
-    .then((res) => {
-      console.log("newnew" + JSON.stringify(res.data.items));
-      console.log("newnew" + res.data.items[0].name);
-      data2.value = res.data.items;
-      //for some reason, you ahve to specify from which state you're getting data
-      console.log(store.state.appointmentFlow.section);
-      //change displayhandler according to the state
-      displayHandler.value = store.state.appointmentFlow.section;
-      console.log(displayHandler.value);
-
-      // things to do next:
-      // each section will take a number
-      // you'll mutate the state accordingly
-      // then it'll check the state.section
-      // will display the relevant fields with v-if
-    })
-    .catch((err) => console.log(err.response));
+  try {
+    const stateRes = await store.dispatch("appointmentFlow/getHospitals");
+    console.log("newnew" + JSON.stringify(stateRes.data.items));
+    console.log("newnew" + stateRes.data.items[0].name);
+    data2.value = stateRes.data.items;
+    //for some reason, you ahve to specify from which state you're getting data
+    console.log(store.state.appointmentFlow.section);
+    //change displayhandler according to the state
+    displayHandler.value = store.state.appointmentFlow.section;
+    console.log(displayHandler.value);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const showHospitals = async () => {
@@ -117,7 +111,7 @@ const showStore = (e) => {
 };
 
 onMounted(() => {
-  // showInitialRequest();
+  showInitialRequest();
   console.log("heyyo" + store.state.appointmentFlow.section);
 });
 </script>
