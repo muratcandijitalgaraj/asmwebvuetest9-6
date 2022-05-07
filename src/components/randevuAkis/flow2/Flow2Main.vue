@@ -34,7 +34,7 @@
           <div class="title">{{ item.name }}</div>
         </div>
       </div>
-      <div v-if="displayHandler == 2">
+      <div class="overflow" v-if="displayHandler == 2">
         <DoctorBox
           v-for="(item, key) in data"
           :key="key"
