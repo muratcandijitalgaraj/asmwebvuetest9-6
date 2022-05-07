@@ -2,7 +2,7 @@
   <div class="doctorBox d-flex align-items-center justify-content-start">
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
-      <div class="title">prof dr</div>
+      <div class="title">{{ title }}</div>
       <div class="subTitle">sth sth</div>
     </div>
   </div>
@@ -10,6 +10,11 @@
 
 <script setup>
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
+
+const props = defineProps({
+  title: { required: true, type: String },
+  subTitle: { required: true, type: String },
+});
 </script>
 
 <style lang="scss" scoped>

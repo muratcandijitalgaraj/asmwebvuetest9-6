@@ -35,7 +35,11 @@
         </div>
       </div>
       <div v-if="displayHandler == 2">
-        <DoctorBox />
+        <DoctorBox
+          v-for="(item, key) in data"
+          :key="key"
+          :title="item.fullName"
+        />
       </div>
     </div>
   </div>
@@ -104,9 +108,12 @@ const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     data.value = res.data.items;
+    console.log(res.data.items);
     console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
     console.log(res.data.items[0].departments[0].name);
+    //write a function to get subtitles
+
     //for title
     console.log(JSON.stringify(res.data.items[0].fullName));
   } catch (error) {
