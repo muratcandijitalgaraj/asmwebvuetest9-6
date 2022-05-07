@@ -34,7 +34,9 @@
           <div class="title">{{ item.name }}</div>
         </div>
       </div>
-      <div v-if="displayHandler == 2">iki</div>
+      <div v-if="displayHandler == 2">
+        <DoctorBox />
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +47,7 @@ import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
+import DoctorBox from "./DoctorBox.vue";
 const appointmentType = ref(0);
 const data = ref();
 const displayHandler = ref(2);
