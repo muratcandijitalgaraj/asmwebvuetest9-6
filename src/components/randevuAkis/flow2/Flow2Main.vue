@@ -24,7 +24,7 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
-      <div v-if="displayHandler !== 2">
+      <div class="overflow" v-if="displayHandler !== 2">
         <div
           v-for="(item, key) in data"
           :key="key"
@@ -55,19 +55,12 @@ const toggle = function () {
   isActive.value = !isActive.value;
 };
 //you'll change the reactivity here
-
+//what's this for?
 const bigBoxData = ref([
   { title: "Bölüm", data: 1 },
   { title: "Doktor", data: 2 },
   { title: "Hastane", data: 3 },
 ]);
-
-// const data2 = ref([
-//   { name: "Ağrı Tedavisi (Algoloji)" },
-//   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
-//   { name: "Ağrı Tedavisi (Algoloji)" },
-//   { name: "Endokrinoloji ve Metabolizma Hastalıkları" },
-// ]);
 
 const showInitialRequest = async () => {
   //should get bölüm instead of hospitals I guess
@@ -190,6 +183,10 @@ onMounted(() => {
   border: none;
 }
 .searchLogo {
+}
+.overflow {
+  height: 500px !important;
+  overflow: scroll;
 }
 .whiteBox {
   width: 60%;
