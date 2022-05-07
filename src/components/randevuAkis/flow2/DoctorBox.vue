@@ -3,7 +3,7 @@
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
       <div class="title">{{ title }}</div>
-      <div class="subTitle">sth sth</div>
+      <div class="subTitle">{{ subTitle }}</div>
     </div>
   </div>
 </template>

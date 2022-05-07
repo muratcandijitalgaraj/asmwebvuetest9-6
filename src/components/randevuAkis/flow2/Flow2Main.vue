@@ -39,6 +39,7 @@
           v-for="(item, key) in data"
           :key="key"
           :title="item.fullName"
+          :subTitle="item.name"
         />
       </div>
     </div>
@@ -112,8 +113,6 @@ const showDoctors = async () => {
     console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
     console.log(res.data.items[0].departments[0].name);
-    //write a function to get subtitles
-
     //for title
     console.log(JSON.stringify(res.data.items[0].fullName));
   } catch (error) {
