@@ -105,7 +105,10 @@ const showDoctors = async () => {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     data.value = res.data.items;
     console.log(JSON.stringify(res.data.items));
-    console.log(JSON.stringify(res.data.items.departments));
+    //this one goes for subtitle
+    console.log(res.data.items[0].departments[0].name);
+    //for title
+    console.log(JSON.stringify(res.data.items[0].fullName));
   } catch (error) {
     console.log(error);
   }
