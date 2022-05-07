@@ -39,7 +39,7 @@
           v-for="(item, key) in data"
           :key="key"
           :title="item.fullName"
-          :subTitle="item.name"
+          :subTitle="item.departments[0].name"
         />
       </div>
     </div>
