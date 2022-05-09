@@ -40,6 +40,7 @@
           :key="key"
           :title="item.fullName"
           :subTitle="item.departments[0].name"
+          :id="item.id"
         />
       </div>
     </div>
@@ -65,9 +66,9 @@ const toggle = function () {
 //you'll change the reactivity here
 //what's this for?
 const bigBoxData = ref([
+  { title: "Hastane", data: 3 },
   { title: "Bölüm", data: 1 },
   { title: "Doktor", data: 2 },
-  { title: "Hastane", data: 3 },
 ]);
 
 const showInitialRequest = async () => {
@@ -115,6 +116,8 @@ const showDoctors = async () => {
     console.log(res.data.items[0].departments[0].name);
     //for title
     console.log(JSON.stringify(res.data.items[0].fullName));
+    console.log(res.data.items[0].id);
+    console.log(typeof res.data.items[0].id);
   } catch (error) {
     console.log(error);
   }

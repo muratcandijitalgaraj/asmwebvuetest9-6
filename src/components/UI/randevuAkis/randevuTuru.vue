@@ -21,16 +21,6 @@ import store from "../../../store";
 const user = ref({});
 //this will be changed to hospital type
 
-const foo = () => {
-  store
-    .dispatch("appointmentFlow/getHospitals")
-    .then((res) => {
-      console.log("newnew" + JSON.stringify(res.data));
-      console.log("newnew" + res.data.items[0].name);
-    })
-    .catch((err) => console.log(err.response));
-};
-
 onMounted(() => {
   store
     .dispatch("appointmentFlow/getUser")
