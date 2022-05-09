@@ -1,6 +1,5 @@
 <template>
   <div
-    :class="{ collapse: handleCollapse }"
     @click="handleClick"
     class="doctorBox d-flex align-items-center justify-content-start"
   >
@@ -10,7 +9,7 @@
       <div class="subTitle">{{ subTitle }}</div>
     </div>
   </div>
-  <div class="lol">
+  <div :class="{ collapsed: handleCollapse }" class="lol">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab vitae
     tenetur id tempore est, facilis aperiam odio, maiores laudantium possimus
     excepturi libero assumenda esse, ullam dolore! Quos, fugit deleniti.
@@ -69,7 +68,11 @@ const handleCollapse = computed(() => {
 .doctorImg {
   margin-right: 1rem;
 }
-.collapse {
+.lol {
+  display: none;
+}
+.collapsed {
   border: 2px solid red;
+  display: block;
 }
 </style>
