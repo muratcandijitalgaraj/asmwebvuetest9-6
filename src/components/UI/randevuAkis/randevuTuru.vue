@@ -29,7 +29,6 @@ onMounted(() => {
       user.value = res.data;
     })
     .catch((err) => console.log(err.response));
-  foo();
 });
 
 //toggle functionality

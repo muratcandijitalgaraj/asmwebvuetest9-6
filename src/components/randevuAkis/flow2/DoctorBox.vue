@@ -1,11 +1,8 @@
 <template>
   <div
+    :class="{ collapse: handleCollapse }"
     @click="handleClick"
     class="doctorBox d-flex align-items-center justify-content-start"
-    data-bs-toggle="collapse"
-    data-bs-target="#collapseExample"
-    aria-expanded="false"
-    aria-controls="collapseExample"
   >
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
@@ -13,7 +10,7 @@
       <div class="subTitle">{{ subTitle }}</div>
     </div>
   </div>
-  <div :class="{ collapse: handleCollapse }" class="lol">
+  <div class="lol">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab vitae
     tenetur id tempore est, facilis aperiam odio, maiores laudantium possimus
     excepturi libero assumenda esse, ullam dolore! Quos, fugit deleniti.
@@ -28,7 +25,7 @@ const props = defineProps({
   title: { required: true, type: String },
   subTitle: { required: true, type: String },
   collapseData: { required: true, type: Array },
-  id: { required: true, type: String },
+  data: { required: true, type: String },
   modelValue: { required: true, type: Number },
 });
 
@@ -36,20 +33,20 @@ const emit = defineEmits(["update:modelValue"]);
 
 // const handle = ref(false);
 const handleClick = async () => {
-  await emit("update:modelValue", props.id);
+  await emit("update:modelValue", props.data);
 
-  if (props.modelValue === props.id) {
+  if (props.modelValue === props.data) {
     isCheck.value = true;
   } else {
     isCheck.value = false;
   }
-  console.log(props.id);
+  console.log(props.data);
 };
 
 const isCheck = ref(false);
 
 const handleCollapse = computed(() => {
-  if (isCheck.value && props.id === props.modelValue) {
+  if (isCheck.value && Number(props.data) === props.modelValue) {
     return true;
   }
 
@@ -71,5 +68,8 @@ const handleCollapse = computed(() => {
 }
 .doctorImg {
   margin-right: 1rem;
+}
+.collapse {
+  border: 2px solid red;
 }
 </style>

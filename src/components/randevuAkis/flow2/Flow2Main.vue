@@ -40,7 +40,7 @@
           :key="key"
           :title="item.fullName"
           :subTitle="item.departments[0].name"
-          :id="item.id"
+          :data="item.id"
         />
       </div>
     </div>
