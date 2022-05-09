@@ -9,10 +9,12 @@
       <div class="subTitle">{{ subTitle }}</div>
     </div>
   </div>
-  <div :class="{ collapsed: handleCollapse }" class="lol">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab vitae
-    tenetur id tempore est, facilis aperiam odio, maiores laudantium possimus
-    excepturi libero assumenda esse, ullam dolore! Quos, fugit deleniti.
+  <div :class="{ collapsed: handleCollapse }" class="hidden">
+    <div class="doctorBox d-flex align-items-center justify-content-start">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab vitae
+      tenetur id tempore est, facilis aperiam odio, maiores laudantium possimus
+      excepturi libero assumenda esse, ullam dolore! Quos, fugit deleniti.
+    </div>
   </div>
 </template>
 
@@ -68,11 +70,10 @@ const handleCollapse = computed(() => {
 .doctorImg {
   margin-right: 1rem;
 }
-.lol {
+.hidden {
   display: none;
 }
 .collapsed {
-  border: 2px solid red;
   display: block;
 }
 </style>
