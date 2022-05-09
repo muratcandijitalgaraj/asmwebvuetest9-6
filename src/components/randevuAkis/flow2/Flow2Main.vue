@@ -41,6 +41,7 @@
           :title="item.fullName"
           :subTitle="item.departments[0].name"
           :data="item.id"
+          v-model="appointmentType"
         />
       </div>
     </div>

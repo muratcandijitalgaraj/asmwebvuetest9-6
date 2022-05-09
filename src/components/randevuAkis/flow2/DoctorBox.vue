@@ -35,7 +35,7 @@ const emit = defineEmits(["update:modelValue"]);
 const handleClick = async () => {
   await emit("update:modelValue", props.data);
 
-  if (props.modelValue === props.data) {
+  if (props.modelValue == props.data) {
     isCheck.value = true;
   } else {
     isCheck.value = false;
@@ -46,7 +46,7 @@ const handleClick = async () => {
 const isCheck = ref(false);
 
 const handleCollapse = computed(() => {
-  if (isCheck.value && Number(props.data) === props.modelValue) {
+  if (isCheck.value && props.data === props.modelValue) {
     return true;
   }
 
