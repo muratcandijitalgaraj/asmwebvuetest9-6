@@ -14,7 +14,7 @@
     <div
       v-for="(item, key) in dropdownData"
       :key="key"
-      class="doctorBox d-flex align-items-center justify-content-start"
+      class="dropdownItem d-flex align-items-center justify-content-start"
     >
       {{ item.name }}
     </div>
@@ -69,7 +69,16 @@ const handleCollapse = computed(() => {
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   border-radius: 6px;
   padding-left: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.dropdownItem {
+  max-width: 500px;
+  width: auto;
+  height: 70px;
+  background: #ffffff;
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  padding-left: 1rem;
 }
 .doctorImg {
   margin-right: 1rem;
