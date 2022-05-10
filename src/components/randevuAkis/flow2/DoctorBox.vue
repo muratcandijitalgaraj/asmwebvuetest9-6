@@ -15,7 +15,6 @@
       v-for="(item, key) in dropdownData"
       :key="key"
       :hospital="item.name"
-      v-model="appointmentType"
     />
   </div>
 </template>
@@ -23,10 +22,13 @@
 <script setup>
 import { ref, computed } from "vue";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
-import DropdownVue from "../../UI/RandevuAkis-OLD/Dropdown.vue";
 import Dropdown from "./Dropdown.vue";
 
-const appointmentType = ref(0);
+//handle circle on click
+const handleCircle = () => {
+  isCircleChosen.value = !isCircleChosen.value;
+  console.log("key" + key);
+};
 
 const props = defineProps({
   title: { required: true, type: String },
@@ -41,6 +43,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
+const isCircleChosen = ref(false);
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -81,7 +84,29 @@ const changeBorderRadius = () => {
   padding-left: 1rem;
   margin-top: 1rem;
 }
+.dropdownItem {
+  max-width: 500px;
+  width: auto;
+  height: 70px;
+  background: #ffffff;
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  padding-left: 1rem;
+  border-top: 1px solid #f3f3f3;
+}
+.dropdownText {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
 
+  /* identical to box height, or 21px */
+
+  /* Primary */
+  color: #3c4e69;
+}
 .doctorImg {
   margin-right: 1rem;
 }
@@ -90,5 +115,15 @@ const changeBorderRadius = () => {
 }
 .collapsed {
   display: block;
+}
+.circle {
+  width: 20px;
+  height: 20px;
+  border: 1.3px solid #e1e1e1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.chosenCircle {
+  background: #32a5df;
 }
 </style>
