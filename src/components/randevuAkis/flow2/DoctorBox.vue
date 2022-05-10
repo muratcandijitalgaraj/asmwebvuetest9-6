@@ -13,11 +13,12 @@
   <div :class="{ collapsed: handleCollapse }" class="hidden">
     <!-- it shares the same doctorBox class to give it a white card background -->
     <div
+      @click="handleCircle(item)"
       v-for="(item, key) in dropdownData"
       :key="key"
       class="dropdownItem d-flex align-items-center justify-content-start"
     >
-      <div class="circle"></div>
+      <div :class="{ chosenCircle: isCircleChosen }" class="circle"></div>
       <div class="dropdownText">
         {{ item.name }}
       </div>
@@ -42,6 +43,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
+const isCircleChosen = ref(false);
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -66,7 +68,11 @@ const handleCollapse = computed(() => {
 
 //change doctorbox border radius based on click
 const changeBorderRadius = () => {
-  isClicked.value != isClicked.value;
+  isClicked.value = !isClicked.value;
+};
+//handle circle on click
+const handleCircle = () => {
+  isCircleChosen.value = !isCircleChosen.value;
 };
 </script>
 
@@ -120,5 +126,8 @@ const changeBorderRadius = () => {
   border: 1.3px solid #e1e1e1;
   border-radius: 50%;
   margin-right: 10px;
+}
+.chosenCircle {
+  background: #32a5df;
 }
 </style>
