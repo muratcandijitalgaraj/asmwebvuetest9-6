@@ -87,6 +87,7 @@ const changeBorderRadius = () => {
   /* Boxx Shadow */
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   padding-left: 1rem;
+  border-top: 1px solid #f3f3f3;
 }
 .doctorImg {
   margin-right: 1rem;
@@ -98,6 +99,7 @@ const changeBorderRadius = () => {
   display: block;
 }
 .clicked {
-  border: 2px solid red;
+  .doctorBox {
+  }
 }
 </style>
