@@ -17,9 +17,9 @@ const props = defineProps({
   hospital: { required: true, type: String },
   //   subTitle: { required: true, type: String },
   //   collapseData: { required: true, type: Array },
-  //   data: { required: true, type: String },
+  dropdownData: { required: true, type: String },
   //   dropdownData: { required: true, type: Array },
-  //   modelValue: { required: true, type: Number },
+  modelValue: { required: true, type: Number },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -29,19 +29,18 @@ const isClicked = ref(false);
 
 // const handle = ref(false);
 const handleClick = async () => {
-  await emit("update:modelValue", props.data);
+  await emit("update:modelValue", props.dropdownData);
 
-  if (props.modelValue == props.data) {
+  if (props.modelValue == props.dropdownData) {
     isCheck.value = true;
   } else {
     isCheck.value = false;
   }
-  console.log(props.data);
-  changeBorderRadius();
+  console.log(props.dropdownData);
 };
 
 const isCircleChosen = computed(() => {
-  if (isCheck.value && props.data === props.modelValue) {
+  if (isCheck.value && props.dropdownData === props.modelValue) {
     return true;
   }
 

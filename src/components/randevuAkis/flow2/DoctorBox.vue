@@ -15,6 +15,8 @@
       v-for="(item, key) in dropdownData"
       :key="key"
       :hospital="item.name"
+      v-model="appointmentType"
+      :dropdownData="item.id"
     />
   </div>
 </template>
@@ -29,6 +31,7 @@ const handleCircle = () => {
   isCircleChosen.value = !isCircleChosen.value;
   console.log("key" + key);
 };
+const appointmentType = ref(0);
 
 const props = defineProps({
   title: { required: true, type: String },
