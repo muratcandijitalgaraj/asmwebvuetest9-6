@@ -17,7 +17,9 @@
       :key="key"
       class="dropdownItem d-flex align-items-center justify-content-start"
     >
-      {{ item.name }}
+      <div class="dropdownText">
+        {{ item.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -88,6 +90,19 @@ const changeBorderRadius = () => {
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   padding-left: 1rem;
   border-top: 1px solid #f3f3f3;
+}
+.dropdownText {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
+
+  /* identical to box height, or 21px */
+
+  /* Primary */
+  color: #3c4e69;
 }
 .doctorImg {
   margin-right: 1rem;
