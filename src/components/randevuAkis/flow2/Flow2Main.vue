@@ -24,6 +24,7 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
+      <!-- this overflow div works for both bölüm an hastane lists -->
       <div class="overflow" v-if="displayHandler !== 2">
         <div
           v-for="(item, key) in data"
@@ -41,6 +42,7 @@
           :title="item.fullName"
           :subTitle="item.departments[0].name"
           :data="item.id"
+          :dropdownData="item.departments[0].tenants"
           v-model="appointmentType"
         />
       </div>
@@ -183,7 +185,8 @@ onMounted(() => {
   margin-bottom: 22px;
 }
 .searchContainer {
-  width: 60%;
+  max-width: 500px;
+  width: auto;
   height: 48px;
   background: #ffffff;
 
@@ -206,7 +209,8 @@ onMounted(() => {
   overflow: scroll;
 }
 .whiteBox {
-  width: 60%;
+  max-width: 500px;
+  width: auto;
   height: 47px;
   background: #ffffff;
   /* Boxx Shadow */

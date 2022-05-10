@@ -10,10 +10,13 @@
     </div>
   </div>
   <div :class="{ collapsed: handleCollapse }" class="hidden">
-    <div class="doctorBox d-flex align-items-center justify-content-start">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab vitae
-      tenetur id tempore est, facilis aperiam odio, maiores laudantium possimus
-      excepturi libero assumenda esse, ullam dolore! Quos, fugit deleniti.
+    <!-- it shares the same doctorBox class to give it a white card background -->
+    <div
+      v-for="(item, key) in dropdownData"
+      :key="key"
+      class="doctorBox d-flex align-items-center justify-content-start"
+    >
+      {{ item.name }}
     </div>
   </div>
 </template>
@@ -27,6 +30,7 @@ const props = defineProps({
   subTitle: { required: true, type: String },
   collapseData: { required: true, type: Array },
   data: { required: true, type: String },
+  dropdownData: { required: true, type: Array },
   modelValue: { required: true, type: Number },
 });
 
