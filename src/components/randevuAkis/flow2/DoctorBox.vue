@@ -17,6 +17,7 @@
       :key="key"
       class="dropdownItem d-flex align-items-center justify-content-start"
     >
+      <div class="circle"></div>
       <div class="dropdownText">
         {{ item.name }}
       </div>
@@ -113,8 +114,11 @@ const changeBorderRadius = () => {
 .collapsed {
   display: block;
 }
-.clicked {
-  .doctorBox {
-  }
+.circle {
+  width: 20px;
+  height: 20px;
+  border: 1.3px solid #e1e1e1;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 </style>
