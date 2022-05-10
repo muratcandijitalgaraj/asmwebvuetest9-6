@@ -11,24 +11,24 @@
     </div>
   </div>
   <div :class="{ collapsed: handleCollapse }" class="hidden">
-    <!-- it shares the same doctorBox class to give it a white card background -->
-    <div
-      @click="handleCircle(item)"
+    <Dropdown
       v-for="(item, key) in dropdownData"
       :key="key"
-      class="dropdownItem d-flex align-items-center justify-content-start"
-    >
-      <div :class="{ chosenCircle: isCircleChosen }" class="circle"></div>
-      <div class="dropdownText">
-        {{ item.name }}
-      </div>
-    </div>
+      :hospital="item.name"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
+import DropdownVue from "../../UI/RandevuAkis-OLD/Dropdown.vue";
+import Dropdown from "./Dropdown.vue";
+
+//handle circle on click
+const handleCircle = () => {
+  isCircleChosen.value = !isCircleChosen.value;
+};
 
 const props = defineProps({
   title: { required: true, type: String },
@@ -69,10 +69,6 @@ const handleCollapse = computed(() => {
 //change doctorbox border radius based on click
 const changeBorderRadius = () => {
   isClicked.value = !isClicked.value;
-};
-//handle circle on click
-const handleCircle = () => {
-  isCircleChosen.value = !isCircleChosen.value;
 };
 </script>
 
