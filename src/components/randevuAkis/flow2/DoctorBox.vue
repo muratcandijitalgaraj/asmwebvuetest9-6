@@ -1,6 +1,7 @@
 <template>
   <div
     @click="handleClick"
+    :class="{ clicked: handleCollapse }"
     class="doctorBox d-flex align-items-center justify-content-start"
   >
     <img :src="doctorImg" alt="" class="doctorImg" />
@@ -36,6 +37,9 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
+const isCheck = ref(false);
+const isClicked = ref(false);
+
 // const handle = ref(false);
 const handleClick = async () => {
   await emit("update:modelValue", props.data);
@@ -46,9 +50,8 @@ const handleClick = async () => {
     isCheck.value = false;
   }
   console.log(props.data);
+  changeBorderRadius();
 };
-
-const isCheck = ref(false);
 
 const handleCollapse = computed(() => {
   if (isCheck.value && props.data === props.modelValue) {
@@ -57,6 +60,11 @@ const handleCollapse = computed(() => {
 
   return false;
 });
+
+//change doctorbox border radius based on click
+const changeBorderRadius = () => {
+  isClicked.value != isClicked.value;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -88,5 +96,8 @@ const handleCollapse = computed(() => {
 }
 .collapsed {
   display: block;
+}
+.clicked {
+  border: 2px solid red;
 }
 </style>
