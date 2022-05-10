@@ -12,7 +12,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-
+//it works
 const props = defineProps({
   hospital: { required: true, type: String },
   //   subTitle: { required: true, type: String },
