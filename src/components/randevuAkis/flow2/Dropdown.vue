@@ -3,7 +3,12 @@
     @click="handleClick"
     class="dropdownItem d-flex align-items-center justify-content-start"
   >
-    <div :class="{ chosenCircle: isCircleChosen }" class="circle"></div>
+    <div
+      :class="{ chosenCircle: isCircleChosen }"
+      class="circle d-flex justify-content-center align-items-center"
+    >
+      <img :src="checkMark" alt="" />
+    </div>
     <div class="dropdownText">
       {{ hospital }}
     </div>
@@ -12,7 +17,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-
+import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 const props = defineProps({
   hospital: { required: true, type: String },
   //   subTitle: { required: true, type: String },
