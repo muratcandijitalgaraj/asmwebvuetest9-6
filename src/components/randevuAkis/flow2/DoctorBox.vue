@@ -2,13 +2,13 @@
   <div
     @click="handleClick"
     :class="{ clicked: handleCollapse }"
-    class="doctorBox d-flex align-items-center justify-content-start"
+    class="doctorBox d-flex align-items-center"
   >
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
       <div class="upperPart d-flex justify-content-between align-items-center">
         <div class="title">{{ title }}</div>
-        <img :src="collapseImg" alt="" />
+        <img v-if="shouldCollapse" :src="collapseImg" alt="" />
       </div>
       <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
         <span class="subTitle">{{ subTitle }} </span>
@@ -115,6 +115,10 @@ onMounted(() => {
   border-radius: 6px;
   padding-left: 1rem;
   margin-top: 1rem;
+  padding-right: 1rem;
+}
+.textContainer {
+  width: 100%;
 }
 .upperPart {
   width: 100%;
