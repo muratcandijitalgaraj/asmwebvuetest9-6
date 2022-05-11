@@ -1,12 +1,8 @@
 <template>
   <div class="main">
     <!-- Button trigger modal -->
-    <div
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Launch demo modal
+    <div class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Content comes here
     </div>
 
     <!-- Modal -->

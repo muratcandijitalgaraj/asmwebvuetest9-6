@@ -1,12 +1,8 @@
 <template>
   <div class="main">
     <!-- Button trigger modal -->
-    <div
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Launch demo modal
+    <div class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Content comes here
     </div>
 
     <!-- Modal -->
@@ -40,14 +36,6 @@
 <style lang="scss" scoped>
 .main {
   height: 100vh;
-}
-.modelContent {
-  width: 409px;
-  height: 321px;
-  background: #e9f3f9;
-  border-radius: 16px;
-  border: solid;
-  padding: 2rem;
 }
 .modal-content {
   width: 409px;
