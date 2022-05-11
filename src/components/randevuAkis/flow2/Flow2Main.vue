@@ -59,7 +59,7 @@ import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 const appointmentType = ref(0);
 const data = ref();
-const displayHandler = ref(2);
+const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
 
 let isActive = ref(false);
@@ -151,7 +151,7 @@ const showStore = (e) => {
 };
 
 onMounted(() => {
-  // showInitialRequest();
+  showInitialRequest();
 });
 </script>
 

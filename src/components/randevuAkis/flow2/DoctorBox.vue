@@ -10,7 +10,11 @@
       <div class="subTitle">{{ subTitle }}</div>
     </div>
   </div>
-  <div :class="{ collapsed: handleCollapse }" class="hidden">
+  <div
+    v-if="shouldCollapse"
+    :class="{ collapsed: handleCollapse }"
+    class="hidden"
+  >
     <Dropdown
       v-for="(item, key) in dropdownData"
       :key="key"
@@ -22,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
 
@@ -47,6 +51,7 @@ const emit = defineEmits(["update:modelValue"]);
 const isCheck = ref(false);
 const isClicked = ref(false);
 const isCircleChosen = ref(false);
+const shouldCollapse = ref(false);
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -73,6 +78,22 @@ const handleCollapse = computed(() => {
 const changeBorderRadius = () => {
   isClicked.value = !isClicked.value;
 };
+//this function checks the length of tenants array that contains the amount of hospitals a doctor works in
+//if the doctor works in only one hospital, it'll return false, and collapse wont be showing off
+//else, it'll return true and the collapse will be available
+
+const handleShouldCollapse = () => {
+  if (props.dropdownData.length === 1) {
+    shouldCollapse.value = false;
+  } else {
+    shouldCollapse.value = true;
+  }
+};
+
+onMounted(() => {
+  console.log("dropdowndata" + props.dropdownData.length);
+  handleShouldCollapse();
+});
 </script>
 
 <style lang="scss" scoped>

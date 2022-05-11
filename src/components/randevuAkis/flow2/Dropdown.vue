@@ -20,10 +20,7 @@ import { ref, computed } from "vue";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 const props = defineProps({
   hospital: { required: true, type: String },
-  //   subTitle: { required: true, type: String },
-  //   collapseData: { required: true, type: Array },
   dropdownData: { required: true, type: String },
-  //   dropdownData: { required: true, type: Array },
   modelValue: { required: true, type: Number },
 });
 
