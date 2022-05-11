@@ -7,7 +7,11 @@
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
       <div class="title">{{ title }}</div>
-      <div class="subTitle">{{ subTitle }}</div>
+      <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
+        <span class="subTitle">{{ subTitle }} </span>
+        <span class="subTitle"> - </span>
+        <span class="subTitle">{{ dropdownData[0].name }}</span>
+      </div>
     </div>
   </div>
   <div
@@ -107,6 +111,31 @@ onMounted(() => {
   border-radius: 6px;
   padding-left: 1rem;
   margin-top: 1rem;
+}
+.title {
+  /* baslik4 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  /* identical to box height, or 24px */
+
+  /* Primary */
+  color: #3c4e69;
+}
+.subTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+
+  /* or 18px */
+
+  /* Gri */
+  color: #818b9a;
 }
 .dropdownItem {
   max-width: 500px;
