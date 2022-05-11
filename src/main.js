@@ -4,7 +4,8 @@ import router from "./router";
 import "./assets/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-import 'sweetalert2/src/sweetalert2.scss'
+import "sweetalert2/src/sweetalert2.scss";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const app = createApp(App);
 app.use(router);
