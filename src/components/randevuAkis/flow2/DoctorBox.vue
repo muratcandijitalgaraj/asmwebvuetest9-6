@@ -6,7 +6,10 @@
   >
     <img :src="doctorImg" alt="" class="doctorImg" />
     <div class="textContainer d-flex flex-column">
-      <div class="title">{{ title }}</div>
+      <div class="upperPart d-flex justify-content-between align-items-center">
+        <div class="title">{{ title }}</div>
+        <img :src="collapseImg" alt="" />
+      </div>
       <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
         <span class="subTitle">{{ subTitle }} </span>
         <span class="subTitle"> - </span>
@@ -33,6 +36,7 @@
 import { ref, computed, onMounted } from "vue";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
+import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
 
 //handle circle on click
 const handleCircle = () => {
@@ -111,6 +115,9 @@ onMounted(() => {
   border-radius: 6px;
   padding-left: 1rem;
   margin-top: 1rem;
+}
+.upperPart {
+  width: 100%;
 }
 .title {
   /* baslik4 */
