@@ -1,10 +1,35 @@
 <template>
-  <div class="main d-flex justify-content-center align-items-center">
-    <div class="modelContent">
-      <div class="upperPart d-flex justify-content-between">
-        <div class="bigTitle">Bölüm Seçin</div>
+  <div class="main">
+    <!-- Button trigger modal -->
+    <div
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Launch demo modal
+    </div>
 
-        <i class="bi bi-x-square-fill"></i>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header noBorder">
+            <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+        </div>
       </div>
     </div>
   </div>
@@ -16,13 +41,11 @@
 .main {
   height: 100vh;
 }
-.modelContent {
+.modal-content {
   width: 409px;
   height: 321px;
   background: #e9f3f9;
   border-radius: 16px;
-  border: solid;
-  padding: 2rem;
 }
 .upperPart {
 }
@@ -39,5 +62,8 @@
 
   /* Primary */
   color: #3c4e69;
+}
+.noBorder {
+  border: none;
 }
 </style>
