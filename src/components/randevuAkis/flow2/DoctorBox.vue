@@ -28,7 +28,7 @@
       :hospital="item.name"
       v-model="appointmentType"
       :dropdownData="item.id"
-      :modalData="item.departments"
+      :modalData="item.name"
     />
   </div>
 </template>

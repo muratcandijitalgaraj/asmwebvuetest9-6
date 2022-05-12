@@ -41,7 +41,7 @@
               <ModalBox
                 v-for="(item, key) in modalData"
                 :key="key"
-                :clinic="item.name"
+                :clinic="item"
               />
               content goes here
 
@@ -81,7 +81,8 @@ const handleClick = async () => {
   } else {
     isCheck.value = false;
   }
-  console.log(props.dropdownData);
+  // console.log(props.dropdownData);
+  console.log("need" + props.modalData);
 };
 
 const isCircleChosen = computed(() => {
@@ -93,7 +94,7 @@ const isCircleChosen = computed(() => {
 });
 
 onMounted(() => {
-  console.log(JSON.stringify(props.modalData));
+  // alert("need" + JSON.stringify(props.modalData));
 });
 </script>
 

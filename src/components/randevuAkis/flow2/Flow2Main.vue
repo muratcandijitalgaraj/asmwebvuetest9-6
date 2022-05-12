@@ -43,7 +43,7 @@
           :subTitle="item.departments[0].name"
           :data="item.id"
           :dropdownData="item.departments[0].tenants"
-          :modalData="item"
+          :modalData="item.departments"
           v-model="appointmentType"
         />
       </div>
