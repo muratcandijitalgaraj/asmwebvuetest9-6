@@ -55,6 +55,7 @@ const handleClick = async () => {
     isCheck.value = false;
   }
   console.log(props.dropdownData);
+  // isOpen.value = true;
 };
 
 const isCircleChosen = computed(() => {
@@ -99,5 +100,9 @@ const isCircleChosen = computed(() => {
 }
 .chosenCircle {
   background: #32a5df;
+}
+.modalButton {
+  width: 100%;
+  height: 100%;
 }
 </style>
