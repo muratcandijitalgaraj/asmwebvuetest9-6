@@ -41,7 +41,7 @@
               <ModalBox
                 v-for="(item, key) in modalData"
                 :key="key"
-                :clinic="item"
+                :clinic="item.name"
               />
               content goes here
 
