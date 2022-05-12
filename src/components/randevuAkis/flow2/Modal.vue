@@ -1,18 +1,20 @@
 <template>
-  <transition name="fade">
-    <div class="vue-modal" v-show="open">
-      <transition name="slide">
-        <transition name="drop-in">
-          <div class="veu-modal-inner">
-            <div class="vue-modal-content">
-              <slot />
-              <button type="button" @click="$emit('close')">Close</button>
+  <div class="main">
+    <transition name="fade">
+      <div class="vue-modal" v-show="open">
+        <transition name="slide">
+          <transition name="drop-in">
+            <div class="veu-modal-inner">
+              <div class="vue-modal-content">
+                <slot />
+                <button type="button" @click="$emit('close')">Close</button>
+              </div>
             </div>
-          </div>
+          </transition>
         </transition>
-      </transition>
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
