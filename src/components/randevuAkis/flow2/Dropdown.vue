@@ -4,16 +4,20 @@
     class="dropdownItem d-flex align-items-center justify-content-start"
   >
     <div
-      :class="{ chosenCircle: isCircleChosen }"
-      class="circle d-flex justify-content-center align-items-center"
+      class="modalButton d-flex align-items-center justify-content-start"
+      @click="isOpen = true"
     >
-      <img :src="checkMark" alt="" />
+      <div
+        :class="{ chosenCircle: isCircleChosen }"
+        class="circle d-flex justify-content-center align-items-center"
+      >
+        <img :src="checkMark" alt="" />
+      </div>
+      <div class="dropdownText">
+        {{ hospital }}
+      </div>
+      <!-- <button class="modalButton" @click="isOpen = true">Show Modal</button> -->
     </div>
-    <div class="dropdownText">
-      {{ hospital }}
-    </div>
-    <button @click="isOpen = true">Show Modal</button>
-
     <Modal :open="isOpen" @close="isOpen = !isOpen">
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. In repudiandae
