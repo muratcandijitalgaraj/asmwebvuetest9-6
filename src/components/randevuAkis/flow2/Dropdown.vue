@@ -38,7 +38,9 @@
             <div
               class="modal-body d-flex flex-column justify-content-center align-items-center"
             >
+              <ModalBox />
               content goes here
+
               <button class="modalButton">
                 <div class="modalButtonText">Seç</div>
               </button>
@@ -51,8 +53,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
+import ModalBox from "./ModalBox.vue";
 const props = defineProps({
   hospital: { required: true, type: String },
   dropdownData: { required: true, type: String },
@@ -82,6 +85,10 @@ const isCircleChosen = computed(() => {
   }
 
   return false;
+});
+
+onMounted(() => {
+  console.log(JSON.stringify(props.modalData));
 });
 </script>
 
@@ -118,6 +125,13 @@ const isCircleChosen = computed(() => {
 }
 .chosenCircle {
   background: #32a5df;
+}
+.modal-content {
+  width: 409px;
+  height: 321px;
+
+  background: #e9f3f9;
+  border-radius: 16px;
 }
 // modal styles
 .modal-header {
