@@ -1,65 +1,19 @@
 <template>
-  <div class="main">
-    <!-- Button trigger modal -->
-    <div class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Content comes here
-    </div>
+  <button @click="isOpen = true">Show Modal</button>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header noBorder">
-            <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Modal :open="isOpen" @close="isOpen = !isOpen">
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. In repudiandae
+      enim voluptas assumenda possimus deserunt quia autem debitis unde labore
+      illo inventore ex minima voluptatibus porro perferendis, ipsa totam sint!
+    </p>
+  </Modal>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import Modal from "./Playground2.vue";
+const isOpen = ref(false);
+</script>
 
-<style lang="scss" scoped>
-.main {
-  height: 100vh;
-}
-.modal-content {
-  width: 409px;
-  height: 321px;
-  background: #e9f3f9;
-  border-radius: 16px;
-}
-.upperPart {
-}
-.bigTitle {
-  /* baslik-alt2 */
-  font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 130%;
-
-  /* identical to box height, or 26px */
-  letter-spacing: -0.01em;
-
-  /* Primary */
-  color: #3c4e69;
-}
-.noBorder {
-  border: none;
-}
-</style>
+<style></style>
