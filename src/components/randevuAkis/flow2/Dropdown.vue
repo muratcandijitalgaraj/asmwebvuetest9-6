@@ -27,7 +27,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -35,17 +35,12 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
+            <div
+              class="modal-body d-flex flex-column justify-content-center align-items-center"
+            >
+              content goes here
+              <button class="modalButton">
+                <div class="modalButtonText">Seç</div>
               </button>
             </div>
           </div>
@@ -123,5 +118,29 @@ const isCircleChosen = computed(() => {
 }
 .chosenCircle {
   background: #32a5df;
+}
+// modal styles
+.modal-header {
+  border: none;
+}
+.modalButton {
+  background: #ff7c32;
+  border: none;
+  border-radius: 6px;
+  width: 341px;
+  height: 50px;
+}
+.modalButtonText {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 130%;
+
+  /* identical to box height, or 21px */
+  text-align: center;
+
+  /* Beyaz */
+  color: #ffffff;
 }
 </style>
