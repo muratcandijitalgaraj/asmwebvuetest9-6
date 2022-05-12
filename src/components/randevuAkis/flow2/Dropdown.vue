@@ -38,7 +38,11 @@
             <div
               class="modal-body d-flex flex-column justify-content-center align-items-center"
             >
-              <ModalBox />
+              <ModalBox
+                v-for="(item, key) in modalData"
+                :key="key"
+                :clinic="item.name"
+              />
               content goes here
 
               <button class="modalButton">
@@ -60,6 +64,7 @@ const props = defineProps({
   hospital: { required: true, type: String },
   dropdownData: { required: true, type: String },
   modelValue: { required: true, type: Number },
+  modalData: { required: true, type: Array },
 });
 
 const emit = defineEmits(["update:modelValue"]);
