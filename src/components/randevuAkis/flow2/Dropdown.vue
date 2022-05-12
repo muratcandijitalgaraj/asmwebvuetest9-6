@@ -12,12 +12,23 @@
     <div class="dropdownText">
       {{ hospital }}
     </div>
+    <button @click="isOpen = true">Show Modal</button>
+
+    <Modal :open="isOpen" @close="isOpen = !isOpen">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. In repudiandae
+        enim voluptas assumenda possimus deserunt quia autem debitis unde labore
+        illo inventore ex minima voluptatibus porro perferendis, ipsa totam
+        sint!
+      </p>
+    </Modal>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
+import Modal from "./Modal.vue";
 const props = defineProps({
   hospital: { required: true, type: String },
   dropdownData: { required: true, type: String },
@@ -28,6 +39,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
+const isOpen = ref(false);
 
 // const handle = ref(false);
 const handleClick = async () => {
