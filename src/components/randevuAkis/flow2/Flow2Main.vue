@@ -160,16 +160,19 @@ const tryout = (clinicName, clinicHospitalName) => {
   // );
 
   const sthNew = doctorData.value.filter(
-    (e) => e.departments[0].name == clinicName
+    (e) => e.departments[0].name == clinicName.value
   );
 
   const new2 = sthNew.filter(
     (e) =>
-      e.departments[0].tenants[0].name == clinicHospitalName ||
-      e.departments[0].tenants[1].name == clinicHospitalName
+      e.departments[0].tenants[0].name == clinicHospitalName.value ||
+      e.departments[0].tenants[1].name == clinicHospitalName.value
   );
 
-  console.log(new2);
+  newArr.value = new2;
+
+  console.log(newArr.value);
+  console.log("sth new" + sthNew);
 };
 
 let isActive = ref(false);
