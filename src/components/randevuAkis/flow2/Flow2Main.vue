@@ -68,8 +68,8 @@
       check if the clinic name and the hospital name exists in the array
       show only the doctors who have the aforementioned properties within -->
         <div class="clinicDoctors" v-if="showClinicDoctors">
-          <!-- <DoctorBox
-            v-for="(item, key) in doctorData"
+          <DoctorBox
+            v-for="(item, key) in filteredDoctors"
             :key="key"
             :title="item.fullName"
             :subTitle="item.departments[0].name"
@@ -77,8 +77,8 @@
             :dropdownData="item.departments[0].tenants"
             :modalData="item.departments"
             v-model="appointmentType"
-          /> -->
-          <div @click="tryout">click me</div>
+          />
+          <!-- <div @click="tryout">click me</div> -->
         </div>
       </div>
 
@@ -118,6 +118,8 @@ const showClinicDoctors = ref(false);
 const clinicHospitalsList = ref();
 const clinicHospitalName = ref();
 const clinicName = ref();
+//filtered
+const filteredDoctors = ref([]);
 
 const getClinicData = (clinicHospitals) => {
   console.log(clinicHospitals.tenants);
@@ -130,21 +132,6 @@ const getClinicData = (clinicHospitals) => {
   console.log("clinicName.value  => " + clinicName.value);
 };
 
-const getClinicHospitalsList = (clinicHospital) => {
-  console.log(clinicHospital);
-  showClinicHospitals.value = false;
-  clinicHospitalName.value = clinicHospital;
-  showClinicDoctors.value = true;
-  showDoctors();
-  console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
-  // computedDoctorsList();
-};
-
-// const computedDoctorsList = computed(() => {
-//   // doctorData.map(e=>{if(e.name==clinicName.value){}})
-//   console.log("doctor data" + doctorData);
-// });
-const newArr = ref([]);
 const tryout = () => {
   // doctorData.value.map((e) =>
   //   console.log(
@@ -155,26 +142,39 @@ const tryout = () => {
   //   e.departments[0].name == clinicName
   //     ? e.departments[0].tenants[0].name == clinicHospitalName ||
   //       e.departments[0].tenants[1].name == clinicHospitalName
-  //       ? newArr.value.push(e)
+  //       ? filteredDoctors.value.push(e)
   //       : null
   //     : null
   // );
 
-  const sthNew = doctorData.value.filter(
+  const filterDoctors1 = doctorData.value.filter(
     (e) => e.departments[0].name == clinicName.value
   );
 
-  const new2 = sthNew.filter(
+  const filterDoctors2 = filterDoctors1.filter(
     (e) =>
       e.departments[0].tenants[0].name == clinicHospitalName.value ||
       e.departments[0].tenants[1].name == clinicHospitalName.value
   );
 
-  newArr.value = new2;
+  filteredDoctors.value = filterDoctors2;
 
-  console.log(newArr.value);
-  console.log("sth new" + sthNew);
+  console.log(filteredDoctors.value);
+  console.log(JSON.stringify(filteredDoctors.value));
+  // I think filteredDoctors.value is what I'm looking for
+  console.log(filteredDoctors.value[0].name);
+  console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
+};
+
+const getClinicHospitalsList = (clinicHospital) => {
+  console.log(clinicHospital);
+  showClinicHospitals.value = false;
+  clinicHospitalName.value = clinicHospital;
+  showClinicDoctors.value = true;
+  showDoctors();
+  console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
+  tryout();
 };
 
 let isActive = ref(false);
