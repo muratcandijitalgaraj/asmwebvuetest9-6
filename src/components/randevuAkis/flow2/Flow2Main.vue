@@ -52,10 +52,10 @@
           </div>
         </div>
         <!-- end of showBolum div -->
-        <div class="clinicDoctors" v-if="showClinicDoctors">
+        <div class="clinicHospitals" v-if="showClinicHospitals">
           <div
             @click="getClinicHospitalsList(item.name)"
-            v-for="(item, key) in clinicDoctorsList"
+            v-for="(item, key) in clinicHospitalsList"
             :key="key"
             :name="item.name"
             class="whiteBox d-flex align-items-center"
@@ -63,7 +63,7 @@
             <div class="title">{{ item.name }}</div>
           </div>
         </div>
-        <!-- end of clinicdoctors div -->
+        <!-- end of clinichospitals div -->
         <!-- get clinichospital value
       check if the clinic name and the hospital name exists in the array
       show only the doctors who have the aforementioned properties within -->
@@ -109,23 +109,23 @@ const data = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
 const showBolum = ref(true);
-const showClinicDoctors = ref(false);
-const clinicDoctorsList = ref();
+const showClinicHospitals = ref(false);
+const clinicHospitalsList = ref();
 const clinicHospitalValue = ref();
 const clinicName = ref();
 
-const getClinicData = (clinicDoctors) => {
-  console.log(clinicDoctors.tenants);
+const getClinicData = (clinicHospitals) => {
+  console.log(clinicHospitals.tenants);
   showBolum.value = false;
-  showClinicDoctors.value = true;
-  clinicDoctorsList.value = clinicDoctors.tenants;
-  console.log(clinicDoctors.name);
-  clinicName.value = clinicDoctors.name;
+  showClinicHospitals.value = true;
+  clinicHospitalsList.value = clinicHospitals.tenants;
+  console.log(clinicHospitals.name);
+  clinicName.value = clinicHospitals.name;
 };
 
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
-  showClinicDoctors.value = false;
+  showClinicHospitals.value = false;
   clinicHospitalValue.value = clinicHospital;
 };
 let isActive = ref(false);
