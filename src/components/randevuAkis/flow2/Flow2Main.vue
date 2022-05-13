@@ -67,9 +67,9 @@
         <!-- get clinichospital value
       check if the clinic name and the hospital name exists in the array
       show only the doctors who have the aforementioned properties within -->
-        <div class="clinicHospitals">
+        <div class="clinicDoctors" v-if="showClinicDoctors">
           <!-- <DoctorBox
-            v-for="(item, key) in data"
+            v-for="(item, key) in doctorData"
             :key="key"
             :title="item.fullName"
             :subTitle="item.departments[0].name"
@@ -78,12 +78,13 @@
             :modalData="item.departments"
             v-model="appointmentType"
           /> -->
+          <div @click="tryout">click me</div>
         </div>
       </div>
 
       <div class="overflow" v-if="displayHandler == 2">
         <DoctorBox
-          v-for="(item, key) in data"
+          v-for="(item, key) in doctorData"
           :key="key"
           :title="item.fullName"
           :subTitle="item.departments[0].name"
@@ -98,7 +99,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
@@ -106,12 +107,16 @@ import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 const appointmentType = ref(0);
 const data = ref();
+const clinicData = ref();
+const doctorData = ref();
+const hospitalData = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
 const showBolum = ref(true);
 const showClinicHospitals = ref(false);
+const showClinicDoctors = ref(false);
 const clinicHospitalsList = ref();
-const clinicHospitalValue = ref();
+const clinicHospitalName = ref();
 const clinicName = ref();
 
 const getClinicData = (clinicHospitals) => {
@@ -121,19 +126,32 @@ const getClinicData = (clinicHospitals) => {
   clinicHospitalsList.value = clinicHospitals.tenants;
   console.log(clinicHospitals.name);
   clinicName.value = clinicHospitals.name;
+  console.log("doctor data" + doctorData.value[0].id);
 };
 
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
   showClinicHospitals.value = false;
-  clinicHospitalValue.value = clinicHospital;
+  clinicHospitalName.value = clinicHospital;
+  showClinicDoctors.value = true;
+  showDoctors();
+  // computedDoctorsList();
 };
+
+// const computedDoctorsList = computed(() => {
+//   // doctorData.map(e=>{if(e.name==clinicName.value){}})
+//   console.log("doctor data" + doctorData);
+// });
+
+const tryout = (clinicName, clinicHospitalName) => {
+  doctorData.value.map((e) => console.log("this" + e.name));
+};
+
 let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
 //you'll change the reactivity here
-//what's this for?
 const bigBoxData = ref([
   { title: "Hastane", data: 3 },
   { title: "Bölüm", data: 1 },
@@ -180,7 +198,7 @@ const showHospitals = async () => {
 const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
-    data.value = res.data.items;
+    doctorData.value = res.data.items;
     console.log(res.data.items);
     console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
@@ -222,6 +240,9 @@ const showStore = (e) => {
 
 onMounted(() => {
   showInitialRequest();
+  showHospitals();
+  showDoctors();
+  showClinics();
 });
 </script>
 
