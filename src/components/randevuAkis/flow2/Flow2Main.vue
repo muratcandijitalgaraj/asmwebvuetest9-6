@@ -127,6 +127,7 @@ const getClinicData = (clinicHospitals) => {
   console.log(clinicHospitals.name);
   clinicName.value = clinicHospitals.name;
   console.log("doctor data" + doctorData.value[0].id);
+  console.log("clinicName.value  => " + clinicName.value);
 };
 
 const getClinicHospitalsList = (clinicHospital) => {
@@ -135,7 +136,7 @@ const getClinicHospitalsList = (clinicHospital) => {
   clinicHospitalName.value = clinicHospital;
   showClinicDoctors.value = true;
   showDoctors();
-
+  console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   // computedDoctorsList();
 };
 
@@ -144,7 +145,7 @@ const getClinicHospitalsList = (clinicHospital) => {
 //   console.log("doctor data" + doctorData);
 // });
 const newArr = ref([]);
-const tryout = (clinicName, clinicHospitalName) => {
+const tryout = () => {
   // doctorData.value.map((e) =>
   //   console.log(
   //     "this" + e.departments[0].name + e.departments[0].tenants[0].name
@@ -173,6 +174,7 @@ const tryout = (clinicName, clinicHospitalName) => {
 
   console.log(newArr.value);
   console.log("sth new" + sthNew);
+  console.log(clinicName.value);
 };
 
 let isActive = ref(false);
