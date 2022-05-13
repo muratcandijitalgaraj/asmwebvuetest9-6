@@ -135,6 +135,7 @@ const getClinicHospitalsList = (clinicHospital) => {
   clinicHospitalName.value = clinicHospital;
   showClinicDoctors.value = true;
   showDoctors();
+
   // computedDoctorsList();
 };
 
@@ -142,9 +143,33 @@ const getClinicHospitalsList = (clinicHospital) => {
 //   // doctorData.map(e=>{if(e.name==clinicName.value){}})
 //   console.log("doctor data" + doctorData);
 // });
-
+const newArr = ref([]);
 const tryout = (clinicName, clinicHospitalName) => {
-  doctorData.value.map((e) => console.log("this" + e.name));
+  // doctorData.value.map((e) =>
+  //   console.log(
+  //     "this" + e.departments[0].name + e.departments[0].tenants[0].name
+  //   )
+  // );
+  // doctorData.value.map((e) =>
+  //   e.departments[0].name == clinicName
+  //     ? e.departments[0].tenants[0].name == clinicHospitalName ||
+  //       e.departments[0].tenants[1].name == clinicHospitalName
+  //       ? newArr.value.push(e)
+  //       : null
+  //     : null
+  // );
+
+  const sthNew = doctorData.value.filter(
+    (e) => e.departments[0].name == clinicName
+  );
+
+  const new2 = sthNew.filter(
+    (e) =>
+      e.departments[0].tenants[0].name == clinicHospitalName ||
+      e.departments[0].tenants[1].name == clinicHospitalName
+  );
+
+  console.log(new2);
 };
 
 let isActive = ref(false);
