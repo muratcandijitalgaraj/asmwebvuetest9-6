@@ -158,11 +158,17 @@ const filterDoctorsFunction = () => {
 
   //you need to controle if tenants[1] exists or not,
   //otherwise it gives an error
-  const filterDoctors2 = filterDoctors1.filter(
-    (e) => e.departments[0].tenants[0].name == clinicHospitalName.value
-  );
+  const filterDoctors2 = filterDoctors1.filter((e) => {
+    for (i = 0; i < e.departments.length; i++) {
+      for (j = 0; j < e.departments[i].tenants.length; j++) {
+        if (e.departments[i].tenants[j].name == clinicHospitalName.value) {
+          return e;
+        }
+      }
+    }
+  });
 
-  filteredDoctors.value = filterDoctors2;
+  filteredDoctors.value = filterDoctors1;
 
   console.log(filteredDoctors.value);
   console.log(JSON.stringify(filteredDoctors.value));
