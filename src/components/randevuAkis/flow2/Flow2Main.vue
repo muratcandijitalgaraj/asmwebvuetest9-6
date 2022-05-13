@@ -134,12 +134,20 @@ const getClinicData = (clinicHospitals) => {
   console.log("doctor data" + doctorData.value[0].id);
   console.log("clinicName.value  => " + clinicName.value);
 };
-
+// let filterDoctors2 = ref();
 const filterDoctorsFunction = () => {
   const filterDoctors1 = doctorData.value.filter(
     (e) => e.departments[0].name == clinicName.value
   );
-
+  // filterDoctors1.map((e) =>
+  //   e.departments[0].tenants.length > 1
+  //     ? (filterDoctors2.value = filterDoctors1.filter(
+  //         (e) =>
+  //           e.departments[0].tenants[0].name == clinicHospitalName.value ||
+  //           e.departments[0].tenants[1].name == clinicHospitalName.value
+  //       ))
+  //     : e.departments[0].tenants[0].name == clinicHospitalName.value
+  // );
   const filterDoctors2 = filterDoctors1.filter(
     (e) =>
       e.departments[0].tenants[0].name == clinicHospitalName.value ||
