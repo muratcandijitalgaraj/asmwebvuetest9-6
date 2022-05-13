@@ -144,20 +144,8 @@ const filterDoctorsFunction = () => {
         return e;
       }
     }
-    // e.departments[0].name == clinicName.value
   });
-  // filterDoctors1.map((e) =>
-  //   e.departments[0].tenants.length > 1
-  //     ? (filterDoctors2.value = filterDoctors1.filter(
-  //         (e) =>
-  //           e.departments[0].tenants[0].name == clinicHospitalName.value ||
-  //           e.departments[0].tenants[1].name == clinicHospitalName.value
-  //       ))
-  //     : e.departments[0].tenants[0].name == clinicHospitalName.value
-  // );
 
-  //you need to controle if tenants[1] exists or not,
-  //otherwise it gives an error
   const filterDoctors2 = filterDoctors1.filter((e) => {
     for (i = 0; i < e.departments.length; i++) {
       for (j = 0; j < e.departments[i].tenants.length; j++) {
