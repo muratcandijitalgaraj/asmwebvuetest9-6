@@ -78,7 +78,7 @@
             :modalData="item.departments"
             v-model="appointmentType"
           />
-          <!-- <div @click="tryout">click me</div> -->
+          <!-- <div @click="filterDoctorsFunction">click me</div> -->
         </div>
       </div>
 
@@ -132,21 +132,7 @@ const getClinicData = (clinicHospitals) => {
   console.log("clinicName.value  => " + clinicName.value);
 };
 
-const tryout = () => {
-  // doctorData.value.map((e) =>
-  //   console.log(
-  //     "this" + e.departments[0].name + e.departments[0].tenants[0].name
-  //   )
-  // );
-  // doctorData.value.map((e) =>
-  //   e.departments[0].name == clinicName
-  //     ? e.departments[0].tenants[0].name == clinicHospitalName ||
-  //       e.departments[0].tenants[1].name == clinicHospitalName
-  //       ? filteredDoctors.value.push(e)
-  //       : null
-  //     : null
-  // );
-
+const filterDoctorsFunction = () => {
   const filterDoctors1 = doctorData.value.filter(
     (e) => e.departments[0].name == clinicName.value
   );
@@ -174,7 +160,7 @@ const getClinicHospitalsList = (clinicHospital) => {
   showClinicDoctors.value = true;
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
-  tryout();
+  filterDoctorsFunction();
 };
 
 let isActive = ref(false);
