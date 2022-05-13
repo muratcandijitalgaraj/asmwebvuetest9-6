@@ -24,8 +24,8 @@
           <img :src="searchLogo" alt="" class="searchLogo" />
         </div>
       </div>
-      <!-- this overflow div works for both bölüm an hastane lists -->
-      <div class="overflow" v-if="displayHandler !== 2">
+      <!-- Hastane list -->
+      <div class="overflow" v-if="displayHandler == 3">
         <div
           v-for="(item, key) in data"
           :key="key"
@@ -33,6 +33,34 @@
           class="whiteBox d-flex align-items-center"
         >
           <div class="title">{{ item.name }}</div>
+        </div>
+      </div>
+      <!-- Bölüm list -->
+      <div class="overflow" v-if="displayHandler == 1">
+        <!-- this second div with v-if is for the flow of clinic choices -->
+        <!-- that is to say, when the user chooses a clinic, they'll be prompted to choose a doctor
+      this v-if is part of that logic -->
+        <div v-if="showBolum">
+          <div
+            @click="getClinicDoctorsList(item.tenants)"
+            v-for="(item, key) in data"
+            :key="key"
+            :name="item.name"
+            class="whiteBox d-flex align-items-center"
+          >
+            <div class="title">{{ item.name }}</div>
+          </div>
+        </div>
+        <!-- end of showBolum div -->
+        <div class="clinicDoctors">
+          <div
+            v-for="(item, key) in clinicDoctorsList"
+            :key="key"
+            :name="item.name"
+            class="whiteBox d-flex align-items-center"
+          >
+            <div class="title">{{ item.name }}</div>
+          </div>
         </div>
       </div>
       <div class="overflow" v-if="displayHandler == 2">
@@ -62,7 +90,13 @@ const appointmentType = ref(0);
 const data = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
-
+const showBolum = ref(true);
+const clinicDoctorsList = ref();
+const getClinicDoctorsList = (clinicDoctors) => {
+  console.log(clinicDoctors);
+  showBolum.value = false;
+  clinicDoctorsList.value = clinicDoctors;
+};
 let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
@@ -95,7 +129,8 @@ const showClinics = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items;
-    console.log(JSON.stringify(res.data.items));
+    // console.log(JSON.stringify(res.data.items));
+    console.log(res.data.items);
   } catch (error) {
     console.log(error);
   }
@@ -105,6 +140,7 @@ const showHospitals = async () => {
     const res = await store.dispatch("appointmentFlow/getHospitals");
     data.value = res.data.items;
     console.log(JSON.stringify(res.data.items));
+    console.log(res.data.items);
   } catch (error) {
     console.log(error);
   }
@@ -150,6 +186,8 @@ const showStore = (e) => {
   e.preventDefault();
   displayHandler.value = store.state.appointmentFlow.section;
 };
+
+//bölüm flow
 
 onMounted(() => {
   showInitialRequest();
