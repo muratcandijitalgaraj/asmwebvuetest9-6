@@ -106,12 +106,15 @@ import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 const appointmentType = ref(0);
+//this is the data for all, if you want to use it
 const data = ref();
+//individual data refs
 const clinicData = ref();
 const doctorData = ref();
 const hospitalData = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
+//v-if functionalities
 const showBolum = ref(true);
 const showClinicHospitals = ref(false);
 const showClinicDoctors = ref(false);
