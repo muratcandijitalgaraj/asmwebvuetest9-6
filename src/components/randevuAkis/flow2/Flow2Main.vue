@@ -42,7 +42,7 @@
       this v-if is part of that logic -->
         <div v-if="showBolum">
           <div
-            @click="getClinicDoctorsList(item.tenants)"
+            @click="getClinicData(item)"
             v-for="(item, key) in data"
             :key="key"
             :name="item.name"
@@ -52,8 +52,9 @@
           </div>
         </div>
         <!-- end of showBolum div -->
-        <div class="clinicDoctors">
+        <div class="clinicDoctors" v-if="showClinicDoctors">
           <div
+            @click="getClinicHospitalsList(item.name)"
             v-for="(item, key) in clinicDoctorsList"
             :key="key"
             :name="item.name"
@@ -62,7 +63,24 @@
             <div class="title">{{ item.name }}</div>
           </div>
         </div>
+        <!-- end of clinicdoctors div -->
+        <!-- get clinichospital value
+      check if the clinic name and the hospital name exists in the array
+      show only the doctors who have the aforementioned properties within -->
+        <div class="clinicHospitals">
+          <!-- <DoctorBox
+            v-for="(item, key) in data"
+            :key="key"
+            :title="item.fullName"
+            :subTitle="item.departments[0].name"
+            :data="item.id"
+            :dropdownData="item.departments[0].tenants"
+            :modalData="item.departments"
+            v-model="appointmentType"
+          /> -->
+        </div>
       </div>
+
       <div class="overflow" v-if="displayHandler == 2">
         <DoctorBox
           v-for="(item, key) in data"
@@ -91,11 +109,24 @@ const data = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
 const showBolum = ref(true);
+const showClinicDoctors = ref(false);
 const clinicDoctorsList = ref();
-const getClinicDoctorsList = (clinicDoctors) => {
-  console.log(clinicDoctors);
+const clinicHospitalValue = ref();
+const clinicName = ref();
+
+const getClinicData = (clinicDoctors) => {
+  console.log(clinicDoctors.tenants);
   showBolum.value = false;
-  clinicDoctorsList.value = clinicDoctors;
+  showClinicDoctors.value = true;
+  clinicDoctorsList.value = clinicDoctors.tenants;
+  console.log(clinicDoctors.name);
+  clinicName.value = clinicDoctors.name;
+};
+
+const getClinicHospitalsList = (clinicHospital) => {
+  console.log(clinicHospital);
+  showClinicDoctors.value = false;
+  clinicHospitalValue.value = clinicHospital;
 };
 let isActive = ref(false);
 const toggle = function () {
