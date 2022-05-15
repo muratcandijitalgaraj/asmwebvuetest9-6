@@ -14,6 +14,7 @@
       <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
       <div class="searchContainer d-flex align-items-center">
         <input
+          v-model="search"
           class="searchInput"
           type="text"
           :placeholder="`${reactiveTitle} arayın`"
@@ -43,7 +44,7 @@
         <div v-if="showBolum">
           <div
             @click="getClinicData(item)"
-            v-for="(item, key) in data"
+            v-for="(item, key) in searchFunction"
             :key="key"
             :name="item.name"
             class="whiteBox d-flex align-items-center"
@@ -106,6 +107,8 @@ import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 const appointmentType = ref(0);
+//search variable
+const search = ref("");
 //this is the data for all, if you want to use it
 const data = ref();
 //individual data refs
@@ -165,6 +168,13 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
+
+//search function
+const searchFunction = computed(() => {
+  return data.value.filter((e) => {
+    return e.name.match(search.value);
+  });
+});
 
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
