@@ -172,7 +172,7 @@ const filterDoctorsFunction = () => {
 //search function
 const searchFunction = computed(() => {
   return data.value.filter((e) => {
-    return e.name.match(search.value);
+    return e.name.toLowerCase().match(search.value);
   });
 });
 
