@@ -330,6 +330,9 @@ onMounted(() => {
   height: 100%;
   border: none;
 }
+.searchInput:focus {
+  outline: none;
+}
 .searchLogo {
 }
 .overflow {
