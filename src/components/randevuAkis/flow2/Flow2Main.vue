@@ -230,6 +230,9 @@ const showClinics = async () => {
 // };
 
 //the temporary function that'll show 2 hospital locations we have
+//you'll continue from here. The steps to take:
+//filter clinics according to the location at click
+//filter doctors according to the clinic chosen
 const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
