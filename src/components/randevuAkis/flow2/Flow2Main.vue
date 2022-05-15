@@ -28,7 +28,7 @@
       <!-- Hastane list -->
       <div class="overflow" v-if="displayHandler == 3">
         <div
-          v-for="(item, key) in data"
+          v-for="(item, key) in searchFunction"
           :key="key"
           :name="item.name"
           class="whiteBox d-flex align-items-center"
@@ -85,7 +85,7 @@
 
       <div class="overflow" v-if="displayHandler == 2">
         <DoctorBox
-          v-for="(item, key) in doctorData"
+          v-for="(item, key) in searchDoctorsFunction"
           :key="key"
           :title="item.fullName"
           :subTitle="item.departments[0].name"
@@ -272,6 +272,12 @@ const showStore = (e) => {
 const searchFunction = computed(() => {
   return data.value.filter((e) => {
     return e.name.toLowerCase().match(search.value);
+  });
+});
+//search doctors
+const searchDoctorsFunction = computed(() => {
+  return doctorData.value.filter((e) => {
+    return e.fullName.toLowerCase().match(search.value);
   });
 });
 
