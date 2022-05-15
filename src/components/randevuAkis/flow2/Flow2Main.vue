@@ -113,7 +113,7 @@ const search = ref("");
 const data = ref([]);
 //individual data refs
 const clinicData = ref();
-const doctorData = ref();
+const doctorData = ref([]);
 const hospitalData = ref();
 const displayHandler = ref(3);
 const reactiveTitle = ref("Bölüm");
