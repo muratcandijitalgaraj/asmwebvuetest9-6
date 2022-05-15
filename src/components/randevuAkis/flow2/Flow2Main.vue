@@ -28,7 +28,7 @@
       <!-- Hastane list -->
       <div class="overflow" v-if="displayHandler == 3">
         <div
-          v-for="(item, key) in searchFunction"
+          v-for="(item, key) in data"
           :key="key"
           :name="item.name"
           class="whiteBox d-flex align-items-center"
@@ -277,9 +277,9 @@ const searchFunction = computed(() => {
 
 onMounted(() => {
   // showInitialRequest();
+  showDoctors();
+  showClinics();
   showHospitals();
-  // showDoctors();
-  // showClinics();
 });
 </script>
 
