@@ -70,7 +70,7 @@
       show only the doctors who have the aforementioned properties within -->
         <div class="clinicDoctors" v-if="showClinicDoctors">
           <DoctorBox
-            v-for="(item, key) in filteredDoctors"
+            v-for="(item, key) in searchFilteredDoctorsFunction"
             :key="key"
             :title="item.fullName"
             :subTitle="item.departments[0].name"
@@ -277,6 +277,12 @@ const searchFunction = computed(() => {
 //search doctors
 const searchDoctorsFunction = computed(() => {
   return doctorData.value.filter((e) => {
+    return e.fullName.toLowerCase().match(search.value);
+  });
+});
+//search filtered doctors
+const searchFilteredDoctorsFunction = computed(() => {
+  return filteredDoctors.value.filter((e) => {
     return e.fullName.toLowerCase().match(search.value);
   });
 });
