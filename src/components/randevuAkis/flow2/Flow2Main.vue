@@ -28,7 +28,7 @@
       <!-- Hastane list -->
       <div class="overflow" v-if="displayHandler == 3">
         <div
-          v-for="(item, key) in data"
+          v-for="(item, key) in searchFunction"
           :key="key"
           :name="item.name"
           class="whiteBox d-flex align-items-center"
@@ -110,7 +110,7 @@ const appointmentType = ref(0);
 //search variable
 const search = ref("");
 //this is the data for all, if you want to use it
-const data = ref();
+const data = ref([]);
 //individual data refs
 const clinicData = ref();
 const doctorData = ref();
@@ -168,13 +168,6 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
-
-//search function
-const searchFunction = computed(() => {
-  return data.value.filter((e) => {
-    return e.name.toLowerCase().match(search.value);
-  });
-});
 
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
@@ -255,17 +248,17 @@ watch(
   () => store.state.appointmentFlow.section,
   (stateChange) => {
     if (stateChange == 1) {
+      showClinics();
       displayHandler.value = 1;
       reactiveTitle.value = "Bölüm";
-      showClinics();
     } else if (stateChange == 2) {
+      showDoctors();
       displayHandler.value = 2;
       reactiveTitle.value = "Doktor";
-      showDoctors();
     } else if (stateChange == 3) {
+      showHospitals();
       displayHandler.value = 3;
       reactiveTitle.value = "Hastane";
-      showHospitals();
     }
   }
 );
@@ -275,13 +268,18 @@ const showStore = (e) => {
   displayHandler.value = store.state.appointmentFlow.section;
 };
 
-//bölüm flow
+//search function
+const searchFunction = computed(() => {
+  return data.value.filter((e) => {
+    return e.name.toLowerCase().match(search.value);
+  });
+});
 
 onMounted(() => {
-  showInitialRequest();
+  // showInitialRequest();
   showHospitals();
-  showDoctors();
-  showClinics();
+  // showDoctors();
+  // showClinics();
 });
 </script>
 
