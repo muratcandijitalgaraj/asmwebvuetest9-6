@@ -216,10 +216,24 @@ const showClinics = async () => {
     console.log(error);
   }
 };
+//the API is problematic, it doesn't show the 2 hospital locations at all
+//So, instead of this function, I'll create a temporary one
+// const showHospitals = async () => {
+//   try {
+//     const res = await store.dispatch("appointmentFlow/getHospitals");
+//     data.value = res.data.items;
+//     console.log(JSON.stringify(res.data.items));
+//     console.log(res.data.items);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+//the temporary function that'll show 2 hospital locations we have
 const showHospitals = async () => {
   try {
-    const res = await store.dispatch("appointmentFlow/getHospitals");
-    data.value = res.data.items;
+    const res = await store.dispatch("appointmentFlow/getClinics");
+    data.value = res.data.items[4].tenants;
     console.log(JSON.stringify(res.data.items));
     console.log(res.data.items);
   } catch (error) {
