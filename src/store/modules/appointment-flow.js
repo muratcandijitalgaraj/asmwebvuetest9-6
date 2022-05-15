@@ -7,15 +7,15 @@ import store from "../index";
 export default {
   namespaced: true,
 
-  state: { section: 1 },
+  state: { section: 3 },
 
   mutations: {
     switchContent(state, payload) {
-      if (payload == "Bölüm") {
+      if (payload === "Bölüm") {
         state.section = 1;
-      } else if (payload == "Doktor") {
+      } else if (payload === "Doktor") {
         state.section = 2;
-      } else if (payload == "Hastane") {
+      } else if (payload === "Hastane") {
         state.section = 3;
       }
     },

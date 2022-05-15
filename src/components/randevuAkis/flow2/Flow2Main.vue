@@ -116,7 +116,7 @@ const clinicData = ref();
 const doctorData = ref([]);
 const hospitalData = ref();
 const displayHandler = ref(3);
-const reactiveTitle = ref("Bölüm");
+const reactiveTitle = ref("Hastane");
 //v-if functionalities
 const showBolum = ref(true);
 const showClinicHospitals = ref(false);
@@ -247,15 +247,15 @@ const showDoctors = async () => {
 watch(
   () => store.state.appointmentFlow.section,
   (stateChange) => {
-    if (stateChange == 1) {
+    if (stateChange === 1) {
       showClinics();
       displayHandler.value = 1;
       reactiveTitle.value = "Bölüm";
-    } else if (stateChange == 2) {
+    } else if (stateChange === 2) {
       showDoctors();
       displayHandler.value = 2;
       reactiveTitle.value = "Doktor";
-    } else if (stateChange == 3) {
+    } else if (stateChange === 3) {
       showHospitals();
       displayHandler.value = 3;
       reactiveTitle.value = "Hastane";
