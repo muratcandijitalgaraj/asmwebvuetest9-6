@@ -1,5 +1,7 @@
 <template>
   <div
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
     @click="handleClick"
     class="dropdownItem d-flex align-items-center justify-content-start"
   >
@@ -12,59 +14,57 @@
     <div class="dropdownText">
       {{ hospital }}
     </div>
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Launch demo modal
-    </button>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
+    <teleport to="body">
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="modal-body d-flex flex-column justify-content-center align-items-center"
             >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+              <ModalBox
+                v-for="(item, key) in modalData"
+                :key="key"
+                :clinic="item.name"
+              />
+              content goes here
+
+              <button class="modalButton">
+                <div class="modalButtonText">Seç</div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </teleport>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
+import ModalBox from "./ModalBox.vue";
 const props = defineProps({
   hospital: { required: true, type: String },
   dropdownData: { required: true, type: String },
   modelValue: { required: true, type: Number },
+  modalData: { required: true, type: Array },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -81,7 +81,8 @@ const handleClick = async () => {
   } else {
     isCheck.value = false;
   }
-  console.log(props.dropdownData);
+  // console.log(props.dropdownData);
+  console.log("need" + props.modalData);
 };
 
 const isCircleChosen = computed(() => {
@@ -90,6 +91,10 @@ const isCircleChosen = computed(() => {
   }
 
   return false;
+});
+
+onMounted(() => {
+  // alert("need" + JSON.stringify(props.modalData));
 });
 </script>
 
@@ -126,5 +131,36 @@ const isCircleChosen = computed(() => {
 }
 .chosenCircle {
   background: #32a5df;
+}
+.modal-content {
+  width: 409px;
+  height: 321px;
+
+  background: #e9f3f9;
+  border-radius: 16px;
+}
+// modal styles
+.modal-header {
+  border: none;
+}
+.modalButton {
+  background: #ff7c32;
+  border: none;
+  border-radius: 6px;
+  width: 341px;
+  height: 50px;
+}
+.modalButtonText {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 130%;
+
+  /* identical to box height, or 21px */
+  text-align: center;
+
+  /* Beyaz */
+  color: #ffffff;
 }
 </style>

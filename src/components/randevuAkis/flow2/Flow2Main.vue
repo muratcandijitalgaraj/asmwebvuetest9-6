@@ -10,40 +10,103 @@
         @click="showStore"
       />
     </div>
-    <div class="bodyContainer">
-      <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
-      <div class="searchContainer d-flex align-items-center">
-        <input
-          class="searchInput"
-          type="text"
-          :placeholder="`${reactiveTitle} arayın`"
-        />
-        <div
-          class="logoContainer d-flex justify-content-center align-items-center"
-        >
-          <img :src="searchLogo" alt="" class="searchLogo" />
+    <div
+      class="body d-flex flex-column-reverse flex-xxl-row justify-content-center justify-content-lg-between align-items-start"
+    >
+      <div class="bodyContainer col-xl-12 col-xxl-6">
+        <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
+        <div class="searchContainer d-flex align-items-center">
+          <input
+            v-model="search"
+            class="searchInput"
+            type="text"
+            :placeholder="`${reactiveTitle} arayın`"
+          />
+          <div
+            class="logoContainer d-flex justify-content-center align-items-center"
+          >
+            <img :src="searchLogo" alt="" class="searchLogo" />
+          </div>
+        </div>
+        <!-- Hastane list -->
+        <div class="overflow" v-if="displayHandler == 3">
+          <div
+            v-for="(item, key) in searchFunction"
+            :key="key"
+            :name="item.name"
+            class="whiteBox d-flex align-items-center"
+          >
+            <div class="title">{{ item.name }}</div>
+          </div>
+        </div>
+        <!-- Bölüm list -->
+        <div class="overflow" v-if="displayHandler == 1">
+          <!-- this second div with v-if is for the flow of clinic choices -->
+          <!-- that is to say, when the user chooses a clinic, they'll be prompted to choose a doctor
+      this v-if is part of that logic -->
+          <div v-if="showBolum">
+            <div
+              @click="getClinicData(item)"
+              v-for="(item, key) in searchFunction"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
+          </div>
+          <!-- end of showBolum div -->
+          <div class="clinicHospitals" v-if="showClinicHospitals">
+            <div
+              @click="getClinicHospitalsList(item.name)"
+              v-for="(item, key) in clinicHospitalsList"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
+          </div>
+          <!-- end of clinichospitals div -->
+          <!-- get clinichospital value
+      check if the clinic name and the hospital name exists in the array
+      show only the doctors who have the aforementioned properties within -->
+          <div class="clinicDoctors" v-if="showClinicDoctors">
+            <DoctorBox
+              v-for="(item, key) in searchFilteredDoctorsFunction"
+              :key="key"
+              :title="item.fullName"
+              :subTitle="item.departments[0].name"
+              :data="item.id"
+              :dropdownData="item.departments[0].tenants"
+              :modalData="item.departments"
+              v-model="appointmentType"
+            />
+            <!-- <div @click="filterDoctorsFunction">click me</div> -->
+          </div>
+        </div>
+
+        <div class="overflow" v-if="displayHandler == 2">
+          <DoctorBox
+            v-for="(item, key) in searchDoctorsFunction"
+            :key="key"
+            :title="item.fullName"
+            :subTitle="item.departments[0].name"
+            :data="item.id"
+            :dropdownData="item.departments[0].tenants"
+            :modalData="item.departments"
+            v-model="appointmentType"
+          />
         </div>
       </div>
-      <!-- this overflow div works for both bölüm an hastane lists -->
-      <div class="overflow" v-if="displayHandler !== 2">
-        <div
-          v-for="(item, key) in data"
+      <div class="rightPart col-10 col-xxl-4">
+        <h2 class="rightPartTitle">Seçimleriniz</h2>
+        <RightPart
+          v-for="(item, key) in rightPartArr"
           :key="key"
+          :title="item.title"
           :name="item.name"
-          class="whiteBox d-flex align-items-center"
-        >
-          <div class="title">{{ item.name }}</div>
-        </div>
-      </div>
-      <div class="overflow" v-if="displayHandler == 2">
-        <DoctorBox
-          v-for="(item, key) in data"
-          :key="key"
-          :title="item.fullName"
-          :subTitle="item.departments[0].name"
-          :data="item.id"
-          :dropdownData="item.departments[0].tenants"
-          v-model="appointmentType"
+          :logo="item.logo"
         />
       </div>
     </div>
@@ -51,23 +114,103 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
+import RightPart from "./RightPart.vue";
 const appointmentType = ref(0);
-const data = ref();
+//search variable
+const search = ref("");
+//this is the data for all, if you want to use it
+const data = ref([]);
+//individual data refs
+const clinicData = ref();
+const doctorData = ref([]);
+const hospitalData = ref();
 const displayHandler = ref(3);
-const reactiveTitle = ref("Bölüm");
+const reactiveTitle = ref("Hastane");
+//v-if functionalities
+const showBolum = ref(true);
+const showClinicHospitals = ref(false);
+const showClinicDoctors = ref(false);
+const clinicHospitalsList = ref();
+const clinicHospitalName = ref();
+const clinicName = ref();
+//filtered
+const filteredDoctors = ref([]);
+//right part array
+const rightPartArr = ref([]);
+
+const getClinicData = (clinicHospitals) => {
+  console.log(clinicHospitals.tenants);
+  showBolum.value = false;
+  showClinicHospitals.value = true;
+  clinicHospitalsList.value = clinicHospitals.tenants;
+  console.log(clinicHospitals.name);
+  clinicName.value = clinicHospitals.name;
+  console.log("doctor data" + doctorData.value[0].id);
+  console.log("clinicName.value  => " + clinicName.value);
+  rightPartArr.value.push({
+    title: "Bölüm",
+    name: clinicName.value,
+    logo: "clinic",
+  });
+};
+// let filterDoctors2 = ref();
+const filterDoctorsFunction = () => {
+  let i;
+  let j;
+  const filterDoctors1 = doctorData.value.filter((e) => {
+    for (i = 0, j = e.departments.length; i < j; i++) {
+      if (e.departments[i].name === clinicName.value) {
+        return e;
+      }
+    }
+  });
+
+  const filterDoctors2 = filterDoctors1.filter((e) => {
+    for (i = 0; i < e.departments.length; i++) {
+      for (j = 0; j < e.departments[i].tenants.length; j++) {
+        if (e.departments[i].tenants[j].name == clinicHospitalName.value) {
+          return e;
+        }
+      }
+    }
+  });
+
+  filteredDoctors.value = filterDoctors1;
+
+  console.log(filteredDoctors.value);
+  console.log(JSON.stringify(filteredDoctors.value));
+  // I think filteredDoctors.value is what I'm looking for
+  console.log(filteredDoctors.value[0].name);
+  console.log("sth new" + filterDoctors1[0]);
+  console.log(clinicName.value);
+};
+
+const getClinicHospitalsList = (clinicHospital) => {
+  console.log(clinicHospital);
+  showClinicHospitals.value = false;
+  clinicHospitalName.value = clinicHospital;
+  showClinicDoctors.value = true;
+  showDoctors();
+  console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
+  filterDoctorsFunction();
+  rightPartArr.value.push({
+    title: "Hastane",
+    name: clinicHospitalName.value,
+    logo: "hospital",
+  });
+};
 
 let isActive = ref(false);
 const toggle = function () {
   isActive.value = !isActive.value;
 };
 //you'll change the reactivity here
-//what's this for?
 const bigBoxData = ref([
   { title: "Hastane", data: 3 },
   { title: "Bölüm", data: 1 },
@@ -94,16 +237,35 @@ const showClinics = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items;
-    console.log(JSON.stringify(res.data.items));
+    // console.log(JSON.stringify(res.data.items));
+    console.log(res.data.items);
   } catch (error) {
     console.log(error);
   }
 };
+//the API is problematic, it doesn't show the 2 hospital locations at all
+//So, instead of this function, I'll create a temporary one
+// const showHospitals = async () => {
+//   try {
+//     const res = await store.dispatch("appointmentFlow/getHospitals");
+//     data.value = res.data.items;
+//     console.log(JSON.stringify(res.data.items));
+//     console.log(res.data.items);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+//the temporary function that'll show 2 hospital locations we have
+//you'll continue from here. The steps to take:
+//filter clinics according to the location at click
+//filter doctors according to the clinic chosen
 const showHospitals = async () => {
   try {
-    const res = await store.dispatch("appointmentFlow/getHospitals");
-    data.value = res.data.items;
+    const res = await store.dispatch("appointmentFlow/getClinics");
+    data.value = res.data.items[4].tenants;
     console.log(JSON.stringify(res.data.items));
+    console.log(res.data.items);
   } catch (error) {
     console.log(error);
   }
@@ -112,7 +274,7 @@ const showHospitals = async () => {
 const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
-    data.value = res.data.items;
+    doctorData.value = res.data.items;
     console.log(res.data.items);
     console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
@@ -129,18 +291,18 @@ const showDoctors = async () => {
 watch(
   () => store.state.appointmentFlow.section,
   (stateChange) => {
-    if (stateChange == 1) {
+    if (stateChange === 1) {
+      showClinics();
       displayHandler.value = 1;
       reactiveTitle.value = "Bölüm";
-      showClinics();
-    } else if (stateChange == 2) {
+    } else if (stateChange === 2) {
+      showDoctors();
       displayHandler.value = 2;
       reactiveTitle.value = "Doktor";
-      showDoctors();
-    } else if (stateChange == 3) {
+    } else if (stateChange === 3) {
+      showHospitals();
       displayHandler.value = 3;
       reactiveTitle.value = "Hastane";
-      showHospitals();
     }
   }
 );
@@ -150,8 +312,30 @@ const showStore = (e) => {
   displayHandler.value = store.state.appointmentFlow.section;
 };
 
+//search function
+const searchFunction = computed(() => {
+  return data.value.filter((e) => {
+    return e.name.toLowerCase().match(search.value);
+  });
+});
+//search doctors
+const searchDoctorsFunction = computed(() => {
+  return doctorData.value.filter((e) => {
+    return e.fullName.toLowerCase().match(search.value);
+  });
+});
+//search filtered doctors
+const searchFilteredDoctorsFunction = computed(() => {
+  return filteredDoctors.value.filter((e) => {
+    return e.fullName.toLowerCase().match(search.value);
+  });
+});
+
 onMounted(() => {
-  showInitialRequest();
+  // showInitialRequest();
+  showDoctors();
+  showClinics();
+  showHospitals();
 });
 </script>
 
@@ -168,7 +352,7 @@ onMounted(() => {
 }
 .bodyContainer {
   margin-top: 30px;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 .bigTitle {
   font-family: "Nunito Sans";
@@ -185,8 +369,8 @@ onMounted(() => {
   margin-bottom: 22px;
 }
 .searchContainer {
-  max-width: 500px;
-  width: auto;
+  // max-width: 500px;
+  width: 500px;
   height: 48px;
   background: #ffffff;
 
@@ -201,6 +385,9 @@ onMounted(() => {
   width: 90%;
   height: 100%;
   border: none;
+}
+.searchInput:focus {
+  outline: none;
 }
 .searchLogo {
 }
@@ -219,6 +406,22 @@ onMounted(() => {
   margin-bottom: 1rem;
   padding-left: 1rem;
 }
+.rightPart {
+  margin-top: 30px;
+  margin-right: 30px;
+}
+.rightPartTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 130%;
+
+  /* identical to box height, or 22px */
+  letter-spacing: -0.01em;
+
+  color: #32a5df;
+}
 
 @media only screen and (max-width: 992px) {
   .searchContainer,
@@ -227,6 +430,12 @@ onMounted(() => {
   }
   .bodyContainer {
     margin-right: 50px;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .rightPart {
+    // margin-left: 30px;
+    // margin-right: 30px;
   }
 }
 </style>

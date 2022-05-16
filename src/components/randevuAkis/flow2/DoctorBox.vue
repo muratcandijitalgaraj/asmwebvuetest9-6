@@ -52,6 +52,7 @@ const props = defineProps({
   data: { required: true, type: String },
   dropdownData: { required: true, type: Array },
   modelValue: { required: true, type: Number },
+  modalData: { required: true, type: Array },
 });
 
 const emit = defineEmits(["update:modelValue"]);
