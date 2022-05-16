@@ -99,7 +99,7 @@
           />
         </div>
       </div>
-      <div class="rightPart col-xl-12 col-xxl-4">
+      <div class="rightPart col-10 col-xxl-4">
         <h2 class="rightPartTitle">Seçimleriniz</h2>
         <RightPart
           v-for="(item, key) in rightPartArr"
@@ -352,7 +352,7 @@ onMounted(() => {
 }
 .bodyContainer {
   margin-top: 30px;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 .bigTitle {
   font-family: "Nunito Sans";
@@ -408,6 +408,7 @@ onMounted(() => {
 }
 .rightPart {
   margin-top: 30px;
+  margin-right: 30px;
 }
 .rightPartTitle {
   font-family: "Nunito Sans";
@@ -429,6 +430,12 @@ onMounted(() => {
   }
   .bodyContainer {
     margin-right: 50px;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .rightPart {
+    // margin-left: 30px;
+    // margin-right: 30px;
   }
 }
 </style>
