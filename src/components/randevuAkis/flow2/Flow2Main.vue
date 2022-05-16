@@ -98,7 +98,7 @@
         </div>
       </div>
       <div class="rightPart">
-        <h2 class="rightPartTitle" @click="foo">Seçimleriniz</h2>
+        <h2 class="rightPartTitle">Seçimleriniz</h2>
         <RightPart
           v-for="(item, key) in rightPartArr"
           :key="key"
@@ -140,9 +140,6 @@ const clinicName = ref();
 const filteredDoctors = ref([]);
 //right part array
 const rightPartArr = ref([]);
-const foo = () => {
-  console.log(rightPartArr.value);
-};
 
 const getClinicData = (clinicHospitals) => {
   console.log(clinicHospitals.tenants);
@@ -195,6 +192,7 @@ const getClinicHospitalsList = (clinicHospital) => {
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
+  rightPartArr.value.push({ title: "Hastane", name: clinicHospitalName.value });
 };
 
 let isActive = ref(false);
