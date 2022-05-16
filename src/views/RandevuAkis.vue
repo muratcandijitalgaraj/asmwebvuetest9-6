@@ -4,7 +4,7 @@
     <template v-slot:sidebar><Sidebar /></template>
     <template v-slot:section>
       <!-- your code comes here -->
-      <div class="zemin">
+      <div class="zemin col-md-12 col-lg-8 col-xl-8 col-xxl-9">
         <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div>
         <!-- <SecimVue /> -->
@@ -22,7 +22,7 @@ import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
 
 <style lang="scss" scoped>
 .zemin {
-  width: 60%;
+  // width: 60%;
   height: auto;
   background: #f2f8fb;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
