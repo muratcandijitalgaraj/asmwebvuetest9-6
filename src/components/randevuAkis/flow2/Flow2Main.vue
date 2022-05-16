@@ -406,6 +406,9 @@ onMounted(() => {
   margin-bottom: 1rem;
   padding-left: 1rem;
 }
+.rightPart {
+  margin-top: 30px;
+}
 .rightPartTitle {
   font-family: "Nunito Sans";
   font-style: normal;
