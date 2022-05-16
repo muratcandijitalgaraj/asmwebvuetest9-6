@@ -3,6 +3,7 @@ import appAxios from "../../utils/appAxios";
 import auth from "./auth";
 import qs from "qs";
 import store from "../index";
+import moment from "moment";
 
 export default {
   namespaced: true,
@@ -25,7 +26,7 @@ export default {
     gender: null,
     country: null,
     city: null,
-    district: null,
+    region: null,
     date: null,
   },
 
@@ -41,9 +42,13 @@ export default {
       state.gender = payload.gender;
       state.country = payload.country;
       state.city = payload.city;
-      state.district = payload.district;
+      state.region = payload.region;
       state.date = payload.date;
     },
+    formatDate(state) {
+      const date = state.date
+      state.date = date.split('/').reverse().join('-')
+    }
   },
 
   actions: {
@@ -57,12 +62,20 @@ export default {
       );
     },
 
-    async getCity({}) {
+    async getCity({}, country) {
       await store.dispatch("auth/checkExpireToken");
       console.log(store.getters["auth/_token"]);
       appAxios.defaults.headers.common["Authorization"] =
         "Bearer " + store.getters["auth/_token"];
-      return await appAxios.get("endpoint/profile-service/lookups/city");
+      return await appAxios.get("endpoint/profile-service/lookups/city/" + country);
+    },
+
+    async getRegion({}, city) {
+      await store.dispatch("auth/checkExpireToken");
+      console.log(store.getters["auth/_token"]);
+      appAxios.defaults.headers.common["Authorization"] =
+          "Bearer " + store.getters["auth/_token"];
+      return await appAxios.get("endpoint/profile-service/lookups/region/" + city);
     },
 
     async registerUser({ commit, state, dispatch }) {
@@ -85,16 +98,18 @@ export default {
         permissionCode1: "123456",
       };*/
 
+      await commit('formatDate')
+
       let userData = {
         nationalityId: state.uyruk,
         identityNumber: state.tcNo,
         givenName : state.name,
         familyName: state.surname,
         gender: parseInt(state.gender),
-        birthDate: "1989-07-01",//state.date,
+        birthDate: state.date,
         countryId: state.country,
         cityId: state.city,
-        regionId: null,
+        regionId: state.region,
         emailAddress: state.email,
         password: state.password,
         notificationToken: store.getters["auth/_notification_token"],

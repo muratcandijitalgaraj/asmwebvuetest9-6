@@ -91,7 +91,15 @@
             placeholder="Şifreniz (tekrar)"
             type="password"
             class="input"
+            :class="{ 'is-invalid': stepOneValidate.passwordRepeated.$errors.length }"
           />
+          <div
+              v-for="error in stepOneValidate.passwordRepeated.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
           <button @click="buttonOne" id="buttonOne" class="button">
             <span class="buttonText">Devam</span>
           </button>
@@ -107,10 +115,9 @@
               v-model="stepTwo.uyruk"
               @click="writeUyruk"
               class="uyruk"
-              name=""
-              id=""
+              :class="{ 'is-invalid': stepTwoValidate.uyruk.$errors.length }"
             >
-              <option class="optionValue" selected>Uyruk</option>
+              <option class="optionValue" value="">Uyruk</option>
               <option
                 v-for="(item, key) in countries"
                 :key="key"
@@ -120,43 +127,88 @@
                 {{ item.attributes.abbr }}
               </option>
             </select>
+            <div
+                v-for="error in stepTwoValidate.uyruk.$errors"
+                :key="error.$uid"
+                class="invalid-feedback"
+            >
+              {{ error.$message }}
+            </div>
             <input
               v-model="stepTwo.tcNo"
               placeholder="T.C. Kimlik Numarası"
               type="text"
               class="tcNo"
+              :class="{ 'is-invalid': stepTwoValidate.tcNo.$errors.length }"
             />
+            <div
+                v-for="error in stepTwoValidate.tcNo.$errors"
+                :key="error.$uid"
+                class="invalid-feedback"
+            >
+              {{ error.$message }}
+            </div>
           </div>
           <input
             v-model="stepTwo.name"
             placeholder="İsim"
             type="text"
             class="input"
+            :class="{ 'is-invalid': stepTwoValidate.name.$errors.length }"
           />
+          <div
+              v-for="error in stepTwoValidate.name.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
           <input
             v-model="stepTwo.surname"
             placeholder="Soyisim"
             type="text"
             class="input"
+            :class="{ 'is-invalid': stepTwoValidate.surname.$errors.length }"
           />
+          <div
+              v-for="error in stepTwoValidate.surname.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
           <!--///////// DATE PICKER HERE ///////////////////////////// -->
           <Datepicker
             placeholder="Doğum Tarihi (GG/AA/YYYY)"
             class="picker"
+            :class="{ 'is-invalid': stepTwoValidate.date.$errors.length }"
             v-model="date"
             :format="format"
             autoApply
-            :closeOnAutoApply="true"
             locale="tr"
-            :autoPosition="false"
+            :autoPosition=false
             :start-date="startDate"
           />
+          <div
+              v-for="error in stepTwoValidate.date.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
 
-          <select v-model="stepTwo.gender" class="dropDownSelect">
-            <option class="optionValue">Cinsiyet</option>
+          <select v-model="stepTwo.gender" class="dropDownSelect" :class="{ 'is-invalid': stepTwoValidate.gender.$errors.length }">
+            <option class="optionValue" value="">Cinsiyet</option>
             <option class="optionValue" value="1">Erkek</option>
             <option class="optionValue" value="2">Kadın</option>
           </select>
+          <div
+              v-for="error in stepTwoValidate.gender.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
           <button @click="buttonTwo" id="buttonTwo" class="button">
             <span class="buttonText">Devam</span>
           </button>
@@ -190,8 +242,8 @@
               />
             </div>
           </div>
-          <select v-model="stepThree.country" class="dropDownSelect">
-            <option class="optionValue" selected>Ülke</option>
+          <select v-model="stepThree.country" @change="setCity" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.country.$errors.length }">
+            <option class="optionValue" value="">Ülke</option>
             <option
               v-for="(item, key) in countries"
               :key="key"
@@ -201,8 +253,15 @@
               {{ item.title }}
             </option>
           </select>
-          <select v-model="stepThree.city" class="dropDownSelect">
-            <option class="optionValue" value="" selected>Şehir</option>
+          <div
+              v-for="error in stepThreeValidate.country.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
+          <select v-model="stepThree.city" @change="setRegion" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.city.$errors.length }">
+            <option class="optionValue" value="">Şehir</option>
             <option
               v-for="(item, key) in cities"
               :key="key"
@@ -212,11 +271,31 @@
               {{ item.title }}
             </option>
           </select>
-          <select v-model="stepThree.district" class="dropDownSelect">
+          <div
+              v-for="error in stepThreeValidate.city.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
+          <select v-model="stepThree.region" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.region.$errors.length }">
             <option class="optionValue" value="">İlçe</option>
-            <option class="optionValue" value="dog">Dog</option>
-            <option class="optionValue" value="cat">Cat</option>
+            <option
+                v-for="(item, key) in regions"
+                :key="key"
+                class="optionValue"
+                :value="item.id"
+            >
+              {{ item.title }}
+            </option>
           </select>
+          <div
+              v-for="error in stepThreeValidate.region.$errors"
+              :key="error.$uid"
+              class="invalid-feedback"
+          >
+            {{ error.$message }}
+          </div>
           <button @click="buttonThree" id="buttonThree" class="button">
             <span class="buttonText">Devam</span>
           </button>
@@ -232,28 +311,31 @@ import Datepicker from "vue3-date-time-picker";
 import "vue3-date-time-picker/dist/main.css";
 import store from "../../store";
 import useVuelidate from "@vuelidate/core";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import {
   required,
   email,
   minLength,
   maxLength,
+  sameAs,
   helpers,
 } from "@vuelidate/validators";
 import { useRouter, useRoute } from "vue-router";
+import moment from "moment"
 
 const router = useRouter();
 const route = useRoute();
 
-const format = (date) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+const format = (dateObj) => {
+  const date = dateObj.getDate();
+  const month = dateObj.getMonth() + 1;
+  const year = dateObj.getFullYear();
 
-  let formatDate  = `${year}-${month}-${day}`;
+  let formatDate  = moment(dateObj.toISOString()).format('DD/MM/YYYY')
   stepTwo.date = formatDate
   return formatDate
 };
-const startDate = ref(new Date(1985, 1));
+const startDate = ref(new Date(1985, 0, 1));
 
 const date = ref('')
 
@@ -276,18 +358,18 @@ const stepOne = reactive({
 });
 
 const stepTwo = reactive({
-  uyruk: null,
+  uyruk: "",
   tcNo: null,
   name: null,
-  date: new Date(1985, 1),
+  date: null,
   surname: null,
-  gender: null,
+  gender: "",
 });
 
 const stepThree = reactive({
-  country: null,
-  city: null,
-  district: null,
+  country: "",
+  city: "",
+  region: "",
 });
 
 const passwordMatch = (value) => {
@@ -306,16 +388,56 @@ const stepOneRules = computed(() => ({
     required: helpers.withMessage("Şifre zorunlu bir alandır.", required),
     minlength: helpers.withMessage("Şifre 6 haneli olmalıdır.", minLength(6)),
     maxlength: helpers.withMessage("Şifre 6 haneli olmalıdır.", maxLength(6)),
-    /*    passwordRepeated: {
-      required: helpers.withMessage(
-          "Şifre Tekrar Şifre ile uyuşmuyor.",
-          passwordMatch
-      )
-    }*/
+  },
+  passwordRepeated: {
+    required: helpers.withMessage("Şifreniz(tekrar) zorunlu bir alandır.", required),
+    sameAs: helpers.withMessage(
+        "Şifreniz(tekrar) Şifre ile uyuşmuyor.",
+        sameAs(stepOne.password)
+    )
+  }
+}));
+
+const stepTwoRules = computed(() => ({
+  uyruk: {
+    required: helpers.withMessage("Uyruk zorunlu bir alandır.", required),
+  },
+  tcNo: {
+    required: helpers.withMessage("T.C. Kimlik Numarası zorunlu bir alandır.", required),
+    minlength: helpers.withMessage("T.C. Kimlik Numarası 11 haneli olmalıdır.", minLength(11)),
+    maxlength: helpers.withMessage("T.C. Kimlik Numarası 11 haneli olmalıdır.", maxLength(11)),
+  },
+  name: {
+    required: helpers.withMessage("İsim zorunlu bir alandır.", required),
+    minlength: helpers.withMessage("İsim en az 3 haneli olmalıdır.", minLength(3)),
+  },
+  surname: {
+    required: helpers.withMessage("Soyisim zorunlu bir alandır.", required),
+    minlength: helpers.withMessage("Soyisim en az 3 haneli olmalıdır.", minLength(3)),
+  },
+  date: {
+    required: helpers.withMessage("Doğum Tarihi zorunlu bir alandır.", required),
+  },
+  gender: {
+    required: helpers.withMessage("Cinsiyet zorunlu bir alandır.", required),
+  },
+}));
+
+const stepThreeRules = computed(() => ({
+  country: {
+    required: helpers.withMessage("Ülke zorunlu bir alandır.", required)
+  },
+  city: {
+    required: helpers.withMessage("Şehir zorunlu bir alandır.", required),
+  },
+  region: {
+    required: helpers.withMessage("İlçe zorunlu bir alandır.", required),
   },
 }));
 
 const stepOneValidate = useVuelidate(stepOneRules, stepOne);
+const stepTwoValidate = useVuelidate(stepTwoRules, stepTwo);
+const stepThreeValidate = useVuelidate(stepThreeRules, stepThree);
 
 const buttonOne = async (e) => {
   e.preventDefault();
@@ -344,13 +466,13 @@ const buttonOne = async (e) => {
 
 const countries = ref(null);
 const cities = ref(null);
+const regions = ref(null);
 
 //get cities form the API
 const getCities = async (e) => {
   await store
-    .dispatch("register/getCity")
+    .dispatch("register/getCity", stepThree.country)
     .then((res) => {
-      //gelen ülkelerin abbr kodunu vfor ile uyruk selectine bağlanacak.
       console.log(res.data.items);
       cities.value = res.data.items;
     })
@@ -359,25 +481,46 @@ const getCities = async (e) => {
     });
 };
 
-const buttonTwo = function (e) {
-  e.preventDefault();
-  two.value = false;
-  three.value = true;
-  //call get cities function
-  getCities();
-  //invoke setting gender value function
-  //setGenderValue();
-  //invoke nationalityID value function
-  setNationalityIdValue();
+const getRegion = async (e) => {
+  await store
+      .dispatch("register/getRegion", stepThree.city)
+      .then((res) => {
+        console.log(res.data.items);
+        regions.value = res.data.items;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 };
 
-const buttonThree = function (e) {
+const buttonTwo = async (e) => {
   e.preventDefault();
-  //invoke setcountryvalue &  setcityvalue  function
 
-  // three.value = false;
-  // store.dispatch("register/registerUser");
-  //denemeler
+  const stepTwoIsValid = await stepTwoValidate.value.$validate();
+
+  if (!stepTwoIsValid) return;
+
+  one.value = false;
+  two.value = false;
+  three.value = true;
+};
+
+const setCity = async () => {
+  cities.value = ""
+  regions.value = ""
+  await getCities()
+}
+
+const setRegion = async () => {
+  regions.value = ""
+  await getRegion()
+}
+
+const buttonThree = async (e) => {
+  e.preventDefault();
+  const stepThreeIsValid = await stepThreeValidate.value.$validate();
+  if (!stepThreeIsValid) return;
+
   store.commit("register/setCredentials", {
     email: stepOne.email,
     password: stepOne.password,
@@ -389,12 +532,34 @@ const buttonThree = function (e) {
     gender: stepTwo.gender,
     country: stepThree.country,
     city: stepThree.city,
-    district: stepThree.district,
+    region: stepThree.region,
   });
   store
     .dispatch("register/registerUser")
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err.response));
+    .then((res) => {
+      new Swal({
+        icon: "success",
+        title: "Üyelik işleminiz başarılı bir şekilde tamamlandı.<br> Giriş yapabilirsiniz.",
+        showConfirmButton: true,
+        timer: 3000,
+        confirmButtonText: "Tamam",
+      }).then((isConfirm) => {
+        router.push({name:"Giris"})
+      })
+      console.log(res)
+    })
+    .catch((err) => {
+      new Swal({
+        icon: "error",
+        title: "Üyelik işleminiz sırasında bir hata oluştu. <br> Lütfen daha sonra tekrar deneyiniz.",
+        showConfirmButton: true,
+        timer: 3000,
+        confirmButtonText: "Tamam"
+      }).then(() => {
+        router.push({name:"Giris"})
+      })
+      console.log(err.response)
+    });
 };
 
 //this doesn't work anymore since I changed to script setup

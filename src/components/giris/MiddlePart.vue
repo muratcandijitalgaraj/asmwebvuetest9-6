@@ -376,7 +376,6 @@ const accountCancelAction = async () => {
     if (res.data.data === true)
       router.push({ name: "Kayit" });
   }).catch(err => console.log(err.response))
-
 }
 
 const getUserData = computed(
