@@ -10,8 +10,10 @@
         @click="showStore"
       />
     </div>
-    <div class="body d-flex justify-content-between">
-      <div class="bodyContainer">
+    <div
+      class="body d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between"
+    >
+      <div class="bodyContainer col-lg-12 col-lg-7 col-xl-7 col-xxl-7">
         <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
         <div class="searchContainer d-flex align-items-center">
           <input
@@ -97,7 +99,7 @@
           />
         </div>
       </div>
-      <div class="rightPart">
+      <div class="rightPart col-md-12 col-lg-4 col-xl-4 col-xxl-4">
         <h2 class="rightPartTitle">Seçimleriniz</h2>
         <RightPart
           v-for="(item, key) in rightPartArr"
@@ -367,8 +369,8 @@ onMounted(() => {
   margin-bottom: 22px;
 }
 .searchContainer {
-  max-width: 500px;
-  width: auto;
+  // max-width: 500px;
+  width: 500px;
   height: 48px;
   background: #ffffff;
 

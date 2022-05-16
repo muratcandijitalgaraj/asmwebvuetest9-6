@@ -25,14 +25,14 @@ const foo = () => {
 
 <style lang="scss" scoped>
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: flex-start;
   padding: 15px 17px;
   gap: 10px;
 
-  width: auto;
+  // width: auto;
   height: 48px;
 
   background: #ffffff;
