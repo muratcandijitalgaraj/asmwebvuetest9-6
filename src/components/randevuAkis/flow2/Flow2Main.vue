@@ -10,40 +10,25 @@
         @click="showStore"
       />
     </div>
-    <div class="bodyContainer">
-      <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
-      <div class="searchContainer d-flex align-items-center">
-        <input
-          v-model="search"
-          class="searchInput"
-          type="text"
-          :placeholder="`${reactiveTitle} arayın`"
-        />
-        <div
-          class="logoContainer d-flex justify-content-center align-items-center"
-        >
-          <img :src="searchLogo" alt="" class="searchLogo" />
-        </div>
-      </div>
-      <!-- Hastane list -->
-      <div class="overflow" v-if="displayHandler == 3">
-        <div
-          v-for="(item, key) in searchFunction"
-          :key="key"
-          :name="item.name"
-          class="whiteBox d-flex align-items-center"
-        >
-          <div class="title">{{ item.name }}</div>
-        </div>
-      </div>
-      <!-- Bölüm list -->
-      <div class="overflow" v-if="displayHandler == 1">
-        <!-- this second div with v-if is for the flow of clinic choices -->
-        <!-- that is to say, when the user chooses a clinic, they'll be prompted to choose a doctor
-      this v-if is part of that logic -->
-        <div v-if="showBolum">
+    <div class="body d-flex justify-content-between">
+      <div class="bodyContainer">
+        <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
+        <div class="searchContainer d-flex align-items-center">
+          <input
+            v-model="search"
+            class="searchInput"
+            type="text"
+            :placeholder="`${reactiveTitle} arayın`"
+          />
           <div
-            @click="getClinicData(item)"
+            class="logoContainer d-flex justify-content-center align-items-center"
+          >
+            <img :src="searchLogo" alt="" class="searchLogo" />
+          </div>
+        </div>
+        <!-- Hastane list -->
+        <div class="overflow" v-if="displayHandler == 3">
+          <div
             v-for="(item, key) in searchFunction"
             :key="key"
             :name="item.name"
@@ -52,25 +37,56 @@
             <div class="title">{{ item.name }}</div>
           </div>
         </div>
-        <!-- end of showBolum div -->
-        <div class="clinicHospitals" v-if="showClinicHospitals">
-          <div
-            @click="getClinicHospitalsList(item.name)"
-            v-for="(item, key) in clinicHospitalsList"
-            :key="key"
-            :name="item.name"
-            class="whiteBox d-flex align-items-center"
-          >
-            <div class="title">{{ item.name }}</div>
+        <!-- Bölüm list -->
+        <div class="overflow" v-if="displayHandler == 1">
+          <!-- this second div with v-if is for the flow of clinic choices -->
+          <!-- that is to say, when the user chooses a clinic, they'll be prompted to choose a doctor
+      this v-if is part of that logic -->
+          <div v-if="showBolum">
+            <div
+              @click="getClinicData(item)"
+              v-for="(item, key) in searchFunction"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
           </div>
-        </div>
-        <!-- end of clinichospitals div -->
-        <!-- get clinichospital value
+          <!-- end of showBolum div -->
+          <div class="clinicHospitals" v-if="showClinicHospitals">
+            <div
+              @click="getClinicHospitalsList(item.name)"
+              v-for="(item, key) in clinicHospitalsList"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
+          </div>
+          <!-- end of clinichospitals div -->
+          <!-- get clinichospital value
       check if the clinic name and the hospital name exists in the array
       show only the doctors who have the aforementioned properties within -->
-        <div class="clinicDoctors" v-if="showClinicDoctors">
+          <div class="clinicDoctors" v-if="showClinicDoctors">
+            <DoctorBox
+              v-for="(item, key) in searchFilteredDoctorsFunction"
+              :key="key"
+              :title="item.fullName"
+              :subTitle="item.departments[0].name"
+              :data="item.id"
+              :dropdownData="item.departments[0].tenants"
+              :modalData="item.departments"
+              v-model="appointmentType"
+            />
+            <!-- <div @click="filterDoctorsFunction">click me</div> -->
+          </div>
+        </div>
+
+        <div class="overflow" v-if="displayHandler == 2">
           <DoctorBox
-            v-for="(item, key) in searchFilteredDoctorsFunction"
+            v-for="(item, key) in searchDoctorsFunction"
             :key="key"
             :title="item.fullName"
             :subTitle="item.departments[0].name"
@@ -79,21 +95,11 @@
             :modalData="item.departments"
             v-model="appointmentType"
           />
-          <!-- <div @click="filterDoctorsFunction">click me</div> -->
         </div>
       </div>
-
-      <div class="overflow" v-if="displayHandler == 2">
-        <DoctorBox
-          v-for="(item, key) in searchDoctorsFunction"
-          :key="key"
-          :title="item.fullName"
-          :subTitle="item.departments[0].name"
-          :data="item.id"
-          :dropdownData="item.departments[0].tenants"
-          :modalData="item.departments"
-          v-model="appointmentType"
-        />
+      <div class="rightPart">
+        <h2 class="rightPartTitle">Seçimleriniz</h2>
+        <RightPart />
       </div>
     </div>
   </div>
@@ -106,6 +112,7 @@ import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
+import RightPart from "./RightPart.vue";
 const appointmentType = ref(0);
 //search variable
 const search = ref("");
@@ -126,6 +133,8 @@ const clinicHospitalName = ref();
 const clinicName = ref();
 //filtered
 const filteredDoctors = ref([]);
+//right part array
+const rightPartArr = ref([]);
 
 const getClinicData = (clinicHospitals) => {
   console.log(clinicHospitals.tenants);
@@ -378,6 +387,18 @@ onMounted(() => {
   border-radius: 6px;
   margin-bottom: 1rem;
   padding-left: 1rem;
+}
+.rightPartTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 130%;
+
+  /* identical to box height, or 22px */
+  letter-spacing: -0.01em;
+
+  color: #32a5df;
 }
 
 @media only screen and (max-width: 992px) {
