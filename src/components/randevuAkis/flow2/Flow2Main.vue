@@ -105,7 +105,6 @@
           :title="item.title"
           :name="item.name"
         />
-        />
       </div>
     </div>
   </div>
