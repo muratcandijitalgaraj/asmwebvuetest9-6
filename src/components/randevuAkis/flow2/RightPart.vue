@@ -1,14 +1,14 @@
 <template>
   <div class="main">
     <img src="" alt="" class="logo" />
-    <div class="blueTitle"></div>
-    <div class="name"></div>
+    <div class="title">{{ title }}</div>
+    <div class="name">{{ name }}</div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  blueTitle: { required: true, type: String },
+  title: { required: true, type: String },
   name: { required: true, type: String },
 });
 </script>
