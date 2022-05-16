@@ -11,9 +11,9 @@
       />
     </div>
     <div
-      class="body d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between"
+      class="body d-flex flex-column-reverse flex-xxl-row justify-content-center justify-content-lg-between align-items-start"
     >
-      <div class="bodyContainer col-lg-12 col-lg-7 col-xl-7 col-xxl-7">
+      <div class="bodyContainer col-xl-12 col-xxl-6">
         <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
         <div class="searchContainer d-flex align-items-center">
           <input
@@ -99,7 +99,7 @@
           />
         </div>
       </div>
-      <div class="rightPart col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+      <div class="rightPart col-xl-12 col-xxl-4">
         <h2 class="rightPartTitle">Seçimleriniz</h2>
         <RightPart
           v-for="(item, key) in rightPartArr"
