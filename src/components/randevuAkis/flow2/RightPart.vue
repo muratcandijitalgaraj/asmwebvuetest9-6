@@ -1,16 +1,26 @@
 <template>
-  <div class="main d-flex flex-row justify-content-start align-items-center">
-    <img src="" alt="" class="logo" />
+  <div
+    @click="foo"
+    class="main d-flex flex-row justify-content-start align-items-center"
+  >
+    <img :src="logo" alt="" class="logo" />
     <div class="title">{{ title }}:</div>
     <div class="name">{{ name }}</div>
   </div>
 </template>
 
 <script setup>
+import clinic from "../../../assets/img/randevuAkis/clinic.svg";
+import hospital from "../../../assets/img/randevuAkis/hospital.svg";
 const props = defineProps({
   title: { required: true, type: String },
   name: { required: true, type: String },
+  logo: { required: true, type: String },
 });
+
+const foo = () => {
+  console.log(props.logo);
+};
 </script>
 
 <style lang="scss" scoped>

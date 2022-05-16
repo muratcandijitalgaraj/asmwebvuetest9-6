@@ -104,6 +104,7 @@
           :key="key"
           :title="item.title"
           :name="item.name"
+          :logo="item.logo"
         />
       </div>
     </div>
@@ -150,7 +151,11 @@ const getClinicData = (clinicHospitals) => {
   clinicName.value = clinicHospitals.name;
   console.log("doctor data" + doctorData.value[0].id);
   console.log("clinicName.value  => " + clinicName.value);
-  rightPartArr.value.push({ title: "Bölüm", name: clinicName.value });
+  rightPartArr.value.push({
+    title: "Bölüm",
+    name: clinicName.value,
+    logo: "clinic",
+  });
 };
 // let filterDoctors2 = ref();
 const filterDoctorsFunction = () => {
@@ -192,7 +197,11 @@ const getClinicHospitalsList = (clinicHospital) => {
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
-  rightPartArr.value.push({ title: "Hastane", name: clinicHospitalName.value });
+  rightPartArr.value.push({
+    title: "Hastane",
+    name: clinicHospitalName.value,
+    logo: "hospital",
+  });
 };
 
 let isActive = ref(false);
