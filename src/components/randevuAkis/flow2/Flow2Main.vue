@@ -99,7 +99,13 @@
       </div>
       <div class="rightPart">
         <h2 class="rightPartTitle" @click="foo">Seçimleriniz</h2>
-        <RightPart v-for="(item, key) in rightPartArr" :key="key" />
+        <RightPart
+          v-for="(item, key) in rightPartArr"
+          :key="key"
+          :title="item.title"
+          :name="item.name"
+        />
+        />
       </div>
     </div>
   </div>

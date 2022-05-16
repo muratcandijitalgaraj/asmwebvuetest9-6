@@ -22,7 +22,7 @@ const props = defineProps({
   padding: 15px 17px;
   gap: 10px;
 
-  width: 311px;
+  width: auto;
   height: 48px;
 
   background: #ffffff;
