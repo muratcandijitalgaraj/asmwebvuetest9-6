@@ -56,6 +56,20 @@
               <div class="title">{{ item.name }}</div>
             </div>
           </div>
+          <!-- end of hospitalclinics div -->
+          <div class="clinicDoctors" v-if="hospitalFlow.showHospitalDoctors">
+            <DoctorBox
+              v-for="(item, key) in searchFilteredDoctorsFunction"
+              :key="key"
+              :title="item.fullName"
+              :subTitle="item.departments[0].name"
+              :data="item.id"
+              :dropdownData="item.departments[0].tenants"
+              :modalData="item.departments"
+              v-model="appointmentType"
+            />
+            <!-- <div @click="filterDoctorsFunction">click me</div> -->
+          </div>
         </div>
         <!-- Bölüm list -->
         <div class="overflow" v-if="displayHandler == 1">
@@ -163,6 +177,8 @@ const hospitalFlow = reactive({
   showHospitalList: true,
   chosenHospital: "",
   filteredClinics: [],
+  chosenClinic: "",
+  showHospitalDoctors: false,
 });
 //filtered
 const filteredDoctors = ref([]);
@@ -178,6 +194,10 @@ const getHospitalData = (item) => {
 };
 const getHospitalClinics = (item) => {
   console.log("check this" + item);
+  hospitalFlow.chosenClinic = item.name;
+  hospitalFlow.showHospitalDoctors = true;
+  hospitalFlow.showHospitalClinics = false;
+  filterDoctorsFunction();
 };
 
 const getClinicData = (clinicHospitals) => {
@@ -201,8 +221,14 @@ const filterDoctorsFunction = () => {
   let j;
   const filterDoctors1 = doctorData.value.filter((e) => {
     for (i = 0, j = e.departments.length; i < j; i++) {
-      if (e.departments[i].name == clinicName.value) {
-        return e;
+      if (displayHandler.value == 1) {
+        if (e.departments[i].name === clinicName.value) {
+          return e;
+        }
+      } else if (displayHandler.value == 3) {
+        if (e.departments[i].name === hospitalFlow.chosenClinic) {
+          return e;
+        }
       }
     }
   });
@@ -210,7 +236,16 @@ const filterDoctorsFunction = () => {
   const filterDoctors2 = filterDoctors1.filter((e) => {
     for (i = 0; i < e.departments.length; i++) {
       for (j = 0; j < e.departments[i].tenants.length; j++) {
-        if (e.departments[i].tenants[j].name == clinicHospitalName.value) {
+        if (displayHandler.value == 1) {
+          if (e.departments[i].tenants[j].name === clinicHospitalName.value) {
+            return e;
+          }
+        } else if (displayHandler.value == 3) {
+          if (
+            e.departments[i].tenants[j].name === hospitalFlow.chosenHospital
+          ) {
+            return e;
+          }
           return e;
         }
       }
@@ -226,6 +261,10 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
+// //will be almost the exact copy of the above function. Will change these when I prettify the code
+// const filterDoctorsForHospitalsFunction=()=>{
+
+// }
 const tryout2 = ref();
 //filtered clinics function
 const filteredClinics = () => {
