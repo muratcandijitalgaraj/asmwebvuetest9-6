@@ -45,10 +45,10 @@
             </div>
           </div>
           <!-- end of showHospitalList div -->
-          <div class="hospitalClinics" v-if="hospitalFlow.filteredClinics">
+          <div class="hospitalClinics" v-if="hospitalFlow.showHospitalClinics">
             <div
               @click="getHospitalClinics(item)"
-              v-for="(item, key) in hospitalFlow.filteredClinics"
+              v-for="(item, key) in searchclinicHospitalsList"
               :key="key"
               :name="item.name"
               class="whiteBox d-flex align-items-center"
@@ -388,6 +388,12 @@ const searchDoctorsFunction = computed(() => {
 const searchFilteredDoctorsFunction = computed(() => {
   return filteredDoctors.value.filter((e) => {
     return e.fullName.toLowerCase().match(search.value);
+  });
+});
+//search hospital flow
+const searchclinicHospitalsList = computed(() => {
+  return hospitalFlow.filteredClinics.filter((e) => {
+    return e.name.toLowerCase().match(search.value);
   });
 });
 
