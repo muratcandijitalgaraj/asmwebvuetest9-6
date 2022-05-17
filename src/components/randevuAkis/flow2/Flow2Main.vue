@@ -13,9 +13,11 @@
     <div
       class="body d-flex flex-column-reverse flex-xxl-row justify-content-center justify-content-lg-between align-items-start"
     >
-      <div class="bodyContainer col-xl-12 col-xxl-6">
+      <div class="bodyContainer col-10 col-xxl-6">
         <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
-        <div class="searchContainer d-flex align-items-center">
+        <div
+          class="searchContainer col-10 col-lg-12 col-xxl-6 d-flex align-items-center"
+        >
           <input
             v-model="search"
             class="searchInput"
@@ -370,7 +372,7 @@ onMounted(() => {
 }
 .searchContainer {
   // max-width: 500px;
-  width: 500px;
+  // width: 500px;
   height: 48px;
   background: #ffffff;
 
@@ -382,7 +384,7 @@ onMounted(() => {
   margin-bottom: 2rem;
 }
 .searchInput {
-  width: 90%;
+  // width: 90%;
   height: 100%;
   border: none;
 }
@@ -434,7 +436,7 @@ onMounted(() => {
 }
 @media only screen and (max-width: 1400px) {
   .rightPart {
-    // margin-left: 30px;
+    margin-left: 30px;
     // margin-right: 30px;
   }
 }
