@@ -171,6 +171,7 @@ const showClinicDoctors = ref(false);
 const clinicHospitalsList = ref();
 const clinicHospitalName = ref();
 const clinicName = ref();
+const clinicId = ref();
 //reactive object for hospital flow in terms of creating v-if functionalities
 const hospitalFlow = reactive({
   showHospitalClinics: false,
@@ -179,6 +180,8 @@ const hospitalFlow = reactive({
   filteredClinics: [],
   chosenClinic: "",
   showHospitalDoctors: false,
+  clinicId: "",
+  hospitalId: "",
 });
 //filtered
 const filteredDoctors = ref([]);
@@ -200,13 +203,15 @@ const getHospitalClinics = (item) => {
   filterDoctorsFunction();
 };
 
-const getClinicData = (clinicHospitals) => {
-  console.log(clinicHospitals.tenants);
+const getClinicData = (item) => {
+  console.log(item.tenants);
   showBolum.value = false;
   showClinicHospitals.value = true;
-  clinicHospitalsList.value = clinicHospitals.tenants;
-  console.log(clinicHospitals.name);
-  clinicName.value = clinicHospitals.name;
+  clinicHospitalsList.value = item.tenants;
+  console.log(item.name);
+  clinicName.value = item.name;
+  clinicId.value = item.id;
+  console.log("id=>" + item.id);
   console.log("doctor data" + doctorData.value[0].id);
   console.log("clinicName.value  => " + clinicName.value);
   rightPartArr.value.push({
@@ -222,7 +227,7 @@ const filterDoctorsFunction = () => {
   const filterDoctors1 = doctorData.value.filter((e) => {
     for (i = 0, j = e.departments.length; i < j; i++) {
       if (displayHandler.value == 1) {
-        if (e.departments[i].name === clinicName.value) {
+        if (e.departments[i].departmentId === clinicId.value) {
           return e;
         }
       } else if (displayHandler.value == 3) {
@@ -265,28 +270,6 @@ const filterDoctorsFunction = () => {
 // const filterDoctorsForHospitalsFunction=()=>{
 
 // }
-const tryout2 = ref();
-//filtered clinics function
-const filteredClinics = () => {
-  let i;
-  let j;
-  const filterClinics1 = clinicData.value.filter((e) => {
-    for (j = 0; j < e.tenants.length; j++) {
-      if (e.tenants[j].name == hospitalFlow.chosenHospital) {
-        return e;
-      }
-    }
-  });
-  console.log("chosen" + hospitalFlow.chosenHospital);
-  console.log(clinicData.value);
-  console.log(filterClinics1);
-  hospitalFlow.filteredClinics = filterClinics1;
-  tryout2.value = filterClinics1;
-  console.log("try" + tryout2.value);
-  console.log("look" + hospitalFlow.filteredClinics);
-  hospitalFlow.showHospitalList = false;
-  hospitalFlow.showHospitalClinics = true;
-};
 
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
