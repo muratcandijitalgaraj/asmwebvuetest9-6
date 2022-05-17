@@ -32,13 +32,32 @@
         </div>
         <!-- Hastane list -->
         <div class="overflow" v-if="displayHandler == 3">
+          <!-- using reactive object heretoafter -->
+          <div v-if="hospitalFlow.showHospitalList">
+            <div
+              @click="getHospitalData(item)"
+              v-for="(item, key) in searchFunction"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
+          </div>
+          <!-- end of showHospitalList div -->
           <div
-            v-for="(item, key) in searchFunction"
-            :key="key"
-            :name="item.name"
-            class="whiteBox d-flex align-items-center"
+            class="hospitalClinics"
+            v-if="hospitalFlow.showHospitalClinicList"
           >
-            <div class="title">{{ item.name }}</div>
+            <div
+              @click="getHospitalClinics(item)"
+              v-for="(item, key) in hospitalFlow.filteredClinics"
+              :key="key"
+              :name="item.name"
+              class="whiteBox d-flex align-items-center"
+            >
+              <div class="title">{{ item.name }}</div>
+            </div>
           </div>
         </div>
         <!-- Bölüm list -->
@@ -116,7 +135,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, watch, computed, reactive } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
 import ChoiceBox from "./ChoiceBox.vue";
@@ -129,7 +148,7 @@ const search = ref("");
 //this is the data for all, if you want to use it
 const data = ref([]);
 //individual data refs
-const clinicData = ref();
+const clinicData = ref([]);
 const doctorData = ref([]);
 const hospitalData = ref();
 const displayHandler = ref(3);
@@ -141,10 +160,28 @@ const showClinicDoctors = ref(false);
 const clinicHospitalsList = ref();
 const clinicHospitalName = ref();
 const clinicName = ref();
+//reactive object for hospital flow in terms of creating v-if functionalities
+const hospitalFlow = reactive({
+  showHospitalClinics: false,
+  showHospitalList: true,
+  chosenHospital: "",
+  filteredClinics: [],
+});
 //filtered
 const filteredDoctors = ref([]);
 //right part array
 const rightPartArr = ref([]);
+
+const getHospitalData = (item) => {
+  console.log(item.name);
+  console.log(item);
+  hospitalFlow.chosenHospital = item.name;
+  filteredClinics();
+  console.log(data.value);
+};
+const getHospitalClinics = (item) => {
+  console.log("check this" + item);
+};
 
 const getClinicData = (clinicHospitals) => {
   console.log(clinicHospitals.tenants);
@@ -167,7 +204,7 @@ const filterDoctorsFunction = () => {
   let j;
   const filterDoctors1 = doctorData.value.filter((e) => {
     for (i = 0, j = e.departments.length; i < j; i++) {
-      if (e.departments[i].name === clinicName.value) {
+      if (e.departments[i].name == clinicName.value) {
         return e;
       }
     }
@@ -183,7 +220,7 @@ const filterDoctorsFunction = () => {
     }
   });
 
-  filteredDoctors.value = filterDoctors1;
+  filteredDoctors.value = filterDoctors2;
 
   console.log(filteredDoctors.value);
   console.log(JSON.stringify(filteredDoctors.value));
@@ -191,6 +228,27 @@ const filterDoctorsFunction = () => {
   console.log(filteredDoctors.value[0].name);
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
+};
+
+//filtered clinics function
+const filteredClinics = () => {
+  let i;
+  let j;
+  const filterClinics1 = clinicData.value.filter((e) => {
+    for (i = 0; i < e.length; i++) {
+      for (j = 0; j < e[i].tenants.length; j++) {
+        if (e[i].tenants[j].name == hospitalFlow.chosenHospital) {
+          return e;
+        }
+      }
+    }
+  });
+  console.log("chosen" + hospitalFlow.chosenHospital);
+  console.log(clinicData.value);
+  console.log(filterClinics1);
+  hospitalFlow.filteredClinics = filterClinics1;
+  // hospitalFlow.showHospitalList = false;
+  // hospitalFlow.showHospitalClinics = true;
 };
 
 const getClinicHospitalsList = (clinicHospital) => {
@@ -266,7 +324,9 @@ const showHospitals = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items[4].tenants;
-    console.log(JSON.stringify(res.data.items));
+    //add clinicData here for the flow
+    clinicData.value = res.data.items;
+    // console.log(JSON.stringify(res.data.items));
     console.log(res.data.items);
   } catch (error) {
     console.log(error);
