@@ -45,10 +45,7 @@
             </div>
           </div>
           <!-- end of showHospitalList div -->
-          <div
-            class="hospitalClinics"
-            v-if="hospitalFlow.showHospitalClinicList"
-          >
+          <div class="hospitalClinics" v-if="hospitalFlow.filteredClinics">
             <div
               @click="getHospitalClinics(item)"
               v-for="(item, key) in hospitalFlow.filteredClinics"
@@ -148,7 +145,7 @@ const search = ref("");
 //this is the data for all, if you want to use it
 const data = ref([]);
 //individual data refs
-const clinicData = ref([]);
+const clinicData = ref();
 const doctorData = ref([]);
 const hospitalData = ref();
 const displayHandler = ref(3);
@@ -176,8 +173,8 @@ const getHospitalData = (item) => {
   console.log(item.name);
   console.log(item);
   hospitalFlow.chosenHospital = item.name;
-  filteredClinics();
   console.log(data.value);
+  filteredClinics();
 };
 const getHospitalClinics = (item) => {
   console.log("check this" + item);
@@ -229,17 +226,15 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
-
+const tryout2 = ref();
 //filtered clinics function
 const filteredClinics = () => {
   let i;
   let j;
   const filterClinics1 = clinicData.value.filter((e) => {
-    for (i = 0; i < e.length; i++) {
-      for (j = 0; j < e[i].tenants.length; j++) {
-        if (e[i].tenants[j].name == hospitalFlow.chosenHospital) {
-          return e;
-        }
+    for (j = 0; j < e.tenants.length; j++) {
+      if (e.tenants[j].name == hospitalFlow.chosenHospital) {
+        return e;
       }
     }
   });
@@ -247,8 +242,11 @@ const filteredClinics = () => {
   console.log(clinicData.value);
   console.log(filterClinics1);
   hospitalFlow.filteredClinics = filterClinics1;
-  // hospitalFlow.showHospitalList = false;
-  // hospitalFlow.showHospitalClinics = true;
+  tryout2.value = filterClinics1;
+  console.log("try" + tryout2.value);
+  console.log("look" + hospitalFlow.filteredClinics);
+  hospitalFlow.showHospitalList = false;
+  hospitalFlow.showHospitalClinics = true;
 };
 
 const getClinicHospitalsList = (clinicHospital) => {
