@@ -198,6 +198,7 @@ const getHospitalData = (item) => {
 const getHospitalClinics = (item) => {
   console.log("check this" + item);
   hospitalFlow.chosenClinic = item.name;
+  hospitalFlow.hospitalId = item.id;
   hospitalFlow.showHospitalDoctors = true;
   hospitalFlow.showHospitalClinics = false;
   filterDoctorsFunction();
@@ -228,21 +229,28 @@ const filterDoctorsFunction = () => {
     for (i = 0, j = e.departments.length; i < j; i++) {
       if (displayHandler.value == 1) {
         if (e.departments[i].departmentId === clinicId.value) {
+          console.log(
+            "filterdoctors ONE department ID=> " + e.departments[i].departmentId
+          );
+          console.log(clinicId.value);
           return e;
         }
       } else if (displayHandler.value == 3) {
-        if (e.departments[i].name === hospitalFlow.chosenClinic) {
+        if (e.departments[i].departmentId === hospitalFlow.hospitalId) {
           return e;
         }
       }
     }
   });
-
+  //this one filters hospital names like gebze, ataşehir
   const filterDoctors2 = filterDoctors1.filter((e) => {
     for (i = 0; i < e.departments.length; i++) {
       for (j = 0; j < e.departments[i].tenants.length; j++) {
         if (displayHandler.value == 1) {
           if (e.departments[i].tenants[j].name === clinicHospitalName.value) {
+            console.log(
+              "this is clinic hospital name" + clinicHospitalName.value
+            );
             return e;
           }
         } else if (displayHandler.value == 3) {
@@ -260,17 +268,32 @@ const filterDoctorsFunction = () => {
   filteredDoctors.value = filterDoctors2;
 
   console.log(filteredDoctors.value);
-  console.log(JSON.stringify(filteredDoctors.value));
+  // console.log(JSON.stringify(filteredDoctors.value));
   // I think filteredDoctors.value is what I'm looking for
   console.log(filteredDoctors.value[0].name);
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
-// //will be almost the exact copy of the above function. Will change these when I prettify the code
-// const filterDoctorsForHospitalsFunction=()=>{
 
-// }
-
+//filtered clinics function
+const filteredClinics = () => {
+  let i;
+  let j;
+  const filterClinics1 = clinicData.value.filter((e) => {
+    for (j = 0; j < e.tenants.length; j++) {
+      if (e.tenants[j].name == hospitalFlow.chosenHospital) {
+        return e;
+      }
+    }
+  });
+  console.log("chosen" + hospitalFlow.chosenHospital);
+  console.log(clinicData.value);
+  console.log(filterClinics1);
+  hospitalFlow.filteredClinics = filterClinics1;
+  // console.log("look" + hospitalFlow.filteredClinics);
+  hospitalFlow.showHospitalList = false;
+  hospitalFlow.showHospitalClinics = true;
+};
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
   showClinicHospitals.value = false;
