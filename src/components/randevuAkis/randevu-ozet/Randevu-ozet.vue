@@ -22,6 +22,18 @@
         :text="item.text"
         :boldText="item.boldText"
       />
+      <div class="noteBtnContainer d-flex justify-content-center">
+        <button class="noteBtn">
+          <div class="noteBtnText">
+            Hekiminize iletmek istediğiniz bir not var mı?
+          </div>
+        </button>
+      </div>
+      <div class="btnContainer col-12">
+        <div class="btn">
+          <div class="btnText">Tamamla</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -117,5 +129,55 @@ const data = ref([
 .greyLine {
   border: 1px solid #f3f3f3;
   margin-top: 1.5rem;
+}
+.noteBtnContainer {
+  margin-bottom: 3rem;
+}
+.noteBtn {
+  height: 50px;
+  background: white;
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  border-radius: 10px;
+  border: 1px solid #2e95df;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+.noteBtnText {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 130%;
+
+  /* or 18px */
+  text-align: center;
+
+  /* Button Secondary */
+  color: #2e95df;
+}
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px 11px;
+  gap: 10px;
+
+  width: 875px;
+  height: 50px;
+
+  /* Turuncu */
+  background: #ff8038;
+  border-radius: 6px;
+}
+.btnText {
+  /* buton-text-orta */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 110%;
+
+  /* Beyaz */
+  color: #ffffff;
 }
 </style>
