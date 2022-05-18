@@ -15,13 +15,44 @@
         </div>
       </div>
       <div class="greyLine"></div>
+      <Card
+        v-for="(item, index) in data"
+        :key="index"
+        :logo="item.logo"
+        :text="item.text"
+        :boldText="item.boldText"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
 import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
+import user from "../../../assets/img/randevuAkis/ozet-user.svg";
+import calendar from "../../../assets/img/randevuAkis/ozet-calendar.svg";
+import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
+
+import Card from "./Card.vue";
+
+const data = ref([
+  {
+    logo: user,
+    text: "Kim için",
+    boldText: "Mehmet Balkan",
+  },
+  {
+    logo: calendar,
+    text: "Tarih",
+    boldText: "14 Ağustos 2020 - Pazartesi 15:30",
+  },
+  {
+    logo: hospital,
+    text: "Randevu Türü",
+    boldText: "Ataşehir Tıp Merkezi",
+  },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -70,6 +101,7 @@ import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
   color: #3c4e69;
 }
 .text {
+  /* text3 */
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 400;
@@ -79,8 +111,8 @@ import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
   /* identical to box height, or 21px */
   letter-spacing: -0.01em;
 
-  /* Primary */
-  color: #3c4e69;
+  /* Gri */
+  color: #818b9a;
 }
 .greyLine {
   border: 1px solid #f3f3f3;

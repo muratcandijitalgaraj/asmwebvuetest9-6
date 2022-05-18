@@ -1,7 +1,9 @@
 <template>
-  <div class="card">
-    <img :src="logo" alt="" class="logo" />
-    <div class="textGroup">
+  <div class="card d-flex flex-row justify-content-start align-items-center">
+    <img v-bind:src="logo" alt="" class="logo" />
+    <div
+      class="textGroup d-flex flex-column justify-content-center align-items-start"
+    >
       <div class="text">{{ text }}</div>
       <div class="boldText">{{ boldText }}</div>
     </div>
@@ -10,10 +12,6 @@
 </template>
 
 <script setup>
-import user from "../../../assets/img/randevuAkis/ozet-user.svg";
-import calendar from "../../../assets/img/randevuAkis/ozet-calendar.svg";
-import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
-
 const props = defineProps({
   logo: { required: true, type: String },
   text: { required: true, type: String },
@@ -22,8 +20,12 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+.card {
+  background: #ffffff;
+}
 .logo {
   margin-right: 1rem;
+  //   width: 20px;
 }
 .boldText {
   /* baslik4 */
