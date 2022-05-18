@@ -1,11 +1,13 @@
 <template>
   <div class="main">
-    <!-- <img :src="clouds" alt="" class="clouds" /> -->
     <!-- add clouds -->
     <div class="container">
       <div class="jumbotron d-flex justify-content-center align-items-center">
-        <img class="bigLogo" :src="bigLogo" alt="" />
-        <div class="bigTitle">Randevunuz başarı ile oluşturuldu.</div>
+        <img :src="clouds" alt="" class="clouds" />
+        <div class="jumbotronTitle">
+          <img class="bigLogo" :src="bigLogo" alt="" />
+          <div class="bigTitle">Randevunuz başarı ile oluşturuldu.</div>
+        </div>
       </div>
       <div class="whiteGround">
         <div class="doctorBox d-flex justify-content-start align-items-center">
@@ -79,6 +81,10 @@ const data = ref([
 .jumbotron {
   position: relative;
   z-index: 2;
+}
+.jumbotronTitle {
+  position: relative;
+  z-index: 1;
 }
 .bigLogo {
   margin-right: 2rem;
@@ -197,16 +203,19 @@ const data = ref([
   color: #ffffff;
 }
 .clouds {
-  position: relative;
-  top: 1rem;
+  position: absolute;
   z-index: 0;
-  // border: 2px solid red;
-  margin: 0;
-  width: 100%;
+  //position absolute iken elementi bu şekilde ( bu 3ü ile) ortalarsın
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
-@media only screen and (max-width: 992px) {
-  .clouds {
-    top: 27rem;
-  }
-}
+// @media only screen and (max-width: 992px) {
+//   .clouds {
+//     top: 27rem;
+//   }
+// }
 </style>

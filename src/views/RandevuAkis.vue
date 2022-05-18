@@ -8,8 +8,8 @@
         <!-- <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div> -->
         <!-- <SecimVue /> -->
-        <Flow2MainVue />
-        <!-- <RandevuOzetVue /> -->
+        <!-- <Flow2MainVue /> -->
+        <RandevuOzetVue />
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
