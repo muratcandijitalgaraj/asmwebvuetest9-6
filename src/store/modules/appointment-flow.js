@@ -20,6 +20,9 @@ export default {
         state.section = 3;
       }
     },
+    getUserNote(state, payload) {
+      state.userNote = payload;
+    },
   },
 
   actions: {

@@ -99,6 +99,7 @@
 
 <script setup>
 import { ref } from "vue";
+import store from "../../../store";
 import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
 import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
 import user from "../../../assets/img/randevuAkis/ozet-user.svg";
@@ -111,6 +112,8 @@ const userNote = ref("");
 
 const saveUserInput = () => {
   console.log(userNote.value);
+  store.commit("getUserNote", userNote.value);
+  console.log(store.state.appointmentFlow.userNote);
 };
 
 const data = ref([
