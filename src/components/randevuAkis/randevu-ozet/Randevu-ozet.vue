@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <!-- add clouds -->
     <div class="jumbotron d-flex justify-content-center align-items-center">
       <img class="bigLogo" :src="bigLogo" alt="" />
       <div class="bigTitle">Randevunuz başarı ile oluşturuldu.</div>
@@ -83,8 +84,8 @@ const data = ref([
   color: #3c4e69;
 }
 .whiteGround {
-  width: 915px;
-  height: 563px;
+  width: auto;
+  height: auto;
   background: #ffffff;
   /* Boxx Shadow */
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
@@ -95,6 +96,7 @@ const data = ref([
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .logo {
   margin-right: 1rem;
@@ -134,7 +136,7 @@ const data = ref([
   margin-bottom: 3rem;
 }
 .noteBtn {
-  height: 50px;
+  height: auto;
   background: white;
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   border-radius: 10px;
@@ -154,6 +156,9 @@ const data = ref([
   /* Button Secondary */
   color: #2e95df;
 }
+.btnContainer {
+  // margin-bottom: 2rem;
+}
 .btn {
   display: flex;
   flex-direction: row;
@@ -162,7 +167,7 @@ const data = ref([
   padding: 12px 20px 11px;
   gap: 10px;
 
-  width: 875px;
+  width: 100%;
   height: 50px;
 
   /* Turuncu */
