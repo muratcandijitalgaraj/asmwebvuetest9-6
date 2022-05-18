@@ -70,6 +70,6 @@ onMounted(() => {
   display: none !important;
 }
 .show {
-  display: block !important;
+  display: inherit;
 }
 </style>
