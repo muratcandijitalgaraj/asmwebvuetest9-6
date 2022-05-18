@@ -20,13 +20,15 @@
           </div>
         </div>
         <div class="greyLine"></div>
-        <Card
-          v-for="(item, index) in data"
-          :key="index"
-          :logo="item.logo"
-          :text="item.text"
-          :boldText="item.boldText"
-        />
+        <div :key="componentKey">
+          <Card
+            v-for="(item, index) in data"
+            :key="index"
+            :logo="item.logo"
+            :text="item.text"
+            :boldText="item.boldText"
+          />
+        </div>
         <div
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
@@ -105,15 +107,23 @@ import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
 import user from "../../../assets/img/randevuAkis/ozet-user.svg";
 import calendar from "../../../assets/img/randevuAkis/ozet-calendar.svg";
 import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
+import flash from "../../../assets/img/randevuAkis/flash.svg";
 import clouds from "../../../assets/img/randevuAkis/clouds.svg";
 import Card from "./Card.vue";
 
 const userNote = ref("");
+const componentKey = ref(false);
 
 const saveUserInput = () => {
   console.log(userNote.value);
-  store.commit("getUserNote", userNote.value);
-  console.log(store.state.appointmentFlow.userNote);
+  data.value.push({
+    logo: flash,
+    text: "Şikayet",
+    boldText: userNote.value,
+  });
+  // store.commit("getUserNote", userNote.value);
+  // console.log(store.state.appointmentFlow.userNote);
+  componentKey.value = true;
 };
 
 const data = ref([
