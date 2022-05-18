@@ -1,7 +1,7 @@
 <template>
   <div class="middlePartComponent">
     <div class="container">
-      <form class="welcomePart">
+      <form class="welcomePart" @submit="false">
         <div class="hosgeldiniz">Hoşgeldiniz</div>
         <div class="giris">Giriş Yapın</div>
         <div class="telContainer d-flex align-items-start">
