@@ -56,9 +56,11 @@
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content noteSection">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">
+                <div class="noteTitle">Notunuzu Yazın</div>
+              </h5>
               <button
                 type="button"
                 class="btn-close"
@@ -66,18 +68,22 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
+            <div class="modal-body">
+              <input
+                placeholder="Notunuzu buraya yazabilirsiniz"
+                type="text"
+                class="noteWhiteBoard"
+              />
+              <div
                 data-bs-dismiss="modal"
+                class="noteButtonContainer d-flex justify-content-center align-items-center"
               >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
+                <div
+                  class="noteButton d-flex justify-content-center align-items-center"
+                >
+                  <div class="noteButtonText">Kaydet</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -260,4 +266,66 @@ const data = ref([
 //     top: 27rem;
 //   }
 // }
+//modal starts here
+.modal-header {
+  border: none;
+}
+.noteSection {
+  width: 520px;
+  height: 610px;
+  padding: 1.5rem;
+  background: #e9f3f9;
+  border-radius: 16px;
+}
+.noteTitle {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+
+  /* identical to box height, or 26px */
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  /* Primary */
+  color: #3c4e69;
+}
+.noteWhiteBoard {
+  width: 100%;
+  height: 80%;
+}
+::placeholder {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
+
+  /* identical to box height, or 21px */
+
+  /* menu off */
+  color: #a4abb6;
+}
+.noteButtonContainer {
+  margin-top: 1.5rem;
+}
+.noteButton {
+  background: #ff7c32;
+  border-radius: 6px;
+  height: 50px;
+  width: 100%;
+}
+.noteButtonText {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 130%;
+
+  /* identical to box height, or 21px */
+  text-align: center;
+
+  /* Beyaz */
+  color: #ffffff;
+}
 </style>

@@ -1,19 +1,19 @@
 <template>
-  <div class="main">
+  <div class="noteSection">
     <div class="topPart d-flex justify-content-between align-items-center">
-      <div class="title">Notunuzu Yazın</div>
+      <div class="noteTitle">Notunuzu Yazın</div>
       <img src="" alt="" class="closeButton" />
     </div>
     <input
       placeholder="Notunuzu buraya yazabilirsiniz"
       type="text"
-      class="whiteBoard"
+      class="noteWhiteBoard"
     />
     <div
-      class="buttonContainer d-flex justify-content-center align-items-center"
+      class="noteButtonContainer d-flex justify-content-center align-items-center"
     >
-      <div class="button d-flex justify-content-center align-items-center">
-        <div class="buttonText">Kaydet</div>
+      <div class="noteButton d-flex justify-content-center align-items-center">
+        <div data-bs-dismiss="modal" class="noteButtonText">Kaydet</div>
       </div>
     </div>
   </div>
@@ -22,14 +22,14 @@
 <script setup></script>
 
 <style lang="scss" scoped>
-.main {
+.noteSection {
   width: 520px;
   height: 610px;
   padding: 1.5rem;
   background: #e9f3f9;
   border-radius: 16px;
 }
-.title {
+.noteTitle {
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 700;
@@ -42,7 +42,7 @@
   /* Primary */
   color: #3c4e69;
 }
-.whiteBoard {
+.noteWhiteBoard {
   width: 100%;
   height: 80%;
 }
@@ -59,15 +59,15 @@
   /* menu off */
   color: #a4abb6;
 }
-.buttonContainer {
+.noteButtonContainer {
 }
-.button {
+.noteButton {
   background: #ff7c32;
   border-radius: 6px;
   height: 50px;
   width: 100%;
 }
-.buttonText {
+.noteButtonText {
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
