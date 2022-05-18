@@ -5,10 +5,11 @@
     <template v-slot:section>
       <!-- your code comes here -->
       <div class="zemin col-md-12 col-lg-8 col-xl-8 col-xxl-9">
-        <h2 class="bigTitle">Randevu Alın</h2>
-        <div class="greyLine"></div>
+        <!-- <h2 class="bigTitle">Randevu Alın</h2>
+        <div class="greyLine"></div> -->
         <!-- <SecimVue /> -->
-        <Flow2MainVue />
+        <!-- <Flow2MainVue /> -->
+        <RandevuOzetVue />
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
@@ -18,6 +19,7 @@
 <script setup>
 import SecimVue from "../components/randevuAkis/Secim.vue";
 import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
+import RandevuOzetVue from "../components/randevuAkis/Randevu-ozet.vue";
 </script>
 
 <style lang="scss" scoped>
