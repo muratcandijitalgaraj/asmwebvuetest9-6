@@ -69,11 +69,14 @@
               ></button>
             </div>
             <div class="modal-body">
-              <input
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="10"
                 placeholder="Notunuzu buraya yazabilirsiniz"
-                type="text"
                 class="noteWhiteBoard"
-              />
+              ></textarea>
               <div
                 data-bs-dismiss="modal"
                 class="noteButtonContainer d-flex justify-content-center align-items-center"
