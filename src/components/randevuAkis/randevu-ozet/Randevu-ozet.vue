@@ -116,14 +116,10 @@ const componentKey = ref(false);
 
 const saveUserInput = () => {
   console.log(userNote.value);
-  data.value.push({
-    logo: flash,
-    text: "Şikayet",
-    boldText: userNote.value,
-  });
+  data.value[3].boldText = userNote.value;
   // store.commit("getUserNote", userNote.value);
   // console.log(store.state.appointmentFlow.userNote);
-  componentKey.value = true;
+  // componentKey.value = true;
 };
 
 const data = ref([
@@ -141,6 +137,11 @@ const data = ref([
     logo: hospital,
     text: "Randevu Türü",
     boldText: "Ataşehir Tıp Merkezi",
+  },
+  {
+    logo: flash,
+    text: "Şikayet",
+    boldText: "",
   },
 ]);
 </script>
