@@ -27,6 +27,7 @@
             :logo="item.logo"
             :text="item.text"
             :boldText="item.boldText"
+            :handleDisplay="item.handleDisplay"
           />
         </div>
         <div
@@ -117,6 +118,7 @@ const componentKey = ref(false);
 const saveUserInput = () => {
   console.log(userNote.value);
   data.value[3].boldText = userNote.value;
+  data.value[3].handleDisplay = "show";
   // store.commit("getUserNote", userNote.value);
   // console.log(store.state.appointmentFlow.userNote);
   // componentKey.value = true;
@@ -142,6 +144,7 @@ const data = ref([
     logo: flash,
     text: "Şikayet",
     boldText: "",
+    handleDisplay: "hide",
   },
 ]);
 </script>

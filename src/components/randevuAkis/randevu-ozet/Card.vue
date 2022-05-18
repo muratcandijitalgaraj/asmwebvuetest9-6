@@ -1,5 +1,8 @@
 <template>
-  <div class="card d-flex flex-row justify-content-start align-items-center">
+  <div
+    :class="handleDisplay"
+    class="card d-flex flex-row justify-content-start align-items-center"
+  >
     <img v-bind:src="logo" alt="" class="logo" />
     <div
       class="textGroup d-flex flex-column justify-content-center align-items-start"
@@ -12,10 +15,16 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 const props = defineProps({
   logo: { required: true, type: String },
   text: { required: true, type: String },
   boldText: { required: true, type: String },
+  handleDisplay: { required: true, type: String },
+});
+
+onMounted(() => {
+  console.log(props.handleDisplay);
 });
 </script>
 
@@ -56,5 +65,11 @@ const props = defineProps({
 .greyLine {
   border: 1px solid #f3f3f3;
   margin-top: 1.5rem;
+}
+.hide {
+  display: none !important;
+}
+.show {
+  display: block !important;
 }
 </style>
