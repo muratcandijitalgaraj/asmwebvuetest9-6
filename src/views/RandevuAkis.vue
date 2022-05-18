@@ -19,7 +19,7 @@
 <script setup>
 import SecimVue from "../components/randevuAkis/Secim.vue";
 import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
-import RandevuOzetVue from "../components/randevuAkis/Randevu-ozet.vue";
+import RandevuOzetVue from "../components/randevuAkis/randevu-ozet/Randevu-ozet.vue";
 </script>
 
 <style lang="scss" scoped>

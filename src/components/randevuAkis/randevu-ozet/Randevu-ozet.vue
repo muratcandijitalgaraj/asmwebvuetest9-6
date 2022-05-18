@@ -14,13 +14,14 @@
           <div class="text">Göğüs Hastalıkları</div>
         </div>
       </div>
+      <div class="greyLine"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import bigLogo from "../../assets/img/randevuAkis/tick-circle.svg";
-import doctorImg from "../../assets/img/randevuAkis/doktor.svg";
+import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
+import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
 </script>
 
 <style lang="scss" scoped>
@@ -49,6 +50,7 @@ import doctorImg from "../../assets/img/randevuAkis/doktor.svg";
   margin-top: 2rem;
   margin-left: 1.5rem;
   padding-left: 2rem;
+  padding-right: 2rem;
   padding-top: 2rem;
 }
 .logo {
@@ -79,5 +81,9 @@ import doctorImg from "../../assets/img/randevuAkis/doktor.svg";
 
   /* Primary */
   color: #3c4e69;
+}
+.greyLine {
+  border: 1px solid #f3f3f3;
+  margin-top: 1.5rem;
 }
 </style>
