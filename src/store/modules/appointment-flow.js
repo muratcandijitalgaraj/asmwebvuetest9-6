@@ -8,6 +8,7 @@ export default {
   namespaced: true,
 
   state: { section: 3 },
+  userNote: "",
 
   mutations: {
     switchContent(state, payload) {

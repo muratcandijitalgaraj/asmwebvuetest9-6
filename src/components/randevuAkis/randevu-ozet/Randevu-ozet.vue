@@ -27,13 +27,13 @@
           :text="item.text"
           :boldText="item.boldText"
         />
-        <div class="noteBtnContainer d-flex justify-content-center">
+        <div
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="noteBtnContainer d-flex justify-content-center"
+        >
           <button class="noteBtn">
-            <div
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              class="noteBtnText"
-            >
+            <div class="noteBtnText">
               Hekiminize iletmek istediğiniz bir not var mı?
             </div>
           </button>
@@ -76,9 +76,11 @@
                 rows="10"
                 placeholder="Notunuzu buraya yazabilirsiniz"
                 class="noteWhiteBoard"
+                v-model="userNote"
               ></textarea>
               <div
                 data-bs-dismiss="modal"
+                @click="saveUserInput"
                 class="noteButtonContainer d-flex justify-content-center align-items-center"
               >
                 <div
@@ -103,8 +105,13 @@ import user from "../../../assets/img/randevuAkis/ozet-user.svg";
 import calendar from "../../../assets/img/randevuAkis/ozet-calendar.svg";
 import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
 import clouds from "../../../assets/img/randevuAkis/clouds.svg";
-
 import Card from "./Card.vue";
+
+const userNote = ref("");
+
+const saveUserInput = () => {
+  console.log(userNote.value);
+};
 
 const data = ref([
   {
