@@ -1,38 +1,41 @@
 <template>
   <div class="main">
+    <!-- <img :src="clouds" alt="" class="clouds" /> -->
     <!-- add clouds -->
-    <div class="jumbotron d-flex justify-content-center align-items-center">
-      <img class="bigLogo" :src="bigLogo" alt="" />
-      <div class="bigTitle">Randevunuz başarı ile oluşturuldu.</div>
-    </div>
-    <div class="whiteGround">
-      <div class="doctorBox d-flex justify-content-start align-items-center">
-        <img :src="doctorImg" alt="" class="doctorImg logo" />
-        <div
-          class="textGroup d-flex flex-column justify-content-center align-items-start"
-        >
-          <div class="boldText">Prof. Dr. Mehmet Ali Tahaoğlu</div>
-          <div class="text">Göğüs Hastalıkları</div>
-        </div>
+    <div class="container">
+      <div class="jumbotron d-flex justify-content-center align-items-center">
+        <img class="bigLogo" :src="bigLogo" alt="" />
+        <div class="bigTitle">Randevunuz başarı ile oluşturuldu.</div>
       </div>
-      <div class="greyLine"></div>
-      <Card
-        v-for="(item, index) in data"
-        :key="index"
-        :logo="item.logo"
-        :text="item.text"
-        :boldText="item.boldText"
-      />
-      <div class="noteBtnContainer d-flex justify-content-center">
-        <button class="noteBtn">
-          <div class="noteBtnText">
-            Hekiminize iletmek istediğiniz bir not var mı?
+      <div class="whiteGround">
+        <div class="doctorBox d-flex justify-content-start align-items-center">
+          <img :src="doctorImg" alt="" class="doctorImg logo" />
+          <div
+            class="textGroup d-flex flex-column justify-content-center align-items-start"
+          >
+            <div class="boldText">Prof. Dr. Mehmet Ali Tahaoğlu</div>
+            <div class="text">Göğüs Hastalıkları</div>
           </div>
-        </button>
-      </div>
-      <div class="btnContainer col-12">
-        <div class="btn">
-          <div class="btnText">Tamamla</div>
+        </div>
+        <div class="greyLine"></div>
+        <Card
+          v-for="(item, index) in data"
+          :key="index"
+          :logo="item.logo"
+          :text="item.text"
+          :boldText="item.boldText"
+        />
+        <div class="noteBtnContainer d-flex justify-content-center">
+          <button class="noteBtn">
+            <div class="noteBtnText">
+              Hekiminize iletmek istediğiniz bir not var mı?
+            </div>
+          </button>
+        </div>
+        <div class="btnContainer col-12">
+          <div class="btn">
+            <div class="btnText">Tamamla</div>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +49,7 @@ import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
 import user from "../../../assets/img/randevuAkis/ozet-user.svg";
 import calendar from "../../../assets/img/randevuAkis/ozet-calendar.svg";
 import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
+import clouds from "../../../assets/img/randevuAkis/clouds.svg";
 
 import Card from "./Card.vue";
 
@@ -69,6 +73,13 @@ const data = ref([
 </script>
 
 <style lang="scss" scoped>
+.main {
+  // z-index: 1;
+}
+.jumbotron {
+  position: relative;
+  z-index: 2;
+}
 .bigLogo {
   margin-right: 2rem;
 }
@@ -184,5 +195,18 @@ const data = ref([
 
   /* Beyaz */
   color: #ffffff;
+}
+.clouds {
+  position: relative;
+  top: 1rem;
+  z-index: 0;
+  // border: 2px solid red;
+  margin: 0;
+  width: 100%;
+}
+@media only screen and (max-width: 992px) {
+  .clouds {
+    top: 27rem;
+  }
 }
 </style>
