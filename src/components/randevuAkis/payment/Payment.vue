@@ -28,7 +28,11 @@
             >Kullanıcı sözleşmesini onaylıyorum</label
           >
         </div>
-        <div class="btnContainer col-12">
+        <div
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="btnContainer col-12"
+        >
           <div class="btn">
             <div class="btnText">Ödeme Yap</div>
           </div>
@@ -70,11 +74,50 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <teleport to="body">
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content noteSection">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                <img :src="positiveFrame" alt="" class="positiveFrame" />
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="modalTitle">
+                Ödemeniz başarılı bir şekilde yapıldı ve randevunuz oluşturuldu.
+              </div>
+              <div class="modalBtnContainer d-flex justify-content-center">
+                <div class="modalBtn">
+                  <div class="modalBtnText">Tamamdır</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
 <script setup>
 import odemeLogo from "../../../assets/img/randevuAkis/odemeLogo.svg";
+import positiveFrame from "../../../assets/img/randevuAkis/positiveFrame.svg";
+import negativeFrame from "../../../assets/img/randevuAkis/negativeFrame.svg";
 </script>
 
 <style lang="scss" scoped>
@@ -229,5 +272,62 @@ import odemeLogo from "../../../assets/img/randevuAkis/odemeLogo.svg";
 
   /* Primary */
   color: #3c4e69;
+}
+.modal-dialog {
+}
+.modal-content {
+  background: #e9f3f9;
+  border-radius: 16px;
+  width: 675px;
+  height: auto;
+}
+.modal-header {
+  border: none;
+}
+.modalTitle {
+  /* baslik-alt1 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 130%;
+
+  /* or 34px */
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  /* Primary */
+  color: #3c4e69;
+  margin-top: 23px;
+  margin-bottom: 36px;
+}
+.modalBtnContainer {
+  /* Auto layout */
+  margin-bottom: 40px;
+  width: 100%;
+  height: 50px;
+}
+.modalBtn {
+  width: 300px;
+  height: 50px;
+  padding: 12px 20px 11px;
+  gap: 10px;
+  background: #ff8038;
+  border-radius: 6px;
+}
+.modalBtnText {
+  /* buton-text-orta */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 110%;
+
+  /* identical to box height, or 18px */
+
+  text-align: center;
+
+  /* Beyaz */
+  color: #ffffff;
 }
 </style>
