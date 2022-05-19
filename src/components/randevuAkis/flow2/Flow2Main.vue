@@ -146,6 +146,13 @@
 </template>
 
 <script setup>
+// To DO:
+// doctor flow
+// send the grabbed data to the store
+// change filter function=>
+// it should filter directly from the API, you're making things difficult
+// last child of chosen right part item should have direct corners
+// talk to Gökhan about the serach box's situation
 import { ref, onMounted, watch, computed, reactive } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
