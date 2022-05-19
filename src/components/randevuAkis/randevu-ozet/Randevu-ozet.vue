@@ -15,8 +15,8 @@
           <div
             class="textGroup d-flex flex-column justify-content-center align-items-start"
           >
-            <div class="boldText">Prof. Dr. Mehmet Ali Tahaoğlu</div>
-            <div class="text">Göğüs Hastalıkları</div>
+            <div class="boldText">{{ appointment.doctor }}</div>
+            <div class="text">{{ appointment.department }}</div>
           </div>
         </div>
         <div class="greyLine"></div>
@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount, onMounted, reactive } from "vue";
 import store from "../../../store";
 import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
 import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
@@ -111,6 +111,35 @@ import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
 import flash from "../../../assets/img/randevuAkis/flash.svg";
 import clouds from "../../../assets/img/randevuAkis/clouds.svg";
 import Card from "./Card.vue";
+
+//I imported the followwing from Gökhan's code in appointments
+//I'l make some adjustments
+const appointments = ref([]);
+const individualAppointment = ref([]);
+const appointment = reactive({
+  doctor: "",
+  department: "",
+  date: "",
+  appointmentType: "",
+});
+
+onMounted(() => {
+  store
+    .dispatch("appointmentFlow/getAppointments")
+    .then((res) => {
+      appointments.value = res?.data?.items;
+      individualAppointment.value = res?.data?.items[1];
+      console.log(res.data);
+      console.log(individualAppointment.value);
+      //reactive object here
+      appointment.doctor = res?.data?.items[1].resources[0].resourceName;
+      appointment.department = res?.data?.items[1].resources[0].departmentName;
+      appointment.date = res?.data?.items[1].resources[0].from;
+      appointment.appointmentType = res?.data?.items[1].resources[0].tenantName;
+    })
+    .catch((err) => console.log(err.response));
+});
+//important code ends here
 
 const userNote = ref("");
 const componentKey = ref(false);
@@ -133,12 +162,12 @@ const data = ref([
   {
     logo: calendar,
     text: "Tarih",
-    boldText: "14 Ağustos 2020 - Pazartesi 15:30",
+    boldText: appointment.date,
   },
   {
     logo: hospital,
     text: "Randevu Türü",
-    boldText: "Ataşehir Tıp Merkezi",
+    boldText: appointment.appointmentType,
   },
   {
     logo: flash,

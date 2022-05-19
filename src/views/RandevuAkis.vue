@@ -9,8 +9,8 @@
         <div class="greyLine"></div> -->
         <!-- <SecimVue /> -->
         <!-- <Flow2MainVue /> -->
-        <!-- <RandevuOzetVue /> -->
-        <PaymentVue />
+        <RandevuOzetVue />
+        <!-- <PaymentVue /> -->
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
