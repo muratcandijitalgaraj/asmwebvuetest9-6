@@ -111,6 +111,17 @@ import odemeLogo from "../../../assets/img/randevuAkis/odemeLogo.svg";
   border: none;
   padding-left: 1rem;
   margin-bottom: 20px;
+  /* form-text */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 100%;
+
+  /* identical to box height, or 16px */
+
+  /* Primary */
+  color: #3c4e69;
 }
 ::placeholder {
   /* form-baslik */
