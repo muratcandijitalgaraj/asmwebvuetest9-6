@@ -34,7 +34,7 @@
           class="btnContainer col-12"
         >
           <div class="btn">
-            <div class="btnText">Ödeme Yap</div>
+            <div @click="handleSuccess" class="btnText">Ödeme Yap</div>
           </div>
         </div>
       </div>
@@ -88,7 +88,19 @@
           <div class="modal-content noteSection">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                <img :src="positiveFrame" alt="" class="positiveFrame" />
+                <img
+                  v-if="success"
+                  :src="positiveFrame"
+                  alt=""
+                  class="positiveFrame"
+                />
+                <!-- case failure -->
+                <img
+                  v-if="failure"
+                  :src="negativeFrame"
+                  alt=""
+                  class="positiveFrame"
+                />
               </h5>
               <button
                 type="button"
@@ -98,12 +110,26 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div class="modalTitle">
-                Ödemeniz başarılı bir şekilde yapıldı ve randevunuz oluşturuldu.
+              <div v-if="success" class="caseSuccess">
+                <div class="modalTitle">
+                  Ödemeniz başarılı bir şekilde yapıldı ve randevunuz
+                  oluşturuldu.
+                </div>
+                <div class="modalBtnContainer d-flex justify-content-center">
+                  <div class="modalBtn">
+                    <div class="modalBtnText">Tamamdır</div>
+                  </div>
+                </div>
               </div>
-              <div class="modalBtnContainer d-flex justify-content-center">
-                <div class="modalBtn">
-                  <div class="modalBtnText">Tamamdır</div>
+              <!-- case failure -->
+              <div v-if="failure" class="caseFailure">
+                <div class="modalTitle">
+                  Ödemeniz yapılamadı, lütfen tekrar deneyin.
+                </div>
+                <div class="modalBtnContainer d-flex justify-content-center">
+                  <div class="modalBtn">
+                    <div class="modalBtnText">Tamamdır</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,9 +141,17 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import odemeLogo from "../../../assets/img/randevuAkis/odemeLogo.svg";
 import positiveFrame from "../../../assets/img/randevuAkis/positiveFrame.svg";
 import negativeFrame from "../../../assets/img/randevuAkis/negativeFrame.svg";
+
+const success = ref(true);
+const failure = ref(false);
+
+const handleSuccess = () => {
+  //write a function according to the response from the API
+};
 </script>
 
 <style lang="scss" scoped>
