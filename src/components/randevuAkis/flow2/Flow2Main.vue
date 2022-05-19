@@ -16,7 +16,7 @@
       <div class="bodyContainer col-10 col-xxl-6">
         <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
         <div
-          class="searchContainer col-10 col-lg-12 col-xxl-6 d-flex align-items-center"
+          class="searchContainer d-flex justify-content-between align-items-center"
         >
           <input
             v-model="search"
@@ -516,6 +516,7 @@ onMounted(() => {
   border-radius: 6px;
   margin-bottom: 1rem;
   padding-left: 1rem;
+  border: solid;
 }
 .rightPart {
   margin-top: 30px;
@@ -535,7 +536,7 @@ onMounted(() => {
 }
 
 @media only screen and (max-width: 992px) {
-  .searchContainer,
+  // .searchContainer,
   .whiteBox {
     width: 100%;
   }
