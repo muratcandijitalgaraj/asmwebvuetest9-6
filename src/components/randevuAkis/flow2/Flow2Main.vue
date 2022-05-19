@@ -153,6 +153,8 @@ import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 import RightPart from "./RightPart.vue";
+import clinic from "../../../assets/img/randevuAkis/clinic.svg";
+import hospital from "../../../assets/img/randevuAkis/hospital.svg";
 const appointmentType = ref(0);
 //search variable
 const search = ref("");
@@ -194,6 +196,11 @@ const getHospitalData = (item) => {
   hospitalFlow.chosenHospital = item.name;
   console.log(data.value);
   filteredClinics();
+  rightPartArr.value.push({
+    title: "Hastane",
+    name: hospitalFlow.chosenHospital,
+    logo: hospital,
+  });
 };
 const getHospitalClinics = (item) => {
   console.log("check this" + item);
@@ -202,6 +209,11 @@ const getHospitalClinics = (item) => {
   hospitalFlow.showHospitalDoctors = true;
   hospitalFlow.showHospitalClinics = false;
   filterDoctorsFunction();
+  rightPartArr.value.push({
+    title: "Bölüm",
+    name: hospitalFlow.chosenClinic,
+    logo: clinic,
+  });
 };
 
 const getClinicData = (item) => {
@@ -218,7 +230,7 @@ const getClinicData = (item) => {
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
-    logo: "clinic",
+    logo: clinic,
   });
 };
 // let filterDoctors2 = ref();
@@ -305,7 +317,7 @@ const getClinicHospitalsList = (clinicHospital) => {
   rightPartArr.value.push({
     title: "Hastane",
     name: clinicHospitalName.value,
-    logo: "hospital",
+    logo: hospital,
   });
 };
 
@@ -516,7 +528,6 @@ onMounted(() => {
   border-radius: 6px;
   margin-bottom: 1rem;
   padding-left: 1rem;
-  border: solid;
 }
 .rightPart {
   margin-top: 30px;
