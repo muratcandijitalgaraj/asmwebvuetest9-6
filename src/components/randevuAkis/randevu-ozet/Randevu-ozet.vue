@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted, reactive } from "vue";
+import { ref, onBeforeMount, onMounted, reactive, watch } from "vue";
 import store from "../../../store";
 import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
 import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
@@ -111,6 +111,12 @@ import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
 import flash from "../../../assets/img/randevuAkis/flash.svg";
 import clouds from "../../../assets/img/randevuAkis/clouds.svg";
 import Card from "./Card.vue";
+
+//PROBLEM HERE
+// I get the data, but when I want to pass it via props
+// the data wouldn't show up
+// and I can't change the structure becasue I'm sending the logo and
+// the non-changing titles like Tarih as object values
 
 //I imported the followwing from Gökhan's code in appointments
 //I'l make some adjustments
@@ -122,6 +128,9 @@ const appointment = reactive({
   date: "",
   appointmentType: "",
 });
+
+const appointmentType = ref("");
+const appointmentDate = ref();
 
 onMounted(() => {
   store
@@ -136,10 +145,24 @@ onMounted(() => {
       appointment.department = res?.data?.items[1].resources[0].departmentName;
       appointment.date = res?.data?.items[1].resources[0].from;
       appointment.appointmentType = res?.data?.items[1].resources[0].tenantName;
+      //data array for props
+      data[1].value = res?.data?.items[1].resources[0].from;
+      appointmentType.value = res?.data?.items[1].resources[0].tenantName;
     })
     .catch((err) => console.log(err.response));
 });
-//important code ends here
+//imported code ends here
+// //doesn't work it seems
+// watch(
+//   () => appointment,
+//   (stateChange) => {
+//     // appointment.doctor = doctorName.value;
+//     appointment.date = appointmentDate.value;
+//     appointment.appointmentType = appointmentType.value;
+//     console.log("hey");
+//     console.log(index);
+//   }
+// );
 
 const userNote = ref("");
 const componentKey = ref(false);
@@ -162,12 +185,12 @@ const data = ref([
   {
     logo: calendar,
     text: "Tarih",
-    boldText: appointment.date,
+    boldText: "",
   },
   {
     logo: hospital,
     text: "Randevu Türü",
-    boldText: appointment.appointmentType,
+    boldText: appointmentType.value,
   },
   {
     logo: flash,
