@@ -62,7 +62,7 @@
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="item.departments[0].name"
+              :subTitle="writeDoctorsClinicAfterFilterFunction()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -108,7 +108,7 @@
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="item.departments[0].name"
+              :subTitle="writeDoctorsClinicAfterFilterFunction()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -162,6 +162,7 @@ import DoctorBox from "./DoctorBox.vue";
 import RightPart from "./RightPart.vue";
 import clinic from "../../../assets/img/randevuAkis/clinic.svg";
 import hospital from "../../../assets/img/randevuAkis/hospital.svg";
+
 const appointmentType = ref(0);
 //search variable
 const search = ref("");
@@ -293,25 +294,26 @@ const filterDoctorsFunction = () => {
   //the problem is that when I list the doctors
   // I display the first department name
   //fix that and your problem is fixed
-  const newFilterDoctors = doctorData.value.filter((e) => {
-    for (i = 0; i < e.departments.length; i++) {
-      if (clinicId.value === e.departments[i].departmentId) {
-        return e;
-      }
-    }
-  });
+  //NO NEED TO USE THIS FUNCTION AT ALL, KEEPING IT FOR FUTURE REFERENCE ATM
+  // const newFilterDoctors = doctorData.value.filter((e) => {
+  //   for (i = 0; i < e.departments.length; i++) {
+  //     if (clinicId.value === e.departments[i].departmentId) {
+  //       return e;
+  //     }
+  //   }
+  // });
 
-  const newFilterDoctors2 = newFilterDoctors.filter((e) => {
-    for (i = 0; i < e.departments.length; i++) {
-      for (j = 0; j < e.departments[i].tenants.length; j++) {
-        if (hospitalId.value === e.departments[i].tenants[j].id) {
-          return e;
-        }
-      }
-    }
-  });
+  // const newFilterDoctors2 = newFilterDoctors.filter((e) => {
+  //   for (i = 0; i < e.departments.length; i++) {
+  //     for (j = 0; j < e.departments[i].tenants.length; j++) {
+  //       if (hospitalId.value === e.departments[i].tenants[j].id) {
+  //         return e;
+  //       }
+  //     }
+  //   }
+  // });
 
-  filteredDoctors.value = newFilterDoctors2;
+  filteredDoctors.value = filterDoctors2;
 
   console.log(filteredDoctors.value);
   // console.log(JSON.stringify(filteredDoctors.value));
@@ -320,6 +322,15 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
+// this function is a walkaround
+// since I can't choose between the different departmens a doctor works in a hospital and display it
+// I can't because I simply don't know how to
+// this function takes the chosen clinic name and displays it in the relevant parts
+// it's ok, because at that stage, the only thing that's needed is the clinic's name
+// every other thing's been taken care of
+function writeDoctorsClinicAfterFilterFunction() {
+  return clinicName.value;
+}
 
 //filtered clinics function
 const filteredClinics = () => {
