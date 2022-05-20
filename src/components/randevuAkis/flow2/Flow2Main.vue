@@ -90,7 +90,7 @@
           <!-- end of showBolum div -->
           <div class="clinicHospitals" v-if="showClinicHospitals">
             <div
-              @click="getClinicHospitalsList(item.name)"
+              @click="getClinicHospitalsList(item)"
               v-for="(item, key) in clinicHospitalsList"
               :key="key"
               :name="item.name"
@@ -147,7 +147,7 @@
 
 <script setup>
 // To DO:
-// doctor flow
+// doctor dropdown
 // send the grabbed data to the store
 // change filter function=>
 // it should filter directly from the API, you're making things difficult
@@ -168,9 +168,9 @@ const search = ref("");
 //this is the data for all, if you want to use it
 const data = ref([]);
 //individual data refs
-const clinicData = ref();
+const clinicData = ref([]);
 const doctorData = ref([]);
-const hospitalData = ref();
+const hospitalData = ref([]);
 const displayHandler = ref(3);
 const reactiveTitle = ref("Hastane");
 //v-if functionalities
@@ -181,6 +181,7 @@ const clinicHospitalsList = ref();
 const clinicHospitalName = ref();
 const clinicName = ref();
 const clinicId = ref();
+const hospitalId = ref();
 //reactive object for hospital flow in terms of creating v-if functionalities
 const hospitalFlow = reactive({
   showHospitalClinics: false,
@@ -200,6 +201,9 @@ const rightPartArr = ref([]);
 const getHospitalData = (item) => {
   console.log(item.name);
   console.log(item);
+  //need this id
+  console.log("hastane id=>" + item.id);
+  hospitalFlow.hospitalId = item.id;
   hospitalFlow.chosenHospital = item.name;
   console.log(data.value);
   filteredClinics();
@@ -284,7 +288,26 @@ const filterDoctorsFunction = () => {
     }
   });
 
-  filteredDoctors.value = filterDoctors2;
+  //new filterdoctors function
+  const newFilterDoctors = doctorData.value.filter((e) => {
+    for (i = 0; i < e.departments.length; i++) {
+      if (clinicId.value === e.departments[i].departmentId) {
+        return e;
+      }
+    }
+  });
+
+  const newFilterDoctors2 = newFilterDoctors.filter((e) => {
+    for (i = 0; i < e.departments.length; i++) {
+      for (j = 0; j < e.departments[i].tenants.length; j++) {
+        if (hospitalId.value === e.departments[i].tenants[j].id) {
+          return e;
+        }
+      }
+    }
+  });
+
+  filteredDoctors.value = newFilterDoctors2;
 
   console.log(filteredDoctors.value);
   // console.log(JSON.stringify(filteredDoctors.value));
@@ -313,11 +336,14 @@ const filteredClinics = () => {
   hospitalFlow.showHospitalList = false;
   hospitalFlow.showHospitalClinics = true;
 };
+
 const getClinicHospitalsList = (clinicHospital) => {
   console.log(clinicHospital);
   showClinicHospitals.value = false;
-  clinicHospitalName.value = clinicHospital;
+  clinicHospitalName.value = clinicHospital.name;
+  hospitalId.value = clinicHospital.id;
   showClinicDoctors.value = true;
+  console.log("I need this id" + clinicHospital.id);
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
@@ -359,6 +385,8 @@ const showClinics = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items;
+    clinicData.value = res.data.items;
+
     // console.log(JSON.stringify(res.data.items));
     console.log(res.data.items);
   } catch (error) {
@@ -388,7 +416,12 @@ const showHospitals = async () => {
     data.value = res.data.items[4].tenants;
     //add clinicData here for the flow
     clinicData.value = res.data.items;
+    hospitalData.value = res.data.items[4].tenants;
     // console.log(JSON.stringify(res.data.items));
+    console.log(
+      "returns test asm gebze and test asm ataşehir" +
+        JSON.stringify(res.data.items[4].tenants)
+    );
     console.log(res.data.items);
   } catch (error) {
     console.log(error);
@@ -399,14 +432,14 @@ const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     doctorData.value = res.data.items;
-    console.log(res.data.items);
-    console.log(JSON.stringify(res.data.items));
+    // console.log("DOCTOR LIST " + JSON.stringify(res.data.items));
+    // console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
-    console.log(res.data.items[0].departments[0].name);
+    // console.log(res.data.items[0].departments[0].name);
     //for title
-    console.log(JSON.stringify(res.data.items[0].fullName));
-    console.log(res.data.items[0].id);
-    console.log(typeof res.data.items[0].id);
+    // console.log(JSON.stringify(res.data.items[0].fullName));
+    // console.log(res.data.items[0].id);
+    // console.log(typeof res.data.items[0].id);
   } catch (error) {
     console.log(error);
   }

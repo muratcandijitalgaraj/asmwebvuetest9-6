@@ -35,12 +35,14 @@ export default {
       //   console.log(res.data);
       // });
     },
-
+    //this one returns only one item
     async getHospitals() {
       await store.dispatch("auth/checkRefreshToken");
       let token = store.getters["auth/_token"];
       appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      return await appAxios.get("endpoint/resource-service/facilities");
+      return await appAxios.get(
+        "endpoint/resource-service/facilities?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8/tenants"
+      );
     },
     async getClinics() {
       await store.dispatch("auth/checkRefreshToken");
