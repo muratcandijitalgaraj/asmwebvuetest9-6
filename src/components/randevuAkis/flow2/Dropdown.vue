@@ -67,6 +67,7 @@ const props = defineProps({
   dropdownData: { required: true, type: String },
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
+  doctorName: { required: true, type: String },
 });
 //write an on click function
 //that takes props.hospital
@@ -77,6 +78,7 @@ const isCheck = ref(false);
 const isClicked = ref(false);
 const doctorData = ref();
 const chosenHospital = ref();
+const doctorName = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -91,6 +93,8 @@ const handleClick = async () => {
   console.log("need" + props.modalData);
   console.log("hospital name => " + props.hospital);
   chosenHospital.value = props.hospital;
+  console.log("doctorName  => " + props.doctorName);
+  doctorName.value = props.doctorName;
 };
 
 const isCircleChosen = computed(() => {
