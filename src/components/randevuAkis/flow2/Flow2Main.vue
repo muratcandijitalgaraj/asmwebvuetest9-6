@@ -62,10 +62,11 @@
           <!-- end of hospitalclinics div -->
           <div class="clinicDoctors" v-if="hospitalFlow.showHospitalDoctors">
             <DoctorBox
+              @click="getFinalDatafromHospitalFlow()"
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="writeDoctorsClinicAfterFilterFunction()"
+              :subTitle="writeDoctorsClinicAfterFilterFunctionForHospitalFlow()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -111,7 +112,7 @@
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="writeDoctorsClinicAfterFilterFunction()"
+              :subTitle="writeDoctorsClinicAfterFilterFunctionForClinicFlow()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -151,7 +152,6 @@
 <script setup>
 // To DO:
 // doctor dropdown
-//hide choice box after first choice
 // send the grabbed data to the store
 // last child of chosen right part item should have direct corners
 // talk to Gökhan about the search box's situation
@@ -164,6 +164,7 @@ import DoctorBox from "./DoctorBox.vue";
 import RightPart from "./RightPart.vue";
 import clinic from "../../../assets/img/randevuAkis/clinic.svg";
 import hospital from "../../../assets/img/randevuAkis/hospital.svg";
+import { secondsToMilliseconds } from "date-fns";
 
 const appointmentType = ref(0);
 //search variable
@@ -341,8 +342,14 @@ const filterDoctorsFunction = () => {
 // this function takes the chosen clinic name and displays it in the relevant parts
 // it's ok, because at that stage, the only thing that's needed is the clinic's name
 // every other thing's been taken care of
-function writeDoctorsClinicAfterFilterFunction() {
+////
+//this function is for clinic flow
+function writeDoctorsClinicAfterFilterFunctionForClinicFlow() {
   return clinicName.value;
+}
+//this function is for hospital flow
+function writeDoctorsClinicAfterFilterFunctionForHospitalFlow() {
+  return hospitalFlow.chosenClinic;
 }
 
 //filtered clinics function
@@ -521,6 +528,11 @@ const searchclinicHospitalsList = computed(() => {
     return e.name.toLowerCase().match(search.value);
   });
 });
+
+//send final data to the store
+const getFinalDatafromHospitalFlow = (item) => {
+  console.log("final data =>" + clinicName.value);
+};
 
 onMounted(() => {
   // showInitialRequest();

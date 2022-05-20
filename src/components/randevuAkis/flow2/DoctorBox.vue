@@ -73,6 +73,8 @@ const handleClick = async () => {
   }
   console.log(props.data);
   changeBorderRadius();
+  //send this data to the store
+  console.log("props title=>" + props.title);
 };
 
 const handleCollapse = computed(() => {

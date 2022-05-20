@@ -9,6 +9,11 @@ export default {
 
   state: { section: 3 },
   userNote: "",
+  userChoices: {
+    hospital: "",
+    clinic: "",
+    doctor: "",
+  },
 
   mutations: {
     switchContent(state, payload) {
