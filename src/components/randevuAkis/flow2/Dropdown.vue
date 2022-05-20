@@ -79,6 +79,7 @@ const isClicked = ref(false);
 const doctorData = ref();
 const chosenHospital = ref();
 const doctorName = ref();
+const filteredDoctor = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -95,6 +96,8 @@ const handleClick = async () => {
   chosenHospital.value = props.hospital;
   console.log("doctorName  => " + props.doctorName);
   doctorName.value = props.doctorName;
+  filterDoctorFunction();
+  console.log("filtered doctor name => " + filteredDoctor.value);
 };
 
 const isCircleChosen = computed(() => {
@@ -104,6 +107,17 @@ const isCircleChosen = computed(() => {
 
   return false;
 });
+//this function doesn't work as expected
+const filterDoctorFunction = () => {
+  //this should be the doctor on the dropdown
+  let filteredDoctor1 = doctorData.value.filter((item) => {
+    if (item.fullName == props.doctorName) {
+      return item;
+    }
+  });
+  filteredDoctor1.fullName = filteredDoctor.value;
+  console.log(filteredDoctor1.fullName);
+};
 
 const showDoctors = async () => {
   try {
