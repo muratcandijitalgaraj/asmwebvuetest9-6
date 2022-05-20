@@ -1,6 +1,9 @@
 <template>
   <div class="main">
-    <div class="longBox d-flex align-items-center justify-content-start">
+    <div
+      v-if="showChoiceBox"
+      class="longBox d-flex align-items-center justify-content-start"
+    >
       <ChoiceBox
         v-for="(item, index) in bigBoxData"
         :key="index"
@@ -148,11 +151,10 @@
 <script setup>
 // To DO:
 // doctor dropdown
+//hide choice box after first choice
 // send the grabbed data to the store
-// change filter function=>
-// it should filter directly from the API, you're making things difficult
 // last child of chosen right part item should have direct corners
-// talk to Gökhan about the serach box's situation
+// talk to Gökhan about the search box's situation
 import { ref, onMounted, watch, computed, reactive } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
@@ -198,6 +200,12 @@ const hospitalFlow = reactive({
 const filteredDoctors = ref([]);
 //right part array
 const rightPartArr = ref([]);
+//hide/show choice box
+const showChoiceBox = ref(true);
+//make choice box handling a function
+const handleChoiceBox = () => {
+  showChoiceBox.value = false;
+};
 
 const getHospitalData = (item) => {
   console.log(item.name);
@@ -208,6 +216,9 @@ const getHospitalData = (item) => {
   hospitalFlow.chosenHospital = item.name;
   console.log(data.value);
   filteredClinics();
+  //call a function to hide choicenox
+  handleChoiceBox();
+
   rightPartArr.value.push({
     title: "Hastane",
     name: hospitalFlow.chosenHospital,
@@ -239,6 +250,8 @@ const getClinicData = (item) => {
   console.log("id=>" + item.id);
   console.log("doctor data" + doctorData.value[0].id);
   console.log("clinicName.value  => " + clinicName.value);
+  //call a function to hide choicenox
+  handleChoiceBox();
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
