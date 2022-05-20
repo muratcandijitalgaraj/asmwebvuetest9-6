@@ -62,7 +62,6 @@
           <!-- end of hospitalclinics div -->
           <div class="clinicDoctors" v-if="hospitalFlow.showHospitalDoctors">
             <DoctorBox
-              @click="getFinalDatafromHospitalFlow()"
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
@@ -219,6 +218,8 @@ const getHospitalData = (item) => {
   filteredClinics();
   //call a function to hide choicenox
   handleChoiceBox();
+  //commit to store
+  store.commit("setHospitalName", item.name);
 
   rightPartArr.value.push({
     title: "Hastane",
@@ -233,6 +234,9 @@ const getHospitalClinics = (item) => {
   hospitalFlow.showHospitalDoctors = true;
   hospitalFlow.showHospitalClinics = false;
   filterDoctorsFunction();
+  //commit to store
+  store.commit("setclinicName", item.name);
+
   rightPartArr.value.push({
     title: "Bölüm",
     name: hospitalFlow.chosenClinic,
@@ -253,6 +257,8 @@ const getClinicData = (item) => {
   console.log("clinicName.value  => " + clinicName.value);
   //call a function to hide choicenox
   handleChoiceBox();
+  //commit to store
+  store.commit("setclinicName", item.name);
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
@@ -372,16 +378,18 @@ const filteredClinics = () => {
   hospitalFlow.showHospitalClinics = true;
 };
 
-const getClinicHospitalsList = (clinicHospital) => {
-  console.log(clinicHospital);
+const getClinicHospitalsList = (item) => {
+  console.log(item);
   showClinicHospitals.value = false;
-  clinicHospitalName.value = clinicHospital.name;
-  hospitalId.value = clinicHospital.id;
+  clinicHospitalName.value = item.name;
+  hospitalId.value = item.id;
   showClinicDoctors.value = true;
-  console.log("I need this id" + clinicHospital.id);
+  console.log("I need this id" + item.id);
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
+  //commit to store
+  store.commit("setclinicName", item.name);
   rightPartArr.value.push({
     title: "Hastane",
     name: clinicHospitalName.value,
@@ -528,11 +536,6 @@ const searchclinicHospitalsList = computed(() => {
     return e.name.toLowerCase().match(search.value);
   });
 });
-
-//send final data to the store
-const getFinalDatafromHospitalFlow = (item) => {
-  console.log("final data =>" + clinicName.value);
-};
 
 onMounted(() => {
   // showInitialRequest();

@@ -75,6 +75,8 @@ const handleClick = async () => {
   changeBorderRadius();
   //send this data to the store
   console.log("props title=>" + props.title);
+  //commit to store
+  store.commit("setDoctorName", props.title);
 };
 
 const handleCollapse = computed(() => {

@@ -28,6 +28,16 @@ export default {
     getUserNote(state, payload) {
       state.userNote = payload;
     },
+
+    setHospitalName(state, payload) {
+      state.userChoices.hospital = payload;
+    },
+    setclinicName(state, payload) {
+      state.userChoices.clinic = payload;
+    },
+    setDoctorName(state, payload) {
+      state.userChoices.doctor = payload;
+    },
   },
 
   actions: {
