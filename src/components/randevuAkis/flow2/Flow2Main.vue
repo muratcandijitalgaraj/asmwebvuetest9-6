@@ -151,7 +151,6 @@
 <script setup>
 // To DO:
 // doctor dropdown
-// send the grabbed data to the store
 // last child of chosen right part item should have direct corners
 // talk to Gökhan about the search box's situation
 import { ref, onMounted, watch, computed, reactive } from "vue";
@@ -219,7 +218,7 @@ const getHospitalData = (item) => {
   //call a function to hide choicenox
   handleChoiceBox();
   //commit to store
-  store.commit("setHospitalName", item.name);
+  store.commit("appointmentFlow/setHospitalName", item.name);
 
   rightPartArr.value.push({
     title: "Hastane",
@@ -235,7 +234,7 @@ const getHospitalClinics = (item) => {
   hospitalFlow.showHospitalClinics = false;
   filterDoctorsFunction();
   //commit to store
-  store.commit("setclinicName", item.name);
+  store.commit("appointmentFlow/setClinicName", item.name);
 
   rightPartArr.value.push({
     title: "Bölüm",
@@ -258,7 +257,7 @@ const getClinicData = (item) => {
   //call a function to hide choicenox
   handleChoiceBox();
   //commit to store
-  store.commit("setclinicName", item.name);
+  store.commit("appointmentFlow/setClinicName", item.name);
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
@@ -389,7 +388,7 @@ const getClinicHospitalsList = (item) => {
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
   //commit to store
-  store.commit("setclinicName", item.name);
+  store.commit("appointmentFlow/setHospitalName", item.name);
   rightPartArr.value.push({
     title: "Hastane",
     name: clinicHospitalName.value,
@@ -460,7 +459,7 @@ const showHospitals = async () => {
     //add clinicData here for the flow
     clinicData.value = res.data.items;
     hospitalData.value = res.data.items[4].tenants;
-    // console.log(JSON.stringify(res.data.items));
+    console.log(structuredClone(res.data.items));
     console.log(
       "returns test asm gebze and test asm ataşehir" +
         JSON.stringify(res.data.items[4].tenants)

@@ -14,6 +14,9 @@ export default {
     clinic: "",
     doctor: "",
   },
+  hospitalName: "",
+  clinicName: "",
+  doctorName: "",
 
   mutations: {
     switchContent(state, payload) {
@@ -30,13 +33,13 @@ export default {
     },
 
     setHospitalName(state, payload) {
-      state.userChoices.hospital = payload;
+      state.hospitalName = payload;
     },
-    setclinicName(state, payload) {
-      state.userChoices.clinic = payload;
+    setClinicName(state, payload) {
+      state.clinicName = payload;
     },
     setDoctorName(state, payload) {
-      state.userChoices.doctor = payload;
+      state.doctorName = payload;
     },
   },
 

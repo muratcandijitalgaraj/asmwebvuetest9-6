@@ -44,6 +44,7 @@
                 :clinic="item.name"
               />
               content goes here
+              <div class="card"></div>
 
               <button class="modalButton">
                 <div class="modalButtonText">Seç</div>
@@ -58,6 +59,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import store from "../../../store";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 import ModalBox from "./ModalBox.vue";
 const props = defineProps({
@@ -66,11 +68,15 @@ const props = defineProps({
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
 });
+//write an on click function
+//that takes props.hospital
 
 const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
+const doctorData = ref();
+const chosenHospital = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -83,6 +89,8 @@ const handleClick = async () => {
   }
   // console.log(props.dropdownData);
   console.log("need" + props.modalData);
+  console.log("hospital name => " + props.hospital);
+  chosenHospital.value = props.hospital;
 };
 
 const isCircleChosen = computed(() => {
@@ -93,8 +101,19 @@ const isCircleChosen = computed(() => {
   return false;
 });
 
+const showDoctors = async () => {
+  try {
+    const res = await store.dispatch("appointmentFlow/getDoctors");
+    doctorData.value = res.data.items;
+    console.log(doctorData.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 onMounted(() => {
   // alert("need" + JSON.stringify(props.modalData));
+  showDoctors();
 });
 </script>
 
@@ -162,5 +181,15 @@ onMounted(() => {
 
   /* Beyaz */
   color: #ffffff;
+}
+.card {
+  width: 341px;
+  height: 50px;
+
+  background: #ffffff;
+
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  border-radius: 6px;
 }
 </style>

@@ -34,6 +34,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import store from "../../../store";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
 import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
@@ -76,7 +77,7 @@ const handleClick = async () => {
   //send this data to the store
   console.log("props title=>" + props.title);
   //commit to store
-  store.commit("setDoctorName", props.title);
+  store.commit("appointmentFlow/setDoctorName", props.title);
 };
 
 const handleCollapse = computed(() => {
@@ -104,7 +105,8 @@ const handleShouldCollapse = () => {
 };
 
 onMounted(() => {
-  console.log("dropdowndata" + props.dropdownData.length);
+  //you can find the hospital name by querying this
+  console.log("dropdowndata" + JSON.stringify(props.dropdownData));
   handleShouldCollapse();
 });
 </script>
