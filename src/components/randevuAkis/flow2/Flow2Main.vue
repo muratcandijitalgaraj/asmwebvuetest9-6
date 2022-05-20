@@ -289,6 +289,10 @@ const filterDoctorsFunction = () => {
   });
 
   //new filterdoctors function
+  //my filter function works fine
+  //the problem is that when I list the doctors
+  // I display the first department name
+  //fix that and your problem is fixed
   const newFilterDoctors = doctorData.value.filter((e) => {
     for (i = 0; i < e.departments.length; i++) {
       if (clinicId.value === e.departments[i].departmentId) {
