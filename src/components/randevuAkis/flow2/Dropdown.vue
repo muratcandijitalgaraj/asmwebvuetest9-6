@@ -97,6 +97,7 @@ const handleClick = async () => {
   doctorName.value = props.doctorName;
   filterDoctorFunction();
   // console.log("filtered doctor name => " + filteredDoctor.value);
+  foo();
 };
 
 const isCircleChosen = computed(() => {
@@ -121,15 +122,31 @@ const filterDoctorFunction = () => {
   console.log(doctorData.value);
   console.log(JSON.parse(JSON.stringify(doctorData.value)));
 
-  const filteredFunc = JSON.parse(JSON.stringify(doctorData.value)).filter(
-    (item) => {
-      if (item.fullName === props.doctorName) {
+  const filteredDoctor = doctorData.value.filter((item) => {
+    if (item.fullName === props.doctorName) {
+      return item;
+    }
+  });
+
+  let filteredDepartments = filteredDoctor[0].departments.filter((item) => {
+    if (item.tenants.length > 1) {
+      if (
+        item.tenants[0].name == props.hospital ||
+        item.tenants[1].name == props.hospital
+      ) {
         return item;
+      } else if (item.tenants.length == 1) {
+        if (item.tenants[0].name == props.hospital) {
+          console.log(item);
+          return item;
+        }
       }
     }
-  );
+  });
 
-  console.log("filtered function " + JSON.stringify(filteredFunc));
+  console.log("filtered doctor " + JSON.stringify(filteredDoctor));
+  console.log("filtered department" + JSON.stringify(filteredDepartments));
+  filteredDepartments = tryme.value;
 };
 
 const showDoctors = async () => {
