@@ -95,5 +95,7 @@ export default {
 
   // doktor endpoint =>         "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
 
-  getters: {},
+  getters: {
+    _getHospitalName: (state) => state.hospitalName,
+  },
 };

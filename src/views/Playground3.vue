@@ -9,42 +9,44 @@
         </div>
 
         <div class="date-selection-header row">
-          <div class="date-select col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7">
+          <div
+            class="date-select col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7"
+          >
             <h4 class="__title">Tarih Seçin</h4>
             <swiper
-                :slides-per-view="9"
-                :space-between="10"
-                :navigation="true"
-                :centeredSlides="true"
-                :modules="modules"
-                @swiper="onSwiper"
-                :breakpoints="{
-                   '0': {
-                    slidesPerView: 6,
-                    spaceBetween: 10,
-                  },
-                  '571': {
-                    slidesPerView: 9,
-                    spaceBetween: 10,
-                  },
-                  '768': {
-                    slidesPerView: 11,
-                    spaceBetween: 10,
-                  },
-                  '1200': {
-                    slidesPerView: 7,
-                    spaceBetween: 10,
-                  },
-                  '1400': {
-                    slidesPerView: 9,
-                    spaceBetween: 10,
-                  },
-                }"
-                @slideChange="onSlideChange"
-                class="date-selection-swiper"
+              :slides-per-view="9"
+              :space-between="10"
+              :navigation="true"
+              :centeredSlides="true"
+              :modules="modules"
+              @swiper="onSwiper"
+              :breakpoints="{
+                '0': {
+                  slidesPerView: 6,
+                  spaceBetween: 10,
+                },
+                '571': {
+                  slidesPerView: 9,
+                  spaceBetween: 10,
+                },
+                '768': {
+                  slidesPerView: 11,
+                  spaceBetween: 10,
+                },
+                '1200': {
+                  slidesPerView: 7,
+                  spaceBetween: 10,
+                },
+                '1400': {
+                  slidesPerView: 9,
+                  spaceBetween: 10,
+                },
+              }"
+              @slideChange="onSlideChange"
+              class="date-selection-swiper"
             >
               <swiper-slide v-for="(item, key) in dates" :key="key">
-                <div class="date-item" :class="[key === 3 ? 'active':'']">
+                <div class="date-item" :class="[key === 3 ? 'active' : '']">
                   <div class="__dayInt">{{ item.dayInt }}</div>
                   <div class="__month">{{ item.month }}</div>
                   <div class="__dayStr">{{ item.dayStr }}</div>
@@ -52,29 +54,40 @@
               </swiper-slide>
             </swiper>
           </div>
-          <div class="user-choices col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5">
+          <div
+            class="user-choices col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5"
+          >
             <h4 class="__title blue">Seçimleriniz</h4>
             <div class="__box">
               <div class="__box-item">
-                <img :src="clinicLogoSvg" alt="">
+                <img :src="clinicLogoSvg" alt="" />
                 <p><span>Bölüm: </span><span>Beslenme ve Diyet</span></p>
               </div>
               <div class="__box-item">
-                <img :src="hospitalLogoSvg" alt="">
+                <img :src="hospitalLogoSvg" alt="" />
                 <p><span>Hastane: </span><span>Ataşehir Tıp Merkezi</span></p>
               </div>
               <div class="__box-item">
-                <img :src="doktorLogoBlueSvg" alt="">
-                <p><span>Doktor: </span><span>Prof.Dr. Mehmet Balkanlı</span></p>
+                <img :src="doktorLogoBlueSvg" alt="" />
+                <p>
+                  <span>Doktor: </span><span>Prof.Dr. Mehmet Balkanlı</span>
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="date-selection-center col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7">
+        <div
+          class="date-selection-center col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7"
+        >
           <h4 class="__title">Saat Seçin</h4>
           <div class="date-selection-hour">
-            <div class="hour-item" v-for="(item, key) in hours" :key="key" :class="[key === 8 ? 'active':'']">
+            <div
+              class="hour-item"
+              v-for="(item, key) in hours"
+              :key="key"
+              :class="[key === 8 ? 'active' : '']"
+            >
               <span>
                 {{ item }}
               </span>
@@ -82,15 +95,19 @@
           </div>
         </div>
 
-        <div class="date-selection-bottom col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7">
+        <div
+          class="date-selection-bottom col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-7"
+        >
           <h4 class="__title">Bu Bölümdeki Diğer Doktorlarımız</h4>
           <div class="doctor-list">
-            <div class="item" v-for="(item, key) in [1,2,3]" :key="key">
+            <div class="item" v-for="(item, key) in [1, 2, 3]" :key="key">
               <div class="left">
-                <img :src="doctor" alt="">
+                <img :src="doctor" alt="" />
                 <div class="left-item-box">
                   <span class="item-title">Prof. Dr. Mehmet Balkan</span>
-                  <span class="item-hospital">Beslenme ve Diyet - Ataşehir</span>
+                  <span class="item-hospital"
+                    >Beslenme ve Diyet - Ataşehir</span
+                  >
                 </div>
               </div>
               <div class="right">
@@ -100,7 +117,6 @@
           </div>
           <button class="act-btn">Randevuyu Tamamla</button>
         </div>
-
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
@@ -109,65 +125,78 @@
 
 <script setup>
 import store from "../store";
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
-import 'swiper/css';
+import "swiper/css";
 import "swiper/css/navigation";
-import {ref, onBeforeMount, onMounted, reactive} from "vue";
-import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg"
-import clinicLogoSvg from "../assets/img/randevuAkis/clinic.svg"
-import doktorLogoBlueSvg from "../assets/img/randevuAkis/doktorLogoBlue.svg"
-import doctor from "../assets/demo-data/doctor2.png"
+import { ref, onBeforeMount, onMounted, reactive } from "vue";
+import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg";
+import clinicLogoSvg from "../assets/img/randevuAkis/clinic.svg";
+import doktorLogoBlueSvg from "../assets/img/randevuAkis/doktorLogoBlue.svg";
+import doctor from "../assets/demo-data/doctor2.png";
 
 const onSwiper = (swiper) => {
-  console.log(swiper)
-}
+  console.log(swiper);
+};
 const onSlideChange = () => {
-  console.log('slide change')
-}
+  console.log("slide change");
+};
 
-const modules = ref([Navigation])
+const modules = ref([Navigation]);
 
 const dates = ref([
-  {dayInt:"01", month:"Haz", dayStr:"Pt"},
-  {dayInt:"02", month:"Haz", dayStr:"Sa"},
-  {dayInt:"03", month:"Haz", dayStr:"Ça"},
-  {dayInt:"04", month:"Haz", dayStr:"Pe"},
-  {dayInt:"05", month:"Haz", dayStr:"Cu"},
-  {dayInt:"06", month:"Haz", dayStr:"Ct"},
-  {dayInt:"07", month:"Haz", dayStr:"Pa"},
-  {dayInt:"08", month:"Haz", dayStr:"Pt"},
-  {dayInt:"09", month:"Haz", dayStr:"Sa"},
-  {dayInt:"10", month:"Haz", dayStr:"Ça"},
-  {dayInt:"11", month:"Haz", dayStr:"Pe"},
-  {dayInt:"12", month:"Haz", dayStr:"Cu"},
-  {dayInt:"13", month:"Haz", dayStr:"Ct"},
-  {dayInt:"14", month:"Haz", dayStr:"Pa"},
-  {dayInt:"15", month:"Haz", dayStr:"Pt"},
-  {dayInt:"16", month:"Haz", dayStr:"Sa"},
-  {dayInt:"17", month:"Haz", dayStr:"Ça"},
-  {dayInt:"18", month:"Haz", dayStr:"Pe"},
-  {dayInt:"19", month:"Haz", dayStr:"Cu"},
-  {dayInt:"20", month:"Haz", dayStr:"Ct"},
-  {dayInt:"21", month:"Haz", dayStr:"Pa"},
-  {dayInt:"22", month:"Haz", dayStr:"Pt"},
-  {dayInt:"23", month:"Haz", dayStr:"Sa"},
-  {dayInt:"24", month:"Haz", dayStr:"Ça"},
-  {dayInt:"25", month:"Haz", dayStr:"Pe"},
-  {dayInt:"26", month:"Haz", dayStr:"Cu"},
-  {dayInt:"27", month:"Haz", dayStr:"Ct"},
-  {dayInt:"28", month:"Haz", dayStr:"Pa"},
-])
+  { dayInt: "01", month: "Haz", dayStr: "Pt" },
+  { dayInt: "02", month: "Haz", dayStr: "Sa" },
+  { dayInt: "03", month: "Haz", dayStr: "Ça" },
+  { dayInt: "04", month: "Haz", dayStr: "Pe" },
+  { dayInt: "05", month: "Haz", dayStr: "Cu" },
+  { dayInt: "06", month: "Haz", dayStr: "Ct" },
+  { dayInt: "07", month: "Haz", dayStr: "Pa" },
+  { dayInt: "08", month: "Haz", dayStr: "Pt" },
+  { dayInt: "09", month: "Haz", dayStr: "Sa" },
+  { dayInt: "10", month: "Haz", dayStr: "Ça" },
+  { dayInt: "11", month: "Haz", dayStr: "Pe" },
+  { dayInt: "12", month: "Haz", dayStr: "Cu" },
+  { dayInt: "13", month: "Haz", dayStr: "Ct" },
+  { dayInt: "14", month: "Haz", dayStr: "Pa" },
+  { dayInt: "15", month: "Haz", dayStr: "Pt" },
+  { dayInt: "16", month: "Haz", dayStr: "Sa" },
+  { dayInt: "17", month: "Haz", dayStr: "Ça" },
+  { dayInt: "18", month: "Haz", dayStr: "Pe" },
+  { dayInt: "19", month: "Haz", dayStr: "Cu" },
+  { dayInt: "20", month: "Haz", dayStr: "Ct" },
+  { dayInt: "21", month: "Haz", dayStr: "Pa" },
+  { dayInt: "22", month: "Haz", dayStr: "Pt" },
+  { dayInt: "23", month: "Haz", dayStr: "Sa" },
+  { dayInt: "24", month: "Haz", dayStr: "Ça" },
+  { dayInt: "25", month: "Haz", dayStr: "Pe" },
+  { dayInt: "26", month: "Haz", dayStr: "Cu" },
+  { dayInt: "27", month: "Haz", dayStr: "Ct" },
+  { dayInt: "28", month: "Haz", dayStr: "Pa" },
+]);
 
 const hours = ref([
-  "09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45",
-  "11:00", "11:15", "11:30", "11:45", "12:00", "13:00", "13:15", "13:30",
-  "13:45", "14:00"
-])
+  "09:00",
+  "09:15",
+  "09:30",
+  "09:45",
+  "10:00",
+  "10:15",
+  "10:30",
+  "10:45",
+  "11:00",
+  "11:15",
+  "11:30",
+  "11:45",
+  "12:00",
+  "13:00",
+  "13:15",
+  "13:30",
+  "13:45",
+  "14:00",
+]);
 
-onMounted(() => {
-
-});
+onMounted(() => {});
 </script>
 
 <style scoped lang="scss">
@@ -239,13 +268,14 @@ onMounted(() => {
     top: 0;
     margin-top: initial;
 
-
-    &:after{
+    &:after {
       content: "";
       display: block;
       width: 10px;
       height: 17px;
-      background: transparent url('/src/assets/img/carousel-navigation/left.png') no-repeat center center;
+      background: transparent
+        url("/src/assets/img/carousel-navigation/left.png") no-repeat center
+        center;
       background-size: 10px 17px;
       z-index: 2;
     }
@@ -253,7 +283,8 @@ onMounted(() => {
     &::before {
       content: "";
       display: block;
-      background: transparent linear-gradient(to right, $main 55%, transparent 100%);
+      background: transparent
+        linear-gradient(to right, $main 55%, transparent 100%);
       position: absolute;
       height: 100%;
       width: 100%;
@@ -269,12 +300,14 @@ onMounted(() => {
     margin-top: initial;
     justify-content: flex-end;
 
-    &:after{
+    &:after {
       content: "";
       display: block;
       width: 10px;
       height: 17px;
-      background: transparent url('/src/assets/img/carousel-navigation/right.png') no-repeat center center;
+      background: transparent
+        url("/src/assets/img/carousel-navigation/right.png") no-repeat center
+        center;
       background-size: 10px 17px;
       z-index: 1;
     }
@@ -282,7 +315,8 @@ onMounted(() => {
     &::before {
       content: "";
       display: block;
-      background: transparent linear-gradient(to left, $main 55%, transparent 100%);
+      background: transparent
+        linear-gradient(to left, $main 55%, transparent 100%);
       position: absolute;
       height: 100%;
       width: 100%;
@@ -304,17 +338,34 @@ onMounted(() => {
       height: 72px;
       box-sizing: border-box;
       border-radius: 6px;
-      box-shadow: 0 3px 3px 0 rgba(0,0,0,.03);
+      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.03);
       text-align: center;
       cursor: pointer;
 
-      .__dayInt {color: $text;@include bold;font-size: 22px}
-      .__month {color: $text;@include bold;font-size: 10px}
-      .__dayStr {color: $text;@include bold;font-size: 15px}
+      .__dayInt {
+        color: $text;
+        @include bold;
+        font-size: 22px;
+      }
+      .__month {
+        color: $text;
+        @include bold;
+        font-size: 10px;
+      }
+      .__dayStr {
+        color: $text;
+        @include bold;
+        font-size: 15px;
+      }
 
-      &:hover,&.active {
+      &:hover,
+      &.active {
         background-color: $orange;
-        .__dayInt, .__month, .__dayStr {color: #fff}
+        .__dayInt,
+        .__month,
+        .__dayStr {
+          color: #fff;
+        }
       }
     }
   }
@@ -349,7 +400,7 @@ onMounted(() => {
         margin-bottom: 0;
       }
 
-      p{
+      p {
         margin-bottom: 0;
         padding-left: 13px;
         font-size: 13px;
@@ -389,7 +440,7 @@ onMounted(() => {
       padding: 8px 10px;
       box-sizing: border-box;
       border-radius: 6px;
-      box-shadow: 0 3px 3px 0 rgba(0,0,0,.03);
+      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.03);
       text-align: center;
       cursor: pointer;
       font-size: 16px;
@@ -397,7 +448,8 @@ onMounted(() => {
       margin-bottom: 17px;
     }
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       span {
         background-color: $blue;
         color: #fff;
@@ -406,9 +458,11 @@ onMounted(() => {
   }
 }
 
-.date-selection-bottom {}
+.date-selection-bottom {
+}
 
-.date-selection-bottom {}
+.date-selection-bottom {
+}
 
 .doctor-list {
   margin-bottom: 30px;
@@ -422,7 +476,7 @@ onMounted(() => {
     padding: 10px;
     box-sizing: border-box;
     border-radius: 6px;
-    box-shadow: 0 3px 3px 0 rgba(0,0,0,.03);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.03);
 
     .left {
       display: flex;
@@ -435,7 +489,7 @@ onMounted(() => {
 
       .left-item-box {
         margin-left: 13px;
-        
+
         span {
           display: block;
         }
@@ -512,7 +566,6 @@ onMounted(() => {
 
 @media (max-width: 500px) {
   .doctor-list {
-
     .item {
       flex-direction: column;
       align-items: flex-start;
