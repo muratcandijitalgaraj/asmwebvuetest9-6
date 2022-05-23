@@ -10,6 +10,7 @@
         <!-- <SecimVue /> -->
         <Flow2MainVue />
         <!-- <RandevuOzetVue /> -->
+        <!-- <PaymentVue /> -->
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
@@ -20,6 +21,7 @@
 import SecimVue from "../components/randevuAkis/Secim.vue";
 import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
 import RandevuOzetVue from "../components/randevuAkis/randevu-ozet/Randevu-ozet.vue";
+import PaymentVue from "../components/randevuAkis/payment/Payment.vue";
 </script>
 
 <style lang="scss" scoped>

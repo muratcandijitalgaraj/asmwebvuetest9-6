@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import clinic from "../../../assets/img/randevuAkis/clinic.svg";
-import hospital from "../../../assets/img/randevuAkis/hospital.svg";
 const props = defineProps({
   title: { required: true, type: String },
   name: { required: true, type: String },
@@ -19,7 +17,7 @@ const props = defineProps({
 });
 
 const foo = () => {
-  console.log(props.logo);
+  console.log("logo=>" + props.logo);
 };
 </script>
 

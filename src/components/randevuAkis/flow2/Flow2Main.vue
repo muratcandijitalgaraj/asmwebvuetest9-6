@@ -1,6 +1,9 @@
 <template>
   <div class="main">
-    <div class="longBox d-flex align-items-center justify-content-start">
+    <div
+      v-if="showChoiceBox"
+      class="longBox d-flex align-items-center justify-content-start"
+    >
       <ChoiceBox
         v-for="(item, index) in bigBoxData"
         :key="index"
@@ -16,7 +19,7 @@
       <div class="bodyContainer col-10 col-xxl-6">
         <div class="bigTitle">{{ reactiveTitle }} Seçin</div>
         <div
-          class="searchContainer col-10 col-lg-12 col-xxl-6 d-flex align-items-center"
+          class="searchContainer d-flex justify-content-between align-items-center"
         >
           <input
             v-model="search"
@@ -62,7 +65,7 @@
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="item.departments[0].name"
+              :subTitle="writeDoctorsClinicAfterFilterFunctionForHospitalFlow()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -90,7 +93,7 @@
           <!-- end of showBolum div -->
           <div class="clinicHospitals" v-if="showClinicHospitals">
             <div
-              @click="getClinicHospitalsList(item.name)"
+              @click="getClinicHospitalsList(item)"
               v-for="(item, key) in clinicHospitalsList"
               :key="key"
               :name="item.name"
@@ -108,7 +111,7 @@
               v-for="(item, key) in searchFilteredDoctorsFunction"
               :key="key"
               :title="item.fullName"
-              :subTitle="item.departments[0].name"
+              :subTitle="writeDoctorsClinicAfterFilterFunctionForClinicFlow()"
               :data="item.id"
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
@@ -146,6 +149,10 @@
 </template>
 
 <script setup>
+// To DO:
+// doctor dropdown
+// last child of chosen right part item should have direct corners
+// talk to Gökhan about the search box's situation
 import { ref, onMounted, watch, computed, reactive } from "vue";
 import appAxios from "../../../utils/appAxios";
 import store from "../../../store";
@@ -153,15 +160,19 @@ import ChoiceBox from "./ChoiceBox.vue";
 import searchLogo from "../../../assets/img/randevuAkis/search.svg";
 import DoctorBox from "./DoctorBox.vue";
 import RightPart from "./RightPart.vue";
+import clinic from "../../../assets/img/randevuAkis/clinic.svg";
+import hospital from "../../../assets/img/randevuAkis/hospital.svg";
+import { secondsToMilliseconds } from "date-fns";
+
 const appointmentType = ref(0);
 //search variable
 const search = ref("");
 //this is the data for all, if you want to use it
 const data = ref([]);
 //individual data refs
-const clinicData = ref();
+const clinicData = ref([]);
 const doctorData = ref([]);
-const hospitalData = ref();
+const hospitalData = ref([]);
 const displayHandler = ref(3);
 const reactiveTitle = ref("Hastane");
 //v-if functionalities
@@ -172,6 +183,7 @@ const clinicHospitalsList = ref();
 const clinicHospitalName = ref();
 const clinicName = ref();
 const clinicId = ref();
+const hospitalId = ref();
 //reactive object for hospital flow in terms of creating v-if functionalities
 const hospitalFlow = reactive({
   showHospitalClinics: false,
@@ -187,13 +199,32 @@ const hospitalFlow = reactive({
 const filteredDoctors = ref([]);
 //right part array
 const rightPartArr = ref([]);
+//hide/show choice box
+const showChoiceBox = ref(true);
+//make choice box handling a function
+const handleChoiceBox = () => {
+  showChoiceBox.value = false;
+};
 
 const getHospitalData = (item) => {
   console.log(item.name);
   console.log(item);
+  //need this id
+  console.log("hastane id=>" + item.id);
+  hospitalFlow.hospitalId = item.id;
   hospitalFlow.chosenHospital = item.name;
   console.log(data.value);
   filteredClinics();
+  //call a function to hide choicenox
+  handleChoiceBox();
+  //commit to store
+  store.commit("appointmentFlow/setHospitalName", item.name);
+
+  rightPartArr.value.push({
+    title: "Hastane",
+    name: hospitalFlow.chosenHospital,
+    logo: hospital,
+  });
 };
 const getHospitalClinics = (item) => {
   console.log("check this" + item);
@@ -202,6 +233,14 @@ const getHospitalClinics = (item) => {
   hospitalFlow.showHospitalDoctors = true;
   hospitalFlow.showHospitalClinics = false;
   filterDoctorsFunction();
+  //commit to store
+  store.commit("appointmentFlow/setClinicName", item.name);
+
+  rightPartArr.value.push({
+    title: "Bölüm",
+    name: hospitalFlow.chosenClinic,
+    logo: clinic,
+  });
 };
 
 const getClinicData = (item) => {
@@ -215,10 +254,14 @@ const getClinicData = (item) => {
   console.log("id=>" + item.id);
   console.log("doctor data" + doctorData.value[0].id);
   console.log("clinicName.value  => " + clinicName.value);
+  //call a function to hide choicenox
+  handleChoiceBox();
+  //commit to store
+  store.commit("appointmentFlow/setClinicName", item.name);
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
-    logo: "clinic",
+    logo: clinic,
   });
 };
 // let filterDoctors2 = ref();
@@ -265,6 +308,30 @@ const filterDoctorsFunction = () => {
     }
   });
 
+  //new filterdoctors function
+  //my filter function works fine
+  //the problem is that when I list the doctors
+  // I display the first department name
+  //fix that and your problem is fixed
+  //NO NEED TO USE THIS FUNCTION AT ALL, KEEPING IT FOR FUTURE REFERENCE ATM
+  // const newFilterDoctors = doctorData.value.filter((e) => {
+  //   for (i = 0; i < e.departments.length; i++) {
+  //     if (clinicId.value === e.departments[i].departmentId) {
+  //       return e;
+  //     }
+  //   }
+  // });
+
+  // const newFilterDoctors2 = newFilterDoctors.filter((e) => {
+  //   for (i = 0; i < e.departments.length; i++) {
+  //     for (j = 0; j < e.departments[i].tenants.length; j++) {
+  //       if (hospitalId.value === e.departments[i].tenants[j].id) {
+  //         return e;
+  //       }
+  //     }
+  //   }
+  // });
+
   filteredDoctors.value = filterDoctors2;
 
   console.log(filteredDoctors.value);
@@ -274,6 +341,21 @@ const filterDoctorsFunction = () => {
   console.log("sth new" + filterDoctors1[0]);
   console.log(clinicName.value);
 };
+// this function is a walkaround
+// since I can't choose between the different departmens a doctor works in a hospital and display it
+// I can't because I simply don't know how to
+// this function takes the chosen clinic name and displays it in the relevant parts
+// it's ok, because at that stage, the only thing that's needed is the clinic's name
+// every other thing's been taken care of
+////
+//this function is for clinic flow
+function writeDoctorsClinicAfterFilterFunctionForClinicFlow() {
+  return clinicName.value;
+}
+//this function is for hospital flow
+function writeDoctorsClinicAfterFilterFunctionForHospitalFlow() {
+  return hospitalFlow.chosenClinic;
+}
 
 //filtered clinics function
 const filteredClinics = () => {
@@ -294,18 +376,23 @@ const filteredClinics = () => {
   hospitalFlow.showHospitalList = false;
   hospitalFlow.showHospitalClinics = true;
 };
-const getClinicHospitalsList = (clinicHospital) => {
-  console.log(clinicHospital);
+
+const getClinicHospitalsList = (item) => {
+  console.log(item);
   showClinicHospitals.value = false;
-  clinicHospitalName.value = clinicHospital;
+  clinicHospitalName.value = item.name;
+  hospitalId.value = item.id;
   showClinicDoctors.value = true;
+  console.log("I need this id" + item.id);
   showDoctors();
   console.log("  clinicHospitalName.value=>" + clinicHospitalName.value);
   filterDoctorsFunction();
+  //commit to store
+  store.commit("appointmentFlow/setHospitalName", item.name);
   rightPartArr.value.push({
     title: "Hastane",
     name: clinicHospitalName.value,
-    logo: "hospital",
+    logo: hospital,
   });
 };
 
@@ -340,6 +427,8 @@ const showClinics = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getClinics");
     data.value = res.data.items;
+    clinicData.value = res.data.items;
+
     // console.log(JSON.stringify(res.data.items));
     console.log(res.data.items);
   } catch (error) {
@@ -369,7 +458,12 @@ const showHospitals = async () => {
     data.value = res.data.items[4].tenants;
     //add clinicData here for the flow
     clinicData.value = res.data.items;
-    // console.log(JSON.stringify(res.data.items));
+    hospitalData.value = res.data.items[4].tenants;
+    console.log(structuredClone(res.data.items));
+    console.log(
+      "returns test asm gebze and test asm ataşehir" +
+        JSON.stringify(res.data.items[4].tenants)
+    );
     console.log(res.data.items);
   } catch (error) {
     console.log(error);
@@ -380,14 +474,14 @@ const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     doctorData.value = res.data.items;
-    console.log(res.data.items);
-    console.log(JSON.stringify(res.data.items));
+    // console.log("DOCTOR LIST " + JSON.stringify(res.data.items));
+    // console.log(JSON.stringify(res.data.items));
     //this one goes for subtitle
-    console.log(res.data.items[0].departments[0].name);
+    // console.log(res.data.items[0].departments[0].name);
     //for title
-    console.log(JSON.stringify(res.data.items[0].fullName));
-    console.log(res.data.items[0].id);
-    console.log(typeof res.data.items[0].id);
+    // console.log(JSON.stringify(res.data.items[0].fullName));
+    // console.log(res.data.items[0].id);
+    // console.log(typeof res.data.items[0].id);
   } catch (error) {
     console.log(error);
   }
@@ -535,7 +629,7 @@ onMounted(() => {
 }
 
 @media only screen and (max-width: 992px) {
-  .searchContainer,
+  // .searchContainer,
   .whiteBox {
     width: 100%;
   }

@@ -43,7 +43,7 @@
                 :key="key"
                 :clinic="item.name"
               />
-              content goes here
+              <div class="card">content goes here</div>
 
               <button class="modalButton">
                 <div class="modalButtonText">Seç</div>
@@ -58,6 +58,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import store from "../../../store";
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 import ModalBox from "./ModalBox.vue";
 const props = defineProps({
@@ -65,12 +66,19 @@ const props = defineProps({
   dropdownData: { required: true, type: String },
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
+  doctorName: { required: true, type: String },
 });
+//write an on click function
+//that takes props.hospital
 
 const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
+const doctorData = ref();
+const chosenHospital = ref();
+const doctorName = ref();
+const filteredDoctor = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -83,6 +91,12 @@ const handleClick = async () => {
   }
   // console.log(props.dropdownData);
   console.log("need" + props.modalData);
+  console.log("hospital name => " + props.hospital);
+  chosenHospital.value = props.hospital;
+  console.log("doctorName  => " + props.doctorName);
+  doctorName.value = props.doctorName;
+  filterDoctorFunction();
+  // console.log("filtered doctor name => " + filteredDoctor.value);
 };
 
 const isCircleChosen = computed(() => {
@@ -92,9 +106,45 @@ const isCircleChosen = computed(() => {
 
   return false;
 });
+//this function doesn't work as expected
+const filterDoctorFunction = () => {
+  // //this should be the doctor on the dropdown
+  // let filteredDoctor1 = doctorData.value.filter((item) => {
+  //   if (item.fullName == props.doctorName) {
+  //     return item;
+  //   }
+  // });
+  // filteredDoctor1.fullName = filteredDoctor.value;
+  // console.log(filteredDoctor1);
+
+  console.log(props.doctorName + props.hospital);
+  console.log(doctorData.value);
+  console.log(JSON.parse(JSON.stringify(doctorData.value)));
+
+  const filteredFunc = JSON.parse(JSON.stringify(doctorData.value)).filter(
+    (item) => {
+      if (item.fullName === props.doctorName) {
+        return item;
+      }
+    }
+  );
+
+  console.log("filtered function " + JSON.stringify(filteredFunc));
+};
+
+const showDoctors = async () => {
+  try {
+    const res = await store.dispatch("appointmentFlow/getDoctors");
+    doctorData.value = res.data.items;
+    // console.log(doctorData.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 onMounted(() => {
   // alert("need" + JSON.stringify(props.modalData));
+  showDoctors();
 });
 </script>
 
@@ -162,5 +212,15 @@ onMounted(() => {
 
   /* Beyaz */
   color: #ffffff;
+}
+.card {
+  width: 341px;
+  height: 50px;
+
+  background: #ffffff;
+
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  border-radius: 6px;
 }
 </style>
