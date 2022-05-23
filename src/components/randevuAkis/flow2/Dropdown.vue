@@ -83,7 +83,13 @@ const props = defineProps({
 });
 //write an on click function
 //that takes props.hospital
-
+//////////////
+//create a new array that contains everything in filteredDepartmentsArray
+//but push a specific value to each item
+//like isClicked ot sth like that
+// const modalClickArray= filteredDepartmentsArray.map(item => {
+// item.push()
+// });
 const clickMe = (item, index) => {
   console.log(item);
   console.log(index);
