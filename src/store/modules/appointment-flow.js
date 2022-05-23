@@ -7,16 +7,18 @@ import store from "../index";
 export default {
   namespaced: true,
 
-  state: { section: 3 },
-  userNote: "",
-  userChoices: {
-    hospital: "",
-    clinic: "",
-    doctor: "",
+  state: {
+    section: 3,
+    userNote: "",
+    userChoices: {
+      hospital: "",
+      clinic: "",
+      doctor: "",
+    },
+    hospitalName: "Test Hastane İsmi",
+    clinicName: "",
+    doctorName: "",
   },
-  hospitalName: "",
-  clinicName: "",
-  doctorName: "",
 
   mutations: {
     switchContent(state, payload) {
