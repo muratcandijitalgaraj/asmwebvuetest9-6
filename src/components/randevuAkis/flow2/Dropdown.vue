@@ -46,9 +46,16 @@
               <div
                 v-for="(item, index) in filteredDepartmentsArray"
                 :key="index"
-                class="card"
+                class="card d-flex flex-row justify-content-start align-items-center"
+                @click="clickMe(item, index)"
               >
-                <p>{{ item.name }}</p>
+                <div
+                  :class="{ chosenCircle: isModalCircleChosen }"
+                  class="circle d-flex justify-content-center align-items-center"
+                >
+                  <img :src="checkMark" alt="" />
+                </div>
+                <div class="modalPara">{{ item.name }}</div>
               </div>
 
               <button class="modalButton">
@@ -76,6 +83,12 @@ const props = defineProps({
 });
 //write an on click function
 //that takes props.hospital
+
+const clickMe = (item, index) => {
+  console.log(item);
+  console.log(index);
+  console.log(item.class);
+};
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -107,6 +120,16 @@ const handleClick = async () => {
 };
 
 const isCircleChosen = computed(() => {
+  if (isCheck.value && props.dropdownData === props.modelValue) {
+    return true;
+  }
+
+  return false;
+});
+//the same function for modal circle
+const modelType = ref(0);
+
+const isModalCircleChosen = computed(() => {
   if (isCheck.value && props.dropdownData === props.modelValue) {
     return true;
   }
@@ -239,12 +262,21 @@ onMounted(() => {
 }
 .card {
   width: 341px;
-  height: 50px;
-
+  height: auto;
   background: #ffffff;
-
   /* Boxx Shadow */
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   border-radius: 6px;
+  border: solid;
+  padding: 1rem;
+}
+.modalPara {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
+  color: #3c4e69;
 }
 </style>

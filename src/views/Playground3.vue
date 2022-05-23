@@ -65,7 +65,9 @@
               </div>
               <div class="__box-item">
                 <img :src="hospitalLogoSvg" alt="" />
-                <p><span>Hastane: </span><span>{{ hospitalName }}</span></p>
+                <p>
+                  <span>Hastane: </span><span>{{ hospitalName }}</span>
+                </p>
               </div>
               <div class="__box-item">
                 <img :src="doktorLogoBlueSvg" alt="" />
@@ -115,7 +117,9 @@
               </div>
             </div>
           </div>
-          <button class="act-btn" @click="setHospitalName">Randevuyu Tamamla</button>
+          <button class="act-btn" @click="setHospitalName">
+            Randevuyu Tamamla
+          </button>
         </div>
       </div>
     </template>
@@ -129,7 +133,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import {ref, onBeforeMount, onMounted, reactive, computed} from "vue";
+import { ref, onBeforeMount, onMounted, reactive, computed } from "vue";
 import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg";
 import clinicLogoSvg from "../assets/img/randevuAkis/clinic.svg";
 import doktorLogoBlueSvg from "../assets/img/randevuAkis/doktorLogoBlue.svg";
@@ -196,10 +200,17 @@ const hours = ref([
   "14:00",
 ]);
 
-const setHospitalName = () => store.commit('appointmentFlow/setHospitalName', "Buton İle Değişen Hastane İsmi")
+const setHospitalName = () =>
+  store.commit(
+    "appointmentFlow/setHospitalName",
+    "Buton İle Değişen Hastane İsmi"
+  );
 
-const _hospitalName = store.getters['appointmentFlow/_getHospitalName']
-const hospitalName = computed(() => store.getters['appointmentFlow/_getHospitalName'])
+const _hospitalName = store.getters["appointmentFlow/_getHospitalName"];
+//bunu kullanacaksın
+const hospitalName = computed(
+  () => store.getters["appointmentFlow/_getHospitalName"]
+);
 
 onMounted(() => {});
 </script>
