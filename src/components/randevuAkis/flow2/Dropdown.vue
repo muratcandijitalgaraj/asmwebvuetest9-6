@@ -43,8 +43,7 @@
                 :key="key"
                 :clinic="item.name"
               />
-              content goes here
-              <div class="card"></div>
+              <div class="card">content goes here</div>
 
               <button class="modalButton">
                 <div class="modalButtonText">Seç</div>
@@ -97,7 +96,7 @@ const handleClick = async () => {
   console.log("doctorName  => " + props.doctorName);
   doctorName.value = props.doctorName;
   filterDoctorFunction();
-  console.log("filtered doctor name => " + filteredDoctor.value);
+  // console.log("filtered doctor name => " + filteredDoctor.value);
 };
 
 const isCircleChosen = computed(() => {
@@ -109,21 +108,35 @@ const isCircleChosen = computed(() => {
 });
 //this function doesn't work as expected
 const filterDoctorFunction = () => {
-  //this should be the doctor on the dropdown
-  let filteredDoctor1 = doctorData.value.filter((item) => {
-    if (item.fullName == props.doctorName) {
-      return item;
+  // //this should be the doctor on the dropdown
+  // let filteredDoctor1 = doctorData.value.filter((item) => {
+  //   if (item.fullName == props.doctorName) {
+  //     return item;
+  //   }
+  // });
+  // filteredDoctor1.fullName = filteredDoctor.value;
+  // console.log(filteredDoctor1);
+
+  console.log(props.doctorName + props.hospital);
+  console.log(doctorData.value);
+  console.log(JSON.parse(JSON.stringify(doctorData.value)));
+
+  const filteredFunc = JSON.parse(JSON.stringify(doctorData.value)).filter(
+    (item) => {
+      if (item.fullName === props.doctorName) {
+        return item;
+      }
     }
-  });
-  filteredDoctor1.fullName = filteredDoctor.value;
-  console.log(filteredDoctor1.fullName);
+  );
+
+  console.log("filtered function " + JSON.stringify(filteredFunc));
 };
 
 const showDoctors = async () => {
   try {
     const res = await store.dispatch("appointmentFlow/getDoctors");
     doctorData.value = res.data.items;
-    console.log(doctorData.value);
+    // console.log(doctorData.value);
   } catch (error) {
     console.log(error);
   }
