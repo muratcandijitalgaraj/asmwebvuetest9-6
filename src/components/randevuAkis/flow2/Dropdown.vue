@@ -43,7 +43,13 @@
                 :key="key"
                 :clinic="item.name"
               />
-              <div class="card">content goes here</div>
+              <div
+                v-for="(item, index) in filteredDepartmentsArray"
+                :key="index"
+                class="card"
+              >
+                <p>{{ item.name }}</p>
+              </div>
 
               <button class="modalButton">
                 <div class="modalButtonText">Seç</div>
@@ -79,7 +85,7 @@ const doctorData = ref();
 const chosenHospital = ref();
 const doctorName = ref();
 const filteredDoctor = ref();
-
+const filteredDepartmentsArray = ref();
 // const handle = ref(false);
 const handleClick = async () => {
   await emit("update:modelValue", props.dropdownData);
@@ -97,7 +103,7 @@ const handleClick = async () => {
   doctorName.value = props.doctorName;
   filterDoctorFunction();
   // console.log("filtered doctor name => " + filteredDoctor.value);
-  foo();
+  // console.log(JSON.stringify(filteredDepartmentsArray.value));
 };
 
 const isCircleChosen = computed(() => {
@@ -146,7 +152,8 @@ const filterDoctorFunction = () => {
 
   console.log("filtered doctor " + JSON.stringify(filteredDoctor));
   console.log("filtered department" + JSON.stringify(filteredDepartments));
-  filteredDepartments = tryme.value;
+  filteredDepartmentsArray.value = filteredDepartments;
+  console.log(filteredDepartmentsArray.value);
 };
 
 const showDoctors = async () => {
