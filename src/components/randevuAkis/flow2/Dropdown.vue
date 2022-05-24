@@ -11,7 +11,7 @@
     >
       <img :src="checkMark" alt="" />
     </div>
-    <div v-if="dropdownData.length > 1" class="dropdownText">
+    <div class="dropdownText">
       {{ hospital }}
     </div>
 
