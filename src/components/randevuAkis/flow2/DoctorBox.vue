@@ -22,16 +22,16 @@
     :class="{ collapsed: handleCollapse }"
     class="hidden"
   >
-    <Dropdown
+    <!-- <Dropdown
       v-for="(item, key) in dropdownData"
       :key="key"
       :hospital="item.name"
       v-model="appointmentType"
       :dropdownData="item.id"
       :doctorName="title"
-    />
+    /> -->
   </div>
-  <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
+  <!-- <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
     <div
       class="clinicDropdownContainer d-flex flex-row justify-content-start align-items-center"
     >
@@ -45,7 +45,7 @@
       <span> - </span>
       <div class="dropdownText">{{ item.tenants[0].name }}</div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -54,6 +54,11 @@ import store from "../../../store";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
 import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
+
+//ultimate functionality logic:
+//if the clicked doctor works in more than one hospital, show dropdown
+//if the doctor works in multiple clinics in a chosen hospital, show modal
+//if the clicked doctor works in only one hospital but multiple clinics, show dropdown of clinics
 
 //handle circle on click
 const handleCircle = () => {
@@ -78,6 +83,7 @@ const isCheck = ref(false);
 const isClicked = ref(false);
 const isCircleChosen = ref(false);
 const shouldCollapse = ref(false);
+const departments = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
@@ -94,7 +100,11 @@ const handleClick = async () => {
   console.log("props title=>" + props.title);
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
+  //modalData is item.departments coming from the parent
+  //this is the important one, I'll use this one to create the functionality of the dropdown
   console.log(props.modalData);
+  departments.value = props.modalData;
+  // console.log(departments.value);
 };
 
 const handleCollapse = computed(() => {
@@ -112,18 +122,31 @@ const changeBorderRadius = () => {
 //this function checks the length of tenants array that contains the amount of hospitals a doctor works in
 //if the doctor works in only one hospital, it'll return false, and collapse wont be showing off
 //else, it'll return true and the collapse will be available
+// const tenantsBoolean = ref();
+// const checkIfMultipleTenantsExists = () => {
+//   departments.value.map((item) => {
+//     item.tenants;
+//   });
+// };
 
 const handleShouldCollapse = () => {
-  if (props.dropdownData.length === 1) {
-    shouldCollapse.value = false;
-  } else {
+  if (departments.value.length > 1) {
     shouldCollapse.value = true;
+  } else if (props.dropdownData.length > 1) {
+    shouldCollapse.value = true;
+  } else if (departments.value.length == 1) {
+    shouldCollapse.value = false;
   }
 };
 
+// else if (props.modalData.map) {
+//     shouldCollapse.value = true;
+//   }
 onMounted(() => {
   //you can find the hospital name by querying this
   // console.log("dropdowndata" + JSON.stringify(props.dropdownData));
+  departments.value = props.modalData;
+
   handleShouldCollapse();
   console.log(props.modalData);
   console.log("dropdown data => " + JSON.stringify(props.dropdownData));
