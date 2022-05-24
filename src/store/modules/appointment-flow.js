@@ -10,11 +10,6 @@ export default {
   state: {
     section: 3,
     userNote: "",
-    userChoices: {
-      hospital: "",
-      clinic: "",
-      doctor: "",
-    },
     hospitalName: "Test Hastane İsmi",
     clinicName: "",
     doctorName: "",

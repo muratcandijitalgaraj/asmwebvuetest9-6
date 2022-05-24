@@ -81,19 +81,13 @@ const props = defineProps({
   modalData: { required: true, type: Array },
   doctorName: { required: true, type: String },
 });
-//write an on click function
-//that takes props.hospital
-//////////////
-//create a new array that contains everything in filteredDepartmentsArray
-//but push a specific value to each item
-//like isClicked ot sth like that
-// const modalClickArray= filteredDepartmentsArray.map(item => {
-// item.push()
-// });
+
 const handleModalClick = (item, index) => {
   console.log(JSON.stringify(item));
-  console.log(index);
-  console.log(item.class);
+  //send this item.name (clinic name) to the store with the other two data needed
+  console.log(item.name);
+  //commit to store
+  store.commit("appointmentFlow/setClinicName", item.name);
   item.modalToggle = !item.modalToggle;
 };
 
@@ -107,12 +101,6 @@ const doctorName = ref();
 const filteredDoctor = ref();
 const filteredDepartmentsArray = ref();
 
-// //write a function that adds a new element to each element in the doctorData array on mount
-// const addElementsOnMount=()=>{
-
-// }
-
-// const handle = ref(false);
 const handleClick = async () => {
   await emit("update:modelValue", props.dropdownData);
 
@@ -123,6 +111,7 @@ const handleClick = async () => {
   }
   // console.log(props.dropdownData);
   console.log("need" + props.modalData);
+  //here are the data I'll send to the store
   console.log("hospital name => " + props.hospital);
   chosenHospital.value = props.hospital;
   console.log("doctorName  => " + props.doctorName);
@@ -130,6 +119,9 @@ const handleClick = async () => {
   filterDoctorFunction();
   // console.log("filtered doctor name => " + filteredDoctor.value);
   // console.log(JSON.stringify(filteredDepartmentsArray.value));
+  //commit to store
+  store.commit("appointmentFlow/setHospitalName", props.hospital);
+  store.commit("appointmentFlow/setDoctorName", props.doctorName);
 };
 
 const isCircleChosen = computed(() => {
@@ -178,9 +170,6 @@ const filterDoctorFunction = () => {
 
   console.log("filtered doctor " + JSON.stringify(filteredDoctor));
   console.log("filtered department" + JSON.stringify(filteredDepartments));
-
-  //what is this?
-  // filtered;
   //add modal toggle element to each and every item in filteredDepartments
   filteredDepartments.forEach((item) => {
     Object.assign(item, { modalToggle: false });
@@ -200,7 +189,6 @@ const showDoctors = async () => {
 };
 
 onMounted(() => {
-  // alert("need" + JSON.stringify(props.modalData));
   showDoctors();
 });
 </script>
