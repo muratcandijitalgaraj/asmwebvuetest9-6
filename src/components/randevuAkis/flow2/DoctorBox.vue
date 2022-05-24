@@ -22,14 +22,14 @@
     :class="{ collapsed: handleCollapse }"
     class="hidden"
   >
-    <!-- <Dropdown
+    <Dropdown
       v-for="(item, key) in dropdownData"
       :key="key"
       :hospital="item.name"
       v-model="appointmentType"
       :dropdownData="item.id"
       :doctorName="title"
-    /> -->
+    />
   </div>
   <!-- <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
     <div
@@ -105,6 +105,7 @@ const handleClick = async () => {
   console.log(props.modalData);
   departments.value = props.modalData;
   // console.log(departments.value);
+  console.log("doktorun çalıştığı hastane length" + props.dropdownData.length);
 };
 
 const handleCollapse = computed(() => {
@@ -122,13 +123,7 @@ const changeBorderRadius = () => {
 //this function checks the length of tenants array that contains the amount of hospitals a doctor works in
 //if the doctor works in only one hospital, it'll return false, and collapse wont be showing off
 //else, it'll return true and the collapse will be available
-// const tenantsBoolean = ref();
-// const checkIfMultipleTenantsExists = () => {
-//   departments.value.map((item) => {
-//     item.tenants;
-//   });
-// };
-
+//very, very useful function.
 const handleShouldCollapse = () => {
   if (departments.value.length > 1) {
     shouldCollapse.value = true;
