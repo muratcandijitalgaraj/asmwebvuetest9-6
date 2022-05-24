@@ -91,10 +91,15 @@ const props = defineProps({
 // item.push()
 // });
 const clickMe = (item, index) => {
-  console.log(item);
+  console.log(JSON.stringify(item));
   console.log(index);
   console.log(item.class);
+  const newData = { active: true };
+  newObj = Object.assign(item, newData);
+  console.log(newObj);
 };
+
+let newObj = {};
 
 const emit = defineEmits(["update:modelValue"]);
 
