@@ -31,6 +31,10 @@
       :doctorName="title"
     />
   </div>
+  <div class="doctorBox" v-for="(item, index) in modalData">
+    <div>{{ item.name }}</div>
+    <div>{{ item.tenants[0].name }}</div>
+  </div>
 </template>
 
 <script setup>
@@ -79,6 +83,7 @@ const handleClick = async () => {
   console.log("props title=>" + props.title);
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
+  console.log(props.modalData);
 };
 
 const handleCollapse = computed(() => {
@@ -107,8 +112,9 @@ const handleShouldCollapse = () => {
 
 onMounted(() => {
   //you can find the hospital name by querying this
-  console.log("dropdowndata" + JSON.stringify(props.dropdownData));
+  // console.log("dropdowndata" + JSON.stringify(props.dropdownData));
   handleShouldCollapse();
+  console.log(props.modalData);
 });
 </script>
 
