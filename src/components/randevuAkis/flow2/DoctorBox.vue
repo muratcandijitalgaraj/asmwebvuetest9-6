@@ -31,9 +31,20 @@
       :doctorName="title"
     />
   </div>
-  <div class="doctorBox" v-for="(item, index) in modalData">
-    <div>{{ item.name }}</div>
-    <div>{{ item.tenants[0].name }}</div>
+  <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
+    <div
+      class="clinicDropdownContainer d-flex flex-row justify-content-start align-items-center"
+    >
+      <div
+        :class="{ chosenCircle: isCircleChosen }"
+        class="circle d-flex justify-content-center align-items-center"
+      >
+        <img :src="checkMark" alt="" />
+      </div>
+      <div class="dropdownText">{{ item.name }}</div>
+      <span> - </span>
+      <div class="dropdownText">{{ item.tenants[0].name }}</div>
+    </div>
   </div>
 </template>
 
@@ -115,6 +126,7 @@ onMounted(() => {
   // console.log("dropdowndata" + JSON.stringify(props.dropdownData));
   handleShouldCollapse();
   console.log(props.modalData);
+  console.log("dropdown data => " + JSON.stringify(props.dropdownData));
 });
 </script>
 
@@ -203,5 +215,18 @@ onMounted(() => {
 }
 .chosenCircle {
   background: #32a5df;
+}
+.dropdownText {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
+
+  /* identical to box height, or 21px */
+
+  /* Primary */
+  color: #3c4e69;
 }
 </style>
