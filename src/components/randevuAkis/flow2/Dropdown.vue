@@ -277,7 +277,6 @@ onMounted(() => {
   /* Boxx Shadow */
   box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
   border-radius: 6px;
-  border: solid;
   padding: 1rem;
 }
 .modalPara {
