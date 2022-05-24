@@ -134,7 +134,10 @@
           />
         </div>
       </div>
-      <div class="rightPart col-10 col-xxl-4">
+      <div
+        v-if="displayHandler == 1 || displayHandler == 3"
+        class="rightPart col-10 col-xxl-4"
+      >
         <h2 class="rightPartTitle">Seçimleriniz</h2>
         <RightPart
           v-for="(item, key) in rightPartArr"
