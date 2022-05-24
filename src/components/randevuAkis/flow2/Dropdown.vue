@@ -47,10 +47,10 @@
                 v-for="(item, index) in filteredDepartmentsArray"
                 :key="index"
                 class="card d-flex flex-row justify-content-start align-items-center"
-                @click="clickMe(item, index)"
+                @click="handleModalClick(item)"
               >
                 <div
-                  :class="{ chosenCircle: isModalCircleChosen }"
+                  :class="[item.modalToggle ? 'chosenCircle' : '']"
                   class="circle d-flex justify-content-center align-items-center"
                 >
                   <img :src="checkMark" alt="" />
@@ -90,16 +90,12 @@ const props = defineProps({
 // const modalClickArray= filteredDepartmentsArray.map(item => {
 // item.push()
 // });
-const clickMe = (item, index) => {
+const handleModalClick = (item, index) => {
   console.log(JSON.stringify(item));
   console.log(index);
   console.log(item.class);
-  const newData = { active: true };
-  newObj = Object.assign(item, newData);
-  console.log(newObj);
+  item.modalToggle = !item.modalToggle;
 };
-
-let newObj = {};
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -110,6 +106,12 @@ const chosenHospital = ref();
 const doctorName = ref();
 const filteredDoctor = ref();
 const filteredDepartmentsArray = ref();
+
+// //write a function that adds a new element to each element in the doctorData array on mount
+// const addElementsOnMount=()=>{
+
+// }
+
 // const handle = ref(false);
 const handleClick = async () => {
   await emit("update:modelValue", props.dropdownData);
@@ -147,17 +149,7 @@ const isModalCircleChosen = computed(() => {
 
   return false;
 });
-//this function doesn't work as expected
 const filterDoctorFunction = () => {
-  // //this should be the doctor on the dropdown
-  // let filteredDoctor1 = doctorData.value.filter((item) => {
-  //   if (item.fullName == props.doctorName) {
-  //     return item;
-  //   }
-  // });
-  // filteredDoctor1.fullName = filteredDoctor.value;
-  // console.log(filteredDoctor1);
-
   console.log(props.doctorName + props.hospital);
   console.log(doctorData.value);
   console.log(JSON.parse(JSON.stringify(doctorData.value)));
@@ -186,6 +178,13 @@ const filterDoctorFunction = () => {
 
   console.log("filtered doctor " + JSON.stringify(filteredDoctor));
   console.log("filtered department" + JSON.stringify(filteredDepartments));
+
+  //what is this?
+  // filtered;
+  //add modal toggle element to each and every item in filteredDepartments
+  filteredDepartments.forEach((item) => {
+    Object.assign(item, { modalToggle: false });
+  });
   filteredDepartmentsArray.value = filteredDepartments;
   console.log(filteredDepartmentsArray.value);
 };
