@@ -46,7 +46,7 @@
       class="hidden"
     >
       <Dropdown
-        v-for="(item, key) in modalData"
+        v-for="(item, key) in dropdownData"
         :key="key"
         :hospital="item.name"
         v-model="appointmentType"

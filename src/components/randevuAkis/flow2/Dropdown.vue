@@ -16,7 +16,8 @@
     </div>
 
     <teleport to="body">
-      <!-- <div
+      <!-- Modal -->
+      <div
         class="modal fade"
         id="exampleModal"
         tabindex="-1"
@@ -63,7 +64,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </teleport>
   </div>
 </template>
