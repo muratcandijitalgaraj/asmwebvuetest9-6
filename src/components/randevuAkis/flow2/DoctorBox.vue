@@ -13,24 +13,49 @@
       <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
         <span class="subTitle">{{ subTitle }} </span>
         <span class="subTitle"> - </span>
-        <span class="subTitle">{{ dropdownData[0].name }}</span>
+        <!-- is this v-if really necessary? -->
+        <span
+          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
+          class="subTitle"
+          >{{ modalData[0].tenants[0].name }}</span
+        >
       </div>
     </div>
   </div>
-  <div
-    v-if="shouldCollapse"
-    :class="{ collapsed: handleCollapse }"
-    class="hidden"
-  >
-    <Dropdown
-      v-for="(item, key) in dropdownData"
-      :key="key"
-      :hospital="item.name"
-      v-model="appointmentType"
-      :dropdownData="item.id"
-      :doctorName="title"
-    />
+  <div v-if="modalData.length === 1">
+    <div
+      v-if="shouldCollapse"
+      :class="{ collapsed: handleCollapse }"
+      class="hidden"
+    >
+      <!-- first off, it should loop over modalData, not dropdownData -->
+      <Dropdown
+        v-for="(item, key) in dropdownData"
+        :key="key"
+        :hospital="item.name"
+        v-model="appointmentType"
+        :dropdownData="item.id"
+        :doctorName="title"
+      />
+    </div>
   </div>
+  <div v-if="modalData.length > 1">
+    <div
+      v-if="shouldCollapse"
+      :class="{ collapsed: handleCollapse }"
+      class="hidden"
+    >
+      <Dropdown
+        v-for="(item, key) in modalData"
+        :key="key"
+        :hospital="item.name"
+        v-model="appointmentType"
+        :dropdownData="item.id"
+        :doctorName="title"
+      />
+    </div>
+  </div>
+
   <!-- <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
     <div
       class="clinicDropdownContainer d-flex flex-row justify-content-start align-items-center"
@@ -141,10 +166,10 @@ onMounted(() => {
   //you can find the hospital name by querying this
   // console.log("dropdowndata" + JSON.stringify(props.dropdownData));
   departments.value = props.modalData;
-
   handleShouldCollapse();
   console.log(props.modalData);
   console.log("dropdown data => " + JSON.stringify(props.dropdownData));
+  console.log(` there are ${props.modalData.length} departments`);
 });
 </script>
 
