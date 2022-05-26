@@ -135,8 +135,7 @@ const handleClick = async () => {
   departments.value = props.modalData;
   // console.log(departments.value);
   console.log("doktorun çalıştığı hastane length" + props.dropdownData.length);
-  // $router.push("/anasayfa");
-  router.push({ name: "Dashboard" });
+  router.push({ name: "TarihSaatSecimi" });
 };
 
 const handleCollapse = computed(() => {

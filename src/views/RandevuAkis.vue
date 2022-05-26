@@ -7,8 +7,16 @@
       <div class="zemin col-md-12 col-lg-8 col-xl-8 col-xxl-9">
         <!-- <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div> -->
-        <!-- <SecimVue /> -->
-        <Flow2MainVue />
+        <div v-if="flowToken === 1">
+          <SecimVue />
+        </div>
+        <div v-if="flowToken === 2">
+          <Flow2MainVue />
+        </div>
+        <!-- <div v-if="flowToken === 3"></div>
+        <div v-if="flowToken === 4"></div>
+        <div v-if="flowToken === 5"></div> -->
+
         <!-- <TarihSecimVue /> -->
         <!-- <RandevuOzetVue /> -->
         <!-- <PaymentVue /> -->
@@ -19,11 +27,25 @@
 </template>
 
 <script setup>
+//will put v-ifs checking with a data in state
 import SecimVue from "../components/randevuAkis/Secim.vue";
 import Flow2MainVue from "../components/randevuAkis/flow/Flow.vue";
 import RandevuOzetVue from "../components/randevuAkis/randevu-ozet/Randevu-ozet.vue";
 import PaymentVue from "../components/randevuAkis/payment/Payment.vue";
 import TarihSecimVue from "../components/randevuAkis/TarihSecim.vue";
+import store from "../store";
+import { computed, onMounted } from "vue";
+//page changer functionality
+const _flowToken = store.getters["appointmentFlow/_getFlowToken"];
+//bunu kullanacaksın
+//do you need computed at all?
+const flowToken = computed(
+  () => store.getters["appointmentFlow/_getFlowToken"]
+);
+
+onMounted(() => {
+  console.log(flowToken);
+});
 </script>
 
 <style lang="scss" scoped>

@@ -128,7 +128,6 @@
 </template>
 
 <script setup>
-// import store from "../store";
 import store from "../../store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
@@ -140,6 +139,10 @@ import clinicLogoSvg from "../../assets/img/randevuAkis/clinic.svg";
 import doktorLogoBlueSvg from "../../assets/img/randevuAkis/doktorLogoBlue.svg";
 import doctor from "../../assets/demo-data/doctor2.png";
 import hospitalLogoSvg from "../../assets/img/randevuAkis/hospital.svg";
+//you need to import router in each component you want to use it for some reason
+import { useRouter } from "vue-router";
+//define router
+const router = useRouter();
 
 const onSwiper = (swiper) => {
   console.log(swiper);
@@ -202,11 +205,13 @@ const hours = ref([
   "14:00",
 ]);
 
-const setHospitalName = () =>
+const setHospitalName = () => {
   store.commit(
     "appointmentFlow/setHospitalName",
     "Buton İle Değişen Hastane İsmi"
   );
+  router.push({ name: "Dashboard" });
+};
 
 const _hospitalName = store.getters["appointmentFlow/_getHospitalName"];
 //bunu kullanacaksın
@@ -214,7 +219,7 @@ const hospitalName = computed(
   () => store.getters["appointmentFlow/_getHospitalName"]
 );
 
-onMounted(() => {});
+// onMounted(() => {});
 </script>
 
 <style scoped lang="scss">

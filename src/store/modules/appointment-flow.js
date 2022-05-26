@@ -13,6 +13,7 @@ export default {
     hospitalName: "Test Hastane İsmi",
     clinicName: "",
     doctorName: "",
+    flowToken: 1,
   },
 
   mutations: {
@@ -37,6 +38,9 @@ export default {
     },
     setDoctorName(state, payload) {
       state.doctorName = payload;
+    },
+    setFlownToken(state, payload) {
+      state.flowToken = payload;
     },
   },
 
@@ -94,5 +98,6 @@ export default {
 
   getters: {
     _getHospitalName: (state) => state.hospitalName,
+    _getFlowToken: (state) => state.flowToken,
   },
 };

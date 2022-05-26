@@ -6,7 +6,7 @@
       <forWhomVue />
       <randevuTuruVue />
       <button class="button">
-        <div class="buttonText">Devam</div>
+        <div @click="changeFlowToken" class="buttonText">Devam</div>
       </button>
     </div>
   </div>
@@ -15,6 +15,11 @@
 <script setup>
 import forWhomVue from "../UI/randevuAkis/forWhom.vue";
 import randevuTuruVue from "../UI/randevuAkis/randevuTuru.vue";
+import store from "../../store";
+
+const changeFlowToken = () => {
+  store.commit("appointmentFlow/setFlownToken", 2);
+};
 </script>
 
 <style lang="scss" scoped>
