@@ -10,7 +10,7 @@ export default {
   state: {
     section: 3,
     userNote: "",
-    hospitalName: "Test Hastane İsmi",
+    hospitalName: "",
     clinicName: "",
     doctorName: "",
     flowToken: 1,
@@ -98,6 +98,8 @@ export default {
 
   getters: {
     _getHospitalName: (state) => state.hospitalName,
+    _getClinicName: (state) => state.clinicName,
+    _getDoctorName: (state) => state.doctorName,
     _getFlowToken: (state) => state.flowToken,
   },
 };

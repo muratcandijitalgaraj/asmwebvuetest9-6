@@ -61,7 +61,9 @@
             <div class="__box">
               <div class="__box-item">
                 <img :src="clinicLogoSvg" alt="" />
-                <p><span>Bölüm: </span><span>Beslenme ve Diyet</span></p>
+                <p>
+                  <span>Bölüm: </span><span>{{ clinicName }}</span>
+                </p>
               </div>
               <div class="__box-item">
                 <img :src="hospitalLogoSvg" alt="" />
@@ -72,7 +74,7 @@
               <div class="__box-item">
                 <img :src="doktorLogoBlueSvg" alt="" />
                 <p>
-                  <span>Doktor: </span><span>Prof.Dr. Mehmet Balkanlı</span>
+                  <span>Doktor: </span><span>{{ doctorName }}</span>
                 </p>
               </div>
             </div>
@@ -206,21 +208,27 @@ const hours = ref([
 ]);
 //the following is Gökhan's template
 //should push back to RandevuAkis on button click
-// const setHospitalName = () => {
-//   store.commit(
-//     "appointmentFlow/setHospitalName",
-//     "Buton İle Değişen Hastane İsmi"
-//   );
-//   //router to
-//   router.push({ name: "RandevuAkis" });
-// };
+const setHospitalName = () => {
+  store.commit(
+    "appointmentFlow/setHospitalName",
+    "Buton İle Değişen Hastane İsmi"
+  );
+  //router to
+  router.push({ name: "RandevuAkis" });
+};
 
 // const _hospitalName = store.getters["appointmentFlow/_getHospitalName"];
-// //bunu kullanacaksın
-// const hospitalName = computed(
-//   () => store.getters["appointmentFlow/_getHospitalName"]
-// );
+//bunu kullanacaksın
+const hospitalName = computed(
+  () => store.getters["appointmentFlow/_getHospitalName"]
+);
 //Gökhan's template ends
+const clinicName = computed(
+  () => store.getters["appointmentFlow/_getClinicName"]
+);
+const doctorName = computed(
+  () => store.getters["appointmentFlow/_getDoctorName"]
+);
 
 const changeFlowToken = () => {
   //set token to open randevu ozet
@@ -229,7 +237,7 @@ const changeFlowToken = () => {
   router.push({ name: "RandevuAkis" });
 };
 
-// onMounted(() => {});
+onMounted(() => {});
 </script>
 
 <style scoped lang="scss">

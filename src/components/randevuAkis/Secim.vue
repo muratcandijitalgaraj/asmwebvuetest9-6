@@ -5,8 +5,8 @@
     >
       <forWhomVue />
       <randevuTuruVue />
-      <button class="button">
-        <div @click="changeFlowToken" class="buttonText">Devam</div>
+      <button @click="changeFlowToken" class="button">
+        <div class="buttonText">Devam</div>
       </button>
     </div>
   </div>
