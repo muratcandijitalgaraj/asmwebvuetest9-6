@@ -15,8 +15,8 @@
           <div
             class="textGroup d-flex flex-column justify-content-center align-items-start"
           >
-            <div class="boldText">{{ appointment.doctor }}</div>
-            <div class="text">{{ appointment.department }}</div>
+            <div class="boldText">{{ doctorName }}</div>
+            <div class="text">{{ clinicName }}</div>
           </div>
         </div>
         <div class="greyLine"></div>
@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted, reactive, watch } from "vue";
+import { ref, onBeforeMount, onMounted, reactive, watch, computed } from "vue";
 import store from "../../../store";
 import bigLogo from "../../../assets/img/randevuAkis/tick-circle.svg";
 import doctorImg from "../../../assets/img/randevuAkis/doktor.svg";
@@ -131,34 +131,45 @@ const changeFlowToken = () => {
 //I'l make some adjustments
 const appointments = ref([]);
 const individualAppointment = ref([]);
-const appointment = reactive({
-  doctor: "",
-  department: "",
-  date: "",
-  appointmentType: "",
-});
+// const appointment = reactive({
+//   doctor: "",
+//   department: "",
+//   date: "",
+//   appointmentType: "",
+// });
 
 const appointmentType = ref("");
 const appointmentDate = ref();
 
+const hospitalName = computed(
+  () => store.getters["appointmentFlow/_getHospitalName"]
+);
+//Gökhan's template ends
+const clinicName = computed(
+  () => store.getters["appointmentFlow/_getClinicName"]
+);
+const doctorName = computed(
+  () => store.getters["appointmentFlow/_getDoctorName"]
+);
+
 onMounted(() => {
-  store
-    .dispatch("appointmentFlow/getAppointments")
-    .then((res) => {
-      appointments.value = res?.data?.items;
-      individualAppointment.value = res?.data?.items[1];
-      console.log(res.data);
-      console.log(individualAppointment.value);
-      //reactive object here
-      appointment.doctor = res?.data?.items[1].resources[0].resourceName;
-      appointment.department = res?.data?.items[1].resources[0].departmentName;
-      appointment.date = res?.data?.items[1].resources[0].from;
-      appointment.appointmentType = res?.data?.items[1].resources[0].tenantName;
-      //data array for props
-      data[1].value = res?.data?.items[1].resources[0].from;
-      appointmentType.value = res?.data?.items[1].resources[0].tenantName;
-    })
-    .catch((err) => console.log(err.response));
+  // store
+  //   .dispatch("appointmentFlow/getAppointments")
+  //   .then((res) => {
+  //     appointments.value = res?.data?.items;
+  //     individualAppointment.value = res?.data?.items[1];
+  //     console.log(res.data);
+  //     console.log(individualAppointment.value);
+  //     //reactive object here
+  //     appointment.doctor = res?.data?.items[1].resources[0].resourceName;
+  //     appointment.department = res?.data?.items[1].resources[0].departmentName;
+  //     appointment.date = res?.data?.items[1].resources[0].from;
+  //     appointment.appointmentType = res?.data?.items[1].resources[0].tenantName;
+  //     //data array for props
+  //     data[1].value = res?.data?.items[1].resources[0].from;
+  //     appointmentType.value = res?.data?.items[1].resources[0].tenantName;
+  //   })
+  //   .catch((err) => console.log(err.response));
 });
 //imported code ends here
 // //doesn't work it seems
