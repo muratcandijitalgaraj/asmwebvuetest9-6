@@ -39,7 +39,7 @@ export default {
     setDoctorName(state, payload) {
       state.doctorName = payload;
     },
-    setFlownToken(state, payload) {
+    setFlowToken(state, payload) {
       state.flowToken = payload;
     },
   },

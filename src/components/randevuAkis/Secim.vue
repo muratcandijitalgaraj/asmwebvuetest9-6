@@ -18,7 +18,7 @@ import randevuTuruVue from "../UI/randevuAkis/randevuTuru.vue";
 import store from "../../store";
 
 const changeFlowToken = () => {
-  store.commit("appointmentFlow/setFlownToken", 2);
+  store.commit("appointmentFlow/setFlowToken", 2);
 };
 </script>
 

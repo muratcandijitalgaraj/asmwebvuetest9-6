@@ -13,7 +13,7 @@
         <div v-if="flowToken === 2">
           <Flow2MainVue />
         </div>
-        <div v-if="flowToken === 3"><TarihSecimVue /></div>
+        <!-- <div v-if="flowToken === 3"><TarihSecimVue /></div> -->
         <div v-if="flowToken === 4"><RandevuOzetVue /></div>
         <div v-if="flowToken === 5"><PaymentVue /></div>
       </div>

@@ -224,7 +224,7 @@ const hours = ref([
 
 const changeFlowToken = () => {
   //set token to open randevu ozet
-  store.commit("appointmentFlow/setFlownToken", 4);
+  store.commit("appointmentFlow/setFlowToken", 4);
   //go back to randevuAkis, where, the token will function and display components accordingly
   router.push({ name: "RandevuAkis" });
 };

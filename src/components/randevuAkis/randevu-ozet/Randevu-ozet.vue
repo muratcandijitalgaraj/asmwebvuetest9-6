@@ -41,7 +41,7 @@
             </div>
           </button>
         </div>
-        <div class="btnContainer col-12">
+        <div @click="changeFlowToken" class="btnContainer col-12">
           <div class="btn">
             <div class="btnText">Tamamla</div>
           </div>
@@ -111,6 +111,15 @@ import hospital from "../../../assets/img/randevuAkis/ozet-hospital.svg";
 import flash from "../../../assets/img/randevuAkis/flash.svg";
 import clouds from "../../../assets/img/randevuAkis/clouds.svg";
 import Card from "./Card.vue";
+//you need to import router in each component you want to use it for some reason
+import { useRouter } from "vue-router";
+//define router
+const router = useRouter();
+
+const changeFlowToken = () => {
+  //set token to open randevu ozet
+  store.commit("appointmentFlow/setFlowToken", 5);
+};
 
 //PROBLEM HERE
 // I get the data, but when I want to pass it via props
