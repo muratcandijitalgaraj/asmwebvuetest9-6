@@ -166,17 +166,6 @@ const routes = [
         /* webpackChunkName: "about" */ "../../src/components/randevuAkis/TarihSecim.vue"
       ),
   },
-  {
-    path: "/randevu-akis/randevu-ozet",
-    name: "RandevuOzet",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../../src/components/randevuAkis/randevu-ozet/Randevu-ozet.vue"
-      ),
-  },
 ];
 
 const router = createRouter({

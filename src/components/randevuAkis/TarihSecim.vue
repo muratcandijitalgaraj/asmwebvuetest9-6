@@ -117,7 +117,7 @@
               </div>
             </div>
           </div>
-          <button class="act-btn" @click="setHospitalName">
+          <button class="act-btn" @click="changeFlowToken">
             Randevuyu Tamamla
           </button>
         </div>
@@ -204,20 +204,30 @@ const hours = ref([
   "13:45",
   "14:00",
 ]);
+//the following is Gökhan's template
+//should push back to RandevuAkis on button click
+// const setHospitalName = () => {
+//   store.commit(
+//     "appointmentFlow/setHospitalName",
+//     "Buton İle Değişen Hastane İsmi"
+//   );
+//   //router to
+//   router.push({ name: "RandevuAkis" });
+// };
 
-const setHospitalName = () => {
-  store.commit(
-    "appointmentFlow/setHospitalName",
-    "Buton İle Değişen Hastane İsmi"
-  );
-  router.push({ name: "Dashboard" });
+// const _hospitalName = store.getters["appointmentFlow/_getHospitalName"];
+// //bunu kullanacaksın
+// const hospitalName = computed(
+//   () => store.getters["appointmentFlow/_getHospitalName"]
+// );
+//Gökhan's template ends
+
+const changeFlowToken = () => {
+  //set token to open randevu ozet
+  store.commit("appointmentFlow/setFlownToken", 4);
+  //go back to randevuAkis, where, the token will function and display components accordingly
+  router.push({ name: "RandevuAkis" });
 };
-
-const _hospitalName = store.getters["appointmentFlow/_getHospitalName"];
-//bunu kullanacaksın
-const hospitalName = computed(
-  () => store.getters["appointmentFlow/_getHospitalName"]
-);
 
 // onMounted(() => {});
 </script>

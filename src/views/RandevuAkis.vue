@@ -13,13 +13,9 @@
         <div v-if="flowToken === 2">
           <Flow2MainVue />
         </div>
-        <!-- <div v-if="flowToken === 3"></div>
-        <div v-if="flowToken === 4"></div>
-        <div v-if="flowToken === 5"></div> -->
-
-        <!-- <TarihSecimVue /> -->
-        <!-- <RandevuOzetVue /> -->
-        <!-- <PaymentVue /> -->
+        <div v-if="flowToken === 3"><TarihSecimVue /></div>
+        <div v-if="flowToken === 4"><RandevuOzetVue /></div>
+        <div v-if="flowToken === 5"><PaymentVue /></div>
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
