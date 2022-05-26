@@ -9,6 +9,7 @@
         <div class="greyLine"></div> -->
         <!-- <SecimVue /> -->
         <Flow2MainVue />
+        <!-- <TarihSecimVue /> -->
         <!-- <RandevuOzetVue /> -->
         <!-- <PaymentVue /> -->
       </div>
@@ -22,6 +23,7 @@ import SecimVue from "../components/randevuAkis/Secim.vue";
 import Flow2MainVue from "../components/randevuAkis/flow2/Flow2Main.vue";
 import RandevuOzetVue from "../components/randevuAkis/randevu-ozet/Randevu-ozet.vue";
 import PaymentVue from "../components/randevuAkis/payment/Payment.vue";
+import TarihSecimVue from "../components/randevuAkis/TarihSecim.vue";
 </script>
 
 <style lang="scss" scoped>

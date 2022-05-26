@@ -128,16 +128,18 @@
 </template>
 
 <script setup>
-import store from "../store";
+// import store from "../store";
+import store from "../../store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ref, onBeforeMount, onMounted, reactive, computed } from "vue";
-import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg";
-import clinicLogoSvg from "../assets/img/randevuAkis/clinic.svg";
-import doktorLogoBlueSvg from "../assets/img/randevuAkis/doktorLogoBlue.svg";
-import doctor from "../assets/demo-data/doctor2.png";
+// import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg";
+import clinicLogoSvg from "../../assets/img/randevuAkis/clinic.svg";
+import doktorLogoBlueSvg from "../../assets/img/randevuAkis/doktorLogoBlue.svg";
+import doctor from "../../assets/demo-data/doctor2.png";
+import hospitalLogoSvg from "../../assets/img/randevuAkis/hospital.svg";
 
 const onSwiper = (swiper) => {
   console.log(swiper);
@@ -216,7 +218,7 @@ onMounted(() => {});
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/style";
+@import "../../assets/scss/style";
 .main-container {
   height: auto;
   background: $main;
@@ -269,7 +271,7 @@ onMounted(() => {});
 </style>
 
 <style lang="scss">
-@import "../assets/scss/style";
+@import "../../assets/scss/style";
 
 .date-selection-swiper {
   margin-bottom: 45px;
