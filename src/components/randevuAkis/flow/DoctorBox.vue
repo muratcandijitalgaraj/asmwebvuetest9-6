@@ -79,6 +79,10 @@ import store from "../../../store";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
 import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
+//you need to import router in each component you want to use it for some reason
+import { useRouter } from "vue-router";
+//define router
+const router = useRouter();
 
 //ultimate functionality logic:
 //if the clicked doctor works in more than one hospital, show dropdown
@@ -131,6 +135,8 @@ const handleClick = async () => {
   departments.value = props.modalData;
   // console.log(departments.value);
   console.log("doktorun çalıştığı hastane length" + props.dropdownData.length);
+  // $router.push("/anasayfa");
+  router.push({ name: "Dashboard" });
 };
 
 const handleCollapse = computed(() => {
