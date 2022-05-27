@@ -129,6 +129,8 @@ const handleClick = async () => {
   console.log("props title=>" + props.title);
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
+  store.commit("appointmentFlow/setDoctorId", props.data);
+
   //modalData is item.departments coming from the parent
   //this is the important one, I'll use this one to create the functionality of the dropdown
   console.log(props.modalData);

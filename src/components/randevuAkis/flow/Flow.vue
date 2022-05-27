@@ -222,6 +222,7 @@ const getHospitalData = (item) => {
   handleChoiceBox();
   //commit to store
   store.commit("appointmentFlow/setHospitalName", item.name);
+  store.commit("appointmentFlow/setHospitalId", item.id);
 
   rightPartArr.value.push({
     title: "Hastane",
@@ -238,6 +239,7 @@ const getHospitalClinics = (item) => {
   filterDoctorsFunction();
   //commit to store
   store.commit("appointmentFlow/setClinicName", item.name);
+  store.commit("appointmentFlow/setClinicId", item.id);
 
   rightPartArr.value.push({
     title: "Bölüm",
@@ -261,6 +263,8 @@ const getClinicData = (item) => {
   handleChoiceBox();
   //commit to store
   store.commit("appointmentFlow/setClinicName", item.name);
+  store.commit("appointmentFlow/setClinicId", item.id);
+
   rightPartArr.value.push({
     title: "Bölüm",
     name: clinicName.value,
@@ -392,6 +396,8 @@ const getClinicHospitalsList = (item) => {
   filterDoctorsFunction();
   //commit to store
   store.commit("appointmentFlow/setHospitalName", item.name);
+  store.commit("appointmentFlow/setHospitalId", item.id);
+
   rightPartArr.value.push({
     title: "Hastane",
     name: clinicHospitalName.value,

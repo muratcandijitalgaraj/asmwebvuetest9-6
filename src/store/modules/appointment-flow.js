@@ -13,6 +13,9 @@ export default {
     hospitalName: "",
     clinicName: "",
     doctorName: "",
+    hospitalId: "",
+    clinicId: "",
+    doctorId: "",
     flowToken: 1,
   },
 
@@ -38,6 +41,15 @@ export default {
     },
     setDoctorName(state, payload) {
       state.doctorName = payload;
+    },
+    setHospitalId(state, payload) {
+      state.hospitalId = payload;
+    },
+    setClinicId(state, payload) {
+      state.clinicId = payload;
+    },
+    setDoctorId(state, payload) {
+      state.doctorId = payload;
     },
     setFlowToken(state, payload) {
       state.flowToken = payload;
@@ -79,12 +91,21 @@ export default {
         "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
       );
     },
-    async getPhysicianSlots() {
+    // async getPhysicianSlots() {
+    //   await store.dispatch("auth/checkRefreshToken");
+    //   let token = store.getters["auth/_token"];
+    //   appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    //   return await appAxios.get(
+    //     `endpoint/appointment-service/calendars/physician-slots?departmentId=751&physicianId=2549&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=1&appointmentType=1&from=1964-06-20T13:02:18.328Z&to=1964-06-20T13:02:18.328Z`
+    //   );
+    // },
+
+    async getPhysicianSlots(clinicId, doctorId, hospitalId) {
       await store.dispatch("auth/checkRefreshToken");
       let token = store.getters["auth/_token"];
       appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
       return await appAxios.get(
-        "endpoint/appointment-service/calendars/physician-slots?departmentId=751&physicianId=2549&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=1&appointmentType=1&from=1964-06-20T13:02:18.328Z&to=1964-06-20T13:02:18.328Z"
+        `endpoint/appointment-service/calendars/physician-slots?departmentId=${clinicId}&physicianId=${doctorId}&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=${hospitalId}&appointmentType=1&from=1964-06-20T13:02:18.328Z&to=1964-06-20T13:02:18.328Z`
       );
     },
 
@@ -109,6 +130,9 @@ export default {
     _getHospitalName: (state) => state.hospitalName,
     _getClinicName: (state) => state.clinicName,
     _getDoctorName: (state) => state.doctorName,
+    _getHospitalId: (state) => state.hospitalId,
+    _getClinicId: (state) => state.clinicId,
+    _getDoctorId: (state) => state.doctorId,
     _getFlowToken: (state) => state.flowToken,
   },
 };
