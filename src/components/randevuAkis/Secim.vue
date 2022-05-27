@@ -22,9 +22,7 @@ const changeFlowToken = () => {
   store.commit("appointmentFlow/setFlowToken", 2);
 };
 
-onMounted(() => {
-  tryingsth();
-});
+onMounted(() => {});
 </script>
 
 <style lang="scss" scoped>
