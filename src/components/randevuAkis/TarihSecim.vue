@@ -237,7 +237,19 @@ const changeFlowToken = () => {
   router.push({ name: "RandevuAkis" });
 };
 
-onMounted(() => {});
+const showPhysicianSlots = async () => {
+  try {
+    const res = await store.dispatch("appointmentFlow/getPhysicianSlots");
+    // console.log("SLOTS " + JSON.stringify(res.data.items));
+    console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(() => {
+  showPhysicianSlots();
+});
 </script>
 
 <style scoped lang="scss">

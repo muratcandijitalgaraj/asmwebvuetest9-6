@@ -16,10 +16,15 @@
 import forWhomVue from "../UI/randevuAkis/forWhom.vue";
 import randevuTuruVue from "../UI/randevuAkis/randevuTuru.vue";
 import store from "../../store";
+import { onMounted } from "vue-demi";
 
 const changeFlowToken = () => {
   store.commit("appointmentFlow/setFlowToken", 2);
 };
+
+onMounted(() => {
+  tryingsth();
+});
 </script>
 
 <style lang="scss" scoped>

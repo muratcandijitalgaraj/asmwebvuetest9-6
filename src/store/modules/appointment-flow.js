@@ -79,6 +79,15 @@ export default {
         "endpoint/resource-service/resources/filter?facilityId=3a029fc2-135c-0e05-2d77-d817861825d8"
       );
     },
+    async getPhysicianSlots() {
+      await store.dispatch("auth/checkRefreshToken");
+      let token = store.getters["auth/_token"];
+      appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      return await appAxios.get(
+        "endpoint/appointment-service/calendars/physician-slots?departmentId=751&physicianId=2549&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=1&appointmentType=1&from=1964-06-20T13:02:18.328Z&to=1964-06-20T13:02:18.328Z"
+      );
+    },
+
     //will use this to choose an appointment to develop on randevu özet page
     //normal workflow will be different I guess
     async getAppointments() {

@@ -7,15 +7,15 @@
       <div class="zemin col-md-12 col-lg-8 col-xl-8 col-xxl-9">
         <!-- <h2 class="bigTitle">Randevu Alın</h2>
         <div class="greyLine"></div> -->
-        <div v-if="flowToken === 1">
+        <!-- <div v-if="flowToken === 1">
           <SecimVue />
-        </div>
-        <div v-if="flowToken === 2">
-          <Flow2MainVue />
-        </div>
+        </div> -->
+        <!-- <div v-if="flowToken === 2"> -->
+        <Flow2MainVue />
+        <!-- </div> -->
         <!-- <div v-if="flowToken === 3"><TarihSecimVue /></div> -->
-        <div v-if="flowToken === 4"><RandevuOzetVue /></div>
-        <div v-if="flowToken === 5"><PaymentVue /></div>
+        <!-- <div v-if="flowToken === 4"><RandevuOzetVue /></div>
+        <div v-if="flowToken === 5"><PaymentVue /></div> -->
       </div>
     </template>
     <template v-slot:footer><Footer /></template>
@@ -32,9 +32,9 @@ import TarihSecimVue from "../components/randevuAkis/TarihSecim.vue";
 import store from "../store";
 import { computed, onMounted } from "vue";
 //page changer functionality
-const _flowToken = store.getters["appointmentFlow/_getFlowToken"];
+//this usage is wrong
+// const _flowToken = store.getters["appointmentFlow/_getFlowToken"];
 //bunu kullanacaksın
-//do you need computed at all?
 const flowToken = computed(
   () => store.getters["appointmentFlow/_getFlowToken"]
 );
