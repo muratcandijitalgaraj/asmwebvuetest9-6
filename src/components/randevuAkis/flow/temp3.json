@@ -1,0 +1,22 @@
+{
+  "id": "2549",
+  "tenantId": 0,
+  "tenantName": null,
+  "departments": [
+    {
+      "departmentId": "751",
+      "name": "Çocuk Sağlığı",
+      "tenants": [
+        { "id": "1", "name": "TEST ASM Gebze" },
+        { "id": "8", "name": "TEST Atasehir TM" }
+      ]
+    }
+  ],
+  "name": "NAMIK KEMAL",
+  "surname": "AKPINAR",
+  "titleName": "Uzm.Dr.",
+  "fullName": "Uzm.Dr. NAMIK KEMAL AKPINAR",
+  "canVideoAppointment": false
+}
+
+//iki hastane tek (farklı da olabilir) bölüm

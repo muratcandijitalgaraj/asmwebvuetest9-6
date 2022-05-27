@@ -1,0 +1,19 @@
+{
+  "id": "2199",
+  "tenantId": 0,
+  "tenantName": null,
+  "departments": [
+    {
+      "departmentId": "768",
+      "name": "Ağrı Tedavisi",
+      "tenants": [{ "id": "1", "name": "TEST ASM Gebze" }]
+    }
+  ],
+  "name": "AYŞEN",
+  "surname": "YÜCEL",
+  "titleName": "Prof.Dr.",
+  "fullName": "Prof.Dr. AYŞEN YÜCEL",
+  "canVideoAppointment": true
+}
+
+//tek hastane tek bölüm

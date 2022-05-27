@@ -1,0 +1,23 @@
+{
+  "id": "2480",
+  "tenantId": 0,
+  "tenantName": null,
+  "departments": [
+    {
+      "departmentId": "752",
+      "name": "Fizik Tedavi",
+      "tenants": [{ "id": "1", "name": "TEST ASM Gebze" }]
+    },
+    {
+      "departmentId": "20070",
+      "name": "Fiziksel Aktivite",
+      "tenants": [{ "id": "1", "name": "TEST ASM Gebze" }]
+    }
+  ],
+  "name": "MEHMET SEMİH",
+  "surname": "AKİ",
+  "titleName": "Prof.Dr.",
+  "fullName": "Prof.Dr. MEHMET SEMİH AKİ",
+  "canVideoAppointment": false
+}
+//bir hastane farklı bölümler
