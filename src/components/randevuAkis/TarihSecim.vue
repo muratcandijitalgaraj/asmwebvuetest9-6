@@ -99,7 +99,7 @@
         >
           <h4 class="__title">Saat Seçin</h4>
           <div class="date-selection-hour">
-            <div
+            <!-- <div
               class="hour-item"
               v-for="(item, key) in hours"
               :key="key"
@@ -107,6 +107,15 @@
             >
               <span>
                 {{ item }}
+              </span>
+            </div> -->
+            <div
+              class="hour-item"
+              v-for="(item, key) in filteredSlotsData"
+              :key="item.key"
+            >
+              <span>
+                {{ item.from }}
               </span>
             </div>
           </div>
