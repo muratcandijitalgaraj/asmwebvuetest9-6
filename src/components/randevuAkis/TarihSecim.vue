@@ -126,13 +126,14 @@
         >
           <h4 class="__title">Bu Bölümdeki Diğer Doktorlarımız</h4>
           <div class="doctor-list">
-            <div class="item" v-for="(item, key) in [1, 2, 3]" :key="key">
+            <div class="item" v-for="(item, key) in doctorData" :key="key">
               <div class="left">
                 <img :src="doctor" alt="" />
                 <div class="left-item-box">
-                  <span class="item-title">Prof. Dr. Mehmet Balkan</span>
+                  <span class="item-title">{{ item.fullName }}</span>
                   <span class="item-hospital"
-                    >Beslenme ve Diyet - Ataşehir</span
+                    >{{ item.departments[0].name }} -
+                    {{ item.departments[0].tenants[0].name }}</span
                   >
                 </div>
               </div>
@@ -174,7 +175,9 @@ const onSwiper = (swiper) => {
 const onSlideChange = () => {
   console.log("slide change");
 };
-
+const deneme = (item) => {
+  return item + "heyyo";
+};
 const modules = ref([Navigation]);
 
 const dates = ref([
@@ -258,6 +261,7 @@ const slotsData = ref([]);
 const chosenDay = ref();
 //filtered slots data
 const filteredSlotsData = ref();
+const doctorData = ref();
 
 const handleSwiper = (item) => {
   console.log(item);
@@ -282,6 +286,19 @@ const showPhysicianSlots = async () => {
     console.log(error);
   }
 };
+const showDoctors = async () => {
+  try {
+    const res = await store.dispatch(
+      "appointmentFlow/filterDoctorsByDepartment"
+    );
+    // console.log("SLOTS " + JSON.stringify(res.data.items));
+    console.log(res.data.items);
+    doctorData.value = res.data.items;
+    // console.log(slotsData.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const filterSlots = (slots) => {
   const filteredSlots = slotsData.value.filter((slot) => {
@@ -293,6 +310,7 @@ const filterSlots = (slots) => {
 
 onMounted(() => {
   showPhysicianSlots();
+  showDoctors();
 });
 </script>
 
