@@ -45,11 +45,24 @@
               @slideChange="onSlideChange"
               class="date-selection-swiper"
             >
-              <swiper-slide v-for="(item, key) in dates" :key="key">
+              <!-- <swiper-slide v-for="(item, key) in dates" :key="key">
                 <div class="date-item" :class="[key === 3 ? 'active' : '']">
                   <div class="__dayInt">{{ item.dayInt }}</div>
                   <div class="__month">{{ item.month }}</div>
                   <div class="__dayStr">{{ item.dayStr }}</div>
+                  <div>lol</div>
+                </div>
+              </swiper-slide> -->
+              <swiper-slide v-for="(item, key) in slotsData" :key="key">
+                <div
+                  @click="handleSwiper(item)"
+                  class="date-item"
+                  :class="[key === 3 ? 'active' : '']"
+                >
+                  <!-- <div class="__dayInt">{{ item.dayInt }}</div>
+                  <div class="__month">{{ item.month }}</div>
+                  <div class="__dayStr">{{ item.dayStr }}</div> -->
+                  <div>{{ item.day }}</div>
                 </div>
               </swiper-slide>
             </swiper>
@@ -230,10 +243,12 @@ const doctorName = computed(
   () => store.getters["appointmentFlow/_getDoctorName"]
 );
 
-const hospitalId = store.getters["appointmentFlow/_getHospitalId"];
-const clinicId = store.getters["appointmentFlow/_getClinicId"];
-const doctorId = store.getters["appointmentFlow/_getDoctorId"];
+//slots data
+const slotsData = ref([]);
 
+const handleSwiper = (item) => {
+  console.log(item);
+};
 const changeFlowToken = () => {
   //set token to open randevu ozet
   store.commit("appointmentFlow/setFlowToken", 4);
@@ -246,6 +261,8 @@ const showPhysicianSlots = async () => {
     const res = await store.dispatch("appointmentFlow/getPhysicianSlots");
     // console.log("SLOTS " + JSON.stringify(res.data.items));
     console.log(res.data);
+    slotsData.value = res.data.events;
+    // console.log(slotsData.value);
   } catch (error) {
     console.log(error);
   }
@@ -253,8 +270,6 @@ const showPhysicianSlots = async () => {
 
 onMounted(() => {
   showPhysicianSlots();
-  console.log(clinicId);
-  console.log("doctor Id=>" + doctorId);
 });
 </script>
 
