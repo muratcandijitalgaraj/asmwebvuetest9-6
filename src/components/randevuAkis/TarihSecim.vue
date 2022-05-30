@@ -62,7 +62,7 @@
                   <!-- <div class="__dayInt">{{ item.dayInt }}</div>
                   <div class="__month">{{ item.month }}</div>
                   <div class="__dayStr">{{ item.dayStr }}</div> -->
-                  <div>{{ item.day }}</div>
+                  <div>{{ item.to }}</div>
                 </div>
               </swiper-slide>
             </swiper>
@@ -307,6 +307,12 @@ const filterSlots = (slots) => {
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
 };
+
+//formatting functions
+// const formatDateFrom = "YYYY-MM-DD HH:mm:ss"
+const formatDateTo = computed((chosenDay) => {
+  return moment(chosenDay.value).format("DD.MM.YYYY");
+});
 
 onMounted(() => {
   showPhysicianSlots();
