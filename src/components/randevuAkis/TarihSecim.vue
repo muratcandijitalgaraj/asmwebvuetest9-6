@@ -126,7 +126,12 @@
         >
           <h4 class="__title">Bu Bölümdeki Diğer Doktorlarımız</h4>
           <div class="doctor-list">
-            <div class="item" v-for="(item, key) in doctorData" :key="key">
+            <div
+              @click="changeDoctor(item)"
+              class="item"
+              v-for="(item, key) in doctorData"
+              :key="key"
+            >
               <div class="left">
                 <img :src="doctor" alt="" />
                 <div class="left-item-box">
@@ -299,6 +304,12 @@ const showDoctors = async () => {
     console.log(error);
   }
 };
+//change doctor if the user chooses another one on the screen
+const changeDoctor = (item) => {
+  //commit to store
+  store.commit("appointmentFlow/setDoctorName", item.fullName);
+  store.commit("appointmentFlow/setDoctorId", item.id);
+};
 
 const filterSlots = (slots) => {
   const filteredSlots = slotsData.value.filter((slot) => {
@@ -308,11 +319,11 @@ const filterSlots = (slots) => {
   console.log(filteredSlotsData.value);
 };
 
-//formatting functions
+//formatting functions => has problems
 // const formatDateFrom = "YYYY-MM-DD HH:mm:ss"
-const formatDateTo = computed((chosenDay) => {
-  return moment(chosenDay.value).format("DD.MM.YYYY");
-});
+// const formatDateTo = computed((chosenDay.value) => {
+//   return moment(chosenDay.value).format("DD.MM.YYYY");
+// });
 
 onMounted(() => {
   showPhysicianSlots();
