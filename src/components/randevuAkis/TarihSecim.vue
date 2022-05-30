@@ -126,12 +126,7 @@
         >
           <h4 class="__title">Bu Bölümdeki Diğer Doktorlarımız</h4>
           <div class="doctor-list">
-            <div
-              @click="changeDoctor(item)"
-              class="item"
-              v-for="(item, key) in doctorData"
-              :key="key"
-            >
+            <div class="item" v-for="(item, key) in doctorData" :key="key">
               <div class="left">
                 <img :src="doctor" alt="" />
                 <div class="left-item-box">
@@ -143,7 +138,7 @@
                 </div>
               </div>
               <div class="right">
-                <button>Seç</button>
+                <button @click="changeDoctor(item)">Seç</button>
               </div>
             </div>
           </div>
@@ -291,6 +286,9 @@ const showPhysicianSlots = async () => {
     console.log(error);
   }
 };
+
+//need to filter this function too
+//it should ignore the current chosen doctor
 const showDoctors = async () => {
   try {
     const res = await store.dispatch(
@@ -298,7 +296,10 @@ const showDoctors = async () => {
     );
     // console.log("SLOTS " + JSON.stringify(res.data.items));
     console.log(res.data.items);
-    doctorData.value = res.data.items;
+    const removeCurrentDoctor = res.data.items.filter(
+      (item) => item.id !== store.getters["appointmentFlow/_getDoctorId"]
+    );
+    doctorData.value = removeCurrentDoctor;
     // console.log(slotsData.value);
   } catch (error) {
     console.log(error);
