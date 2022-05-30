@@ -230,6 +230,10 @@ const doctorName = computed(
   () => store.getters["appointmentFlow/_getDoctorName"]
 );
 
+const hospitalId = store.getters["appointmentFlow/_getHospitalId"];
+const clinicId = store.getters["appointmentFlow/_getClinicId"];
+const doctorId = store.getters["appointmentFlow/_getDoctorId"];
+
 const changeFlowToken = () => {
   //set token to open randevu ozet
   store.commit("appointmentFlow/setFlowToken", 4);
@@ -249,6 +253,8 @@ const showPhysicianSlots = async () => {
 
 onMounted(() => {
   showPhysicianSlots();
+  console.log(clinicId);
+  console.log("doctor Id=>" + doctorId);
 });
 </script>
 
