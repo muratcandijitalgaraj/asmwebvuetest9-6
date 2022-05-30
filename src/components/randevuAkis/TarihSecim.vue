@@ -109,11 +109,7 @@
                 {{ item }}
               </span>
             </div> -->
-            <div
-              class="hour-item"
-              v-for="(item, key) in filteredSlotsData"
-              :key="item.key"
-            >
+            <div class="hour-item" v-for="(item, key) in hours" :key="key">
               <span>
                 {{ item.from }}
               </span>
