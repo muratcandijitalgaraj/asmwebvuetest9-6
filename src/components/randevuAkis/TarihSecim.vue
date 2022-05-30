@@ -245,9 +245,15 @@ const doctorName = computed(
 
 //slots data
 const slotsData = ref([]);
+//chosen day variable
+const chosenDay = ref();
+//filtered slots data
+const filteredSlotsData = ref();
 
 const handleSwiper = (item) => {
   console.log(item);
+  chosenDay.value = item.day;
+  filterSlots();
 };
 const changeFlowToken = () => {
   //set token to open randevu ozet
@@ -266,6 +272,14 @@ const showPhysicianSlots = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const filterSlots = (slots) => {
+  const filteredSlots = slotsData.value.filter((slot) => {
+    return slot.day == chosenDay.value;
+  });
+  filteredSlotsData.value = filteredSlots;
+  console.log(filteredSlotsData.value);
 };
 
 onMounted(() => {
