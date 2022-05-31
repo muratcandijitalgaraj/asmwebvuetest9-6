@@ -315,30 +315,6 @@ const filterDoctorsFunction = () => {
     }
   });
 
-  //new filterdoctors function
-  //my filter function works fine
-  //the problem is that when I list the doctors
-  // I display the first department name
-  //fix that and your problem is fixed
-  //NO NEED TO USE THIS FUNCTION AT ALL, KEEPING IT FOR FUTURE REFERENCE ATM
-  // const newFilterDoctors = doctorData.value.filter((e) => {
-  //   for (i = 0; i < e.departments.length; i++) {
-  //     if (clinicId.value === e.departments[i].departmentId) {
-  //       return e;
-  //     }
-  //   }
-  // });
-
-  // const newFilterDoctors2 = newFilterDoctors.filter((e) => {
-  //   for (i = 0; i < e.departments.length; i++) {
-  //     for (j = 0; j < e.departments[i].tenants.length; j++) {
-  //       if (hospitalId.value === e.departments[i].tenants[j].id) {
-  //         return e;
-  //       }
-  //     }
-  //   }
-  // });
-
   filteredDoctors.value = filterDoctors2;
 
   console.log(filteredDoctors.value);

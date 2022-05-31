@@ -11,7 +11,7 @@
           <SecimVue />
         </div>
         <div v-if="flowToken === 2">
-          <Flow2MainVue />
+          <FlowComponent />
         </div>
         <!-- <div v-if="flowToken === 3"><TarihSecimVue /></div> -->
         <div v-if="flowToken === 4"><RandevuOzetVue /></div>
@@ -25,7 +25,7 @@
 <script setup>
 //will put v-ifs checking with a data in state
 import SecimVue from "../components/randevuAkis/Secim.vue";
-import Flow2MainVue from "../components/randevuAkis/flow/Flow.vue";
+import FlowComponent from "../components/randevuAkis/flow/Flow.vue";
 import RandevuOzetVue from "../components/randevuAkis/randevu-ozet/Randevu-ozet.vue";
 import PaymentVue from "../components/randevuAkis/payment/Payment.vue";
 import TarihSecimVue from "../components/randevuAkis/TarihSecim.vue";

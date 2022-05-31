@@ -55,7 +55,7 @@
 
 <script setup>
 import { ref } from "vue";
-import clock from "../assets/img/kayit/clock.svg";
+import clock from "../../../assets/img/kayit/clock.svg";
 </script>
 
 <style scoped lang="scss">

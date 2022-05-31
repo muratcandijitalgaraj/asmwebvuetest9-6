@@ -53,7 +53,7 @@
 
 <script setup>
 import { ref } from "vue";
-import logo from "../assets/img/kayit/ico.svg";
+import logo from "../../../assets/img/kayit/ico.svg";
 const telNumbers = ref(["05526897548", "05585526699", "05522669987"]);
 </script>
 
