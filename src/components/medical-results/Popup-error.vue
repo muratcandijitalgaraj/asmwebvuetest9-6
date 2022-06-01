@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref } from "vue";
-import warning from "../assets/img/medical-results/warning.svg";
+import warning from "../../../assets/img/medical-results/warning.svg";
 </script>
 
 <style scoped lang="scss">

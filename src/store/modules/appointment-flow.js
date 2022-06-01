@@ -16,7 +16,7 @@ export default {
     hospitalId: "",
     clinicId: "",
     doctorId: "",
-    flowToken: 4,
+    flowToken: 1,
   },
 
   mutations: {
