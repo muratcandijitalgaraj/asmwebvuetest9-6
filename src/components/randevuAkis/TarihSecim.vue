@@ -66,9 +66,6 @@
                   <div class="__dayStr">
                     {{ moment(item.day).format("dd") }}
                   </div>
-                  <!-- console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd")); -->
-
-                  <!-- <div>{{ item }}</div> -->
                 </div>
               </swiper-slide>
             </swiper>
@@ -115,7 +112,12 @@
                 {{ item }}
               </span>
             </div> -->
-            <div class="hour-item" v-for="(item, key) in slotsData" :key="key">
+            <div
+              @click="spliceTimeSlots"
+              class="hour-item"
+              v-for="(item, key) in slotsData"
+              :key="key"
+            >
               <span>
                 {{ item.from }}
               </span>
@@ -324,6 +326,16 @@ const filterSlots = (slots) => {
   });
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
+};
+const filteredTimeSlots = ref();
+const spliceTimeSlots = () => {
+  const timeSlots = slotsData.value.map((item) => {
+    let splittedArray = item.from.split("");
+    splittedArray.splice(splittedArray.length - 3, 3);
+    splittedArray.join("");
+    console.log(splittedArray);
+  });
+  filteredTimeSlots.value = timeSlots;
 };
 
 //formatting functions => has problems
