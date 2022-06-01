@@ -91,12 +91,14 @@
             placeholder="Şifreniz (tekrar)"
             type="password"
             class="input"
-            :class="{ 'is-invalid': stepOneValidate.passwordRepeated.$errors.length }"
+            :class="{
+              'is-invalid': stepOneValidate.passwordRepeated.$errors.length,
+            }"
           />
           <div
-              v-for="error in stepOneValidate.passwordRepeated.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepOneValidate.passwordRepeated.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
@@ -111,42 +113,46 @@
       <div v-if="two" class="TWO">
         <form action="" class="box">
           <div class="nationalityPart">
-            <select
-              v-model="stepTwo.uyruk"
-              @click="writeUyruk"
-              class="uyruk"
-              :class="{ 'is-invalid': stepTwoValidate.uyruk.$errors.length }"
-            >
-              <option class="optionValue" value="">Uyruk</option>
-              <option
-                v-for="(item, key) in countries"
-                :key="key"
-                class="optionValue"
-                :value="item.id"
+            <div>
+              <select
+                v-model="stepTwo.uyruk"
+                @click="writeUyruk"
+                class="uyruk"
+                :class="{ 'is-invalid': stepTwoValidate.uyruk.$errors.length }"
               >
-                {{ item.attributes.abbr }}
-              </option>
-            </select>
-            <div
+                <option class="optionValue" value="">Uyruk</option>
+                <option
+                  v-for="(item, key) in countries"
+                  :key="key"
+                  class="optionValue"
+                  :value="item.id"
+                >
+                  {{ item.attributes.abbr }}
+                </option>
+              </select>
+              <div
                 v-for="error in stepTwoValidate.uyruk.$errors"
                 :key="error.$uid"
                 class="invalid-feedback"
-            >
-              {{ error.$message }}
+              >
+                {{ error.$message }}
+              </div>
             </div>
-            <input
-              v-model="stepTwo.tcNo"
-              placeholder="T.C. Kimlik Numarası"
-              type="text"
-              class="tcNo"
-              :class="{ 'is-invalid': stepTwoValidate.tcNo.$errors.length }"
-            />
-            <div
+            <div>
+              <input
+                v-model="stepTwo.tcNo"
+                placeholder="T.C. Kimlik Numarası"
+                type="text"
+                class="tcNo"
+                :class="{ 'is-invalid': stepTwoValidate.tcNo.$errors.length }"
+              />
+              <div
                 v-for="error in stepTwoValidate.tcNo.$errors"
                 :key="error.$uid"
                 class="invalid-feedback"
-            >
-              {{ error.$message }}
+              >
+                {{ error.$message }}
+              </div>
             </div>
           </div>
           <input
@@ -157,9 +163,9 @@
             :class="{ 'is-invalid': stepTwoValidate.name.$errors.length }"
           />
           <div
-              v-for="error in stepTwoValidate.name.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepTwoValidate.name.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
@@ -171,9 +177,9 @@
             :class="{ 'is-invalid': stepTwoValidate.surname.$errors.length }"
           />
           <div
-              v-for="error in stepTwoValidate.surname.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepTwoValidate.surname.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
@@ -186,26 +192,30 @@
             :format="format"
             autoApply
             locale="tr"
-            :autoPosition=false
+            :autoPosition="false"
             :start-date="startDate"
           />
           <div
-              v-for="error in stepTwoValidate.date.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepTwoValidate.date.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
 
-          <select v-model="stepTwo.gender" class="dropDownSelect" :class="{ 'is-invalid': stepTwoValidate.gender.$errors.length }">
+          <select
+            v-model="stepTwo.gender"
+            class="dropDownSelect"
+            :class="{ 'is-invalid': stepTwoValidate.gender.$errors.length }"
+          >
             <option class="optionValue" value="">Cinsiyet</option>
             <option class="optionValue" value="1">Erkek</option>
             <option class="optionValue" value="2">Kadın</option>
           </select>
           <div
-              v-for="error in stepTwoValidate.gender.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepTwoValidate.gender.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
@@ -242,7 +252,12 @@
               />
             </div>
           </div>
-          <select v-model="stepThree.country" @change="setCity" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.country.$errors.length }">
+          <select
+            v-model="stepThree.country"
+            @change="setCity"
+            class="dropDownSelect"
+            :class="{ 'is-invalid': stepThreeValidate.country.$errors.length }"
+          >
             <option class="optionValue" value="">Ülke</option>
             <option
               v-for="(item, key) in countries"
@@ -254,13 +269,18 @@
             </option>
           </select>
           <div
-              v-for="error in stepThreeValidate.country.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepThreeValidate.country.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
-          <select v-model="stepThree.city" @change="setRegion" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.city.$errors.length }">
+          <select
+            v-model="stepThree.city"
+            @change="setRegion"
+            class="dropDownSelect"
+            :class="{ 'is-invalid': stepThreeValidate.city.$errors.length }"
+          >
             <option class="optionValue" value="">Şehir</option>
             <option
               v-for="(item, key) in cities"
@@ -272,27 +292,31 @@
             </option>
           </select>
           <div
-              v-for="error in stepThreeValidate.city.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepThreeValidate.city.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
-          <select v-model="stepThree.region" class="dropDownSelect" :class="{ 'is-invalid': stepThreeValidate.region.$errors.length }">
+          <select
+            v-model="stepThree.region"
+            class="dropDownSelect"
+            :class="{ 'is-invalid': stepThreeValidate.region.$errors.length }"
+          >
             <option class="optionValue" value="">İlçe</option>
             <option
-                v-for="(item, key) in regions"
-                :key="key"
-                class="optionValue"
-                :value="item.id"
+              v-for="(item, key) in regions"
+              :key="key"
+              class="optionValue"
+              :value="item.id"
             >
               {{ item.title }}
             </option>
           </select>
           <div
-              v-for="error in stepThreeValidate.region.$errors"
-              :key="error.$uid"
-              class="invalid-feedback"
+            v-for="error in stepThreeValidate.region.$errors"
+            :key="error.$uid"
+            class="invalid-feedback"
           >
             {{ error.$message }}
           </div>
@@ -321,7 +345,7 @@ import {
   helpers,
 } from "@vuelidate/validators";
 import { useRouter, useRoute } from "vue-router";
-import moment from "moment"
+import moment from "moment";
 
 const router = useRouter();
 const route = useRoute();
@@ -331,13 +355,13 @@ const format = (dateObj) => {
   const month = dateObj.getMonth() + 1;
   const year = dateObj.getFullYear();
 
-  let formatDate  = moment(dateObj.toISOString()).format('DD/MM/YYYY')
-  stepTwo.date = formatDate
-  return formatDate
+  let formatDate = moment(dateObj.toISOString()).format("DD/MM/YYYY");
+  stepTwo.date = formatDate;
+  return formatDate;
 };
 const startDate = ref(new Date(1985, 0, 1));
 
-const date = ref('')
+const date = ref("");
 
 let one = ref(true);
 let two = ref(false);
@@ -390,12 +414,15 @@ const stepOneRules = computed(() => ({
     maxlength: helpers.withMessage("Şifre 6 haneli olmalıdır.", maxLength(6)),
   },
   passwordRepeated: {
-    required: helpers.withMessage("Şifreniz(tekrar) zorunlu bir alandır.", required),
+    required: helpers.withMessage(
+      "Şifreniz(tekrar) zorunlu bir alandır.",
+      required
+    ),
     sameAs: helpers.withMessage(
-        "Şifreniz(tekrar) Şifre ile uyuşmuyor.",
-        sameAs(stepOne.password)
-    )
-  }
+      "Şifreniz(tekrar) Şifre ile uyuşmuyor.",
+      sameAs(stepOne.password)
+    ),
+  },
 }));
 
 const stepTwoRules = computed(() => ({
@@ -403,20 +430,38 @@ const stepTwoRules = computed(() => ({
     required: helpers.withMessage("Uyruk zorunlu bir alandır.", required),
   },
   tcNo: {
-    required: helpers.withMessage("T.C. Kimlik Numarası zorunlu bir alandır.", required),
-    minlength: helpers.withMessage("T.C. Kimlik Numarası 11 haneli olmalıdır.", minLength(11)),
-    maxlength: helpers.withMessage("T.C. Kimlik Numarası 11 haneli olmalıdır.", maxLength(11)),
+    required: helpers.withMessage(
+      "T.C. Kimlik Numarası zorunlu bir alandır.",
+      required
+    ),
+    minlength: helpers.withMessage(
+      "T.C. Kimlik Numarası 11 haneli olmalıdır.",
+      minLength(11)
+    ),
+    maxlength: helpers.withMessage(
+      "T.C. Kimlik Numarası 11 haneli olmalıdır.",
+      maxLength(11)
+    ),
   },
   name: {
     required: helpers.withMessage("İsim zorunlu bir alandır.", required),
-    minlength: helpers.withMessage("İsim en az 3 haneli olmalıdır.", minLength(3)),
+    minlength: helpers.withMessage(
+      "İsim en az 3 haneli olmalıdır.",
+      minLength(3)
+    ),
   },
   surname: {
     required: helpers.withMessage("Soyisim zorunlu bir alandır.", required),
-    minlength: helpers.withMessage("Soyisim en az 3 haneli olmalıdır.", minLength(3)),
+    minlength: helpers.withMessage(
+      "Soyisim en az 3 haneli olmalıdır.",
+      minLength(3)
+    ),
   },
   date: {
-    required: helpers.withMessage("Doğum Tarihi zorunlu bir alandır.", required),
+    required: helpers.withMessage(
+      "Doğum Tarihi zorunlu bir alandır.",
+      required
+    ),
   },
   gender: {
     required: helpers.withMessage("Cinsiyet zorunlu bir alandır.", required),
@@ -425,7 +470,7 @@ const stepTwoRules = computed(() => ({
 
 const stepThreeRules = computed(() => ({
   country: {
-    required: helpers.withMessage("Ülke zorunlu bir alandır.", required)
+    required: helpers.withMessage("Ülke zorunlu bir alandır.", required),
   },
   city: {
     required: helpers.withMessage("Şehir zorunlu bir alandır.", required),
@@ -483,14 +528,14 @@ const getCities = async (e) => {
 
 const getRegion = async (e) => {
   await store
-      .dispatch("register/getRegion", stepThree.city)
-      .then((res) => {
-        console.log(res.data.items);
-        regions.value = res.data.items;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .dispatch("register/getRegion", stepThree.city)
+    .then((res) => {
+      console.log(res.data.items);
+      regions.value = res.data.items;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const buttonTwo = async (e) => {
@@ -506,15 +551,15 @@ const buttonTwo = async (e) => {
 };
 
 const setCity = async () => {
-  cities.value = ""
-  regions.value = ""
-  await getCities()
-}
+  cities.value = "";
+  regions.value = "";
+  await getCities();
+};
 
 const setRegion = async () => {
-  regions.value = ""
-  await getRegion()
-}
+  regions.value = "";
+  await getRegion();
+};
 
 const buttonThree = async (e) => {
   e.preventDefault();
@@ -539,26 +584,28 @@ const buttonThree = async (e) => {
     .then((res) => {
       new Swal({
         icon: "success",
-        title: "Üyelik işleminiz başarılı bir şekilde tamamlandı.<br> Giriş yapabilirsiniz.",
+        title:
+          "Üyelik işleminiz başarılı bir şekilde tamamlandı.<br> Giriş yapabilirsiniz.",
         showConfirmButton: true,
         timer: 3000,
         confirmButtonText: "Tamam",
       }).then((isConfirm) => {
-        router.push({name:"Giris"})
-      })
-      console.log(res)
+        router.push({ name: "Giris" });
+      });
+      console.log(res);
     })
     .catch((err) => {
       new Swal({
         icon: "error",
-        title: "Üyelik işleminiz sırasında bir hata oluştu. <br> Lütfen daha sonra tekrar deneyiniz.",
+        title:
+          "Üyelik işleminiz sırasında bir hata oluştu. <br> Lütfen daha sonra tekrar deneyiniz.",
         showConfirmButton: true,
         timer: 3000,
-        confirmButtonText: "Tamam"
+        confirmButtonText: "Tamam",
       }).then(() => {
-        router.push({name:"Giris"})
-      })
-      console.log(err.response)
+        router.push({ name: "Giris" });
+      });
+      console.log(err.response);
     });
 };
 
@@ -572,9 +619,7 @@ const writeUyruk = function () {
   //denemeler
 };
 
-onMounted(() => {
-
-});
+onMounted(() => {});
 </script>
 
 <style>
