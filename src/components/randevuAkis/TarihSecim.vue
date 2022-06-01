@@ -59,10 +59,16 @@
                   class="date-item"
                   :class="[key === 3 ? 'active' : '']"
                 >
-                  <!-- <div class="__dayInt">{{ item.dayInt }}</div>
-                  <div class="__month">{{ item.month }}</div>
-                  <div class="__dayStr">{{ item.dayStr }}</div> -->
-                  <div>{{ item.to }}</div>
+                  <div class="__dayInt">{{ moment(item.day).format("D") }}</div>
+                  <div class="__month">
+                    {{ moment(item.day).format("MMM") }}
+                  </div>
+                  <div class="__dayStr">
+                    {{ moment(item.day).format("dd") }}
+                  </div>
+                  <!-- console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd")); -->
+
+                  <!-- <div>{{ item }}</div> -->
                 </div>
               </swiper-slide>
             </swiper>
@@ -163,6 +169,8 @@ import hospitalLogoSvg from "../../assets/img/randevuAkis/hospital.svg";
 //you need to import router in each component you want to use it for some reason
 import { useRouter } from "vue-router";
 import moment from "moment";
+// import "moment/locale/tr";
+// moment.locale("tr");
 
 //define router
 const router = useRouter();
@@ -327,7 +335,8 @@ const filterSlots = (slots) => {
 onMounted(() => {
   showPhysicianSlots();
   showDoctors();
-  console.log(moment("1964-06-20T00:00:00").format("D MMM dd"));
+  //for some reason, locale doesn't work
+  console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
 });
 </script>
 
