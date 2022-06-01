@@ -769,7 +769,7 @@ onMounted(() => {});
   background-color: orange;
 } */
 .box {
-  height: 423px;
+  /* height: 423px; */
   width: 468px;
   display: flex;
   flex-direction: column;

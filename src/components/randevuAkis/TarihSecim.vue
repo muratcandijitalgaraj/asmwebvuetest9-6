@@ -109,7 +109,7 @@
                 {{ item }}
               </span>
             </div> -->
-            <div class="hour-item" v-for="(item, key) in hours" :key="key">
+            <div class="hour-item" v-for="(item, key) in slotsData" :key="key">
               <span>
                 {{ item.from }}
               </span>
@@ -162,6 +162,8 @@ import doctor from "../../assets/demo-data/doctor2.png";
 import hospitalLogoSvg from "../../assets/img/randevuAkis/hospital.svg";
 //you need to import router in each component you want to use it for some reason
 import { useRouter } from "vue-router";
+import moment from "moment";
+
 //define router
 const router = useRouter();
 
@@ -277,7 +279,7 @@ const showPhysicianSlots = async () => {
     // console.log("SLOTS " + JSON.stringify(res.data.items));
     console.log(res.data);
     slotsData.value = res.data.events;
-    // console.log(slotsData.value);
+    console.log(slotsData.value);
   } catch (error) {
     console.log(error);
   }
@@ -325,6 +327,7 @@ const filterSlots = (slots) => {
 onMounted(() => {
   showPhysicianSlots();
   showDoctors();
+  console.log(moment("1964-06-20T00:00:00").format("D MMM dd"));
 });
 </script>
 
