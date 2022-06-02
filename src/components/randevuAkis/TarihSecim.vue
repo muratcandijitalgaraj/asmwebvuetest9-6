@@ -332,6 +332,7 @@ const changeDoctor = (item) => {
   store.commit("appointmentFlow/setDoctorName", item.fullName);
   store.commit("appointmentFlow/setDoctorId", item.id);
   renderKey.value += 1;
+  showDoctors();
 };
 
 const filterSlots = (slots) => {
