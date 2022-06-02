@@ -56,7 +56,10 @@
                   <div>lol</div>
                 </div>
               </swiper-slide> -->
-              <swiper-slide v-for="(item, key) in slotsData" :key="key">
+              <swiper-slide
+                v-for="(item, key) in filteredSwiperValues"
+                :key="key"
+              >
                 <div
                   @click="handleSwiper(item)"
                   class="date-item"
@@ -287,6 +290,7 @@ const handleSwiper = (item) => {
   console.log(item);
   chosenDay.value = item.day;
   filterSlots();
+  filterSwiperByDay();
 };
 const changeFlowToken = () => {
   //set token to open randevu ozet
@@ -303,6 +307,7 @@ const showPhysicianSlots = async () => {
     slotsData.value = res.data.events;
     console.log(slotsData.value);
     spliceTimeSlots();
+    filterSwiperByDay();
   } catch (error) {
     console.log(error);
   }
@@ -350,7 +355,7 @@ const spliceTimeSlots = () => {
     let splittedArray = item.from.split("");
     splittedArray.splice(splittedArray.length - 3, 3);
     let stringifySplittedArray = splittedArray.join("");
-    console.log(stringifySplittedArray);
+    // console.log(stringifySplittedArray);
     filteredTimeSlots.value.push(stringifySplittedArray);
   });
   // filteredTimeSlots.value = timeSlots;
@@ -358,11 +363,13 @@ const spliceTimeSlots = () => {
   console.log(slotsData.value);
 };
 
-//formatting functions => has problems
-// const formatDateFrom = "YYYY-MM-DD HH:mm:ss"
-// const formatDateTo = computed((chosenDay.value) => {
-//   return moment(chosenDay.value).format("DD.MM.YYYY");
-// });
+let filteredSwiperValues = ref([]);
+const filterSwiperByDay = () => {
+  filteredSwiperValues.value = slotsData.value.filter(
+    (value, index, self) => index === self.findIndex((t) => t.day === value.day)
+  );
+  console.log(filteredSwiperValues.value);
+};
 
 onMounted(() => {
   showPhysicianSlots();
