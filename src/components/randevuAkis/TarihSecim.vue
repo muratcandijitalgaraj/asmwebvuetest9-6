@@ -242,6 +242,7 @@ const handleSwiper = (item) => {
   filterSwiperByDay();
   console.log("item day" + item.day);
   console.log(chosenDay.value);
+  filterTimeSlotsByDay();
 };
 const changeFlowToken = () => {
   //set token to open randevu ozet
@@ -299,8 +300,18 @@ const filterSlots = (slots) => {
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
 };
-
-const filterTimeSlotsByDay = () => {};
+const filteredTimeSlotsByDay = ref([]);
+const filterTimeSlotsByDay = () => {
+  slotsData.value.forEach((item) => {
+    if (item.day == chosenDay.value) {
+      {
+        filteredTimeSlotsByDay.value.push(item);
+      }
+    }
+  });
+  console.log(filteredTimeSlotsByDay.value);
+  console.log(chosenDay.value);
+};
 
 const slicedTimeSlots = ref([]);
 const spliceTimeSlots = () => {
