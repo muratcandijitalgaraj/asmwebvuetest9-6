@@ -115,11 +115,11 @@
             <div
               @click="spliceTimeSlots"
               class="hour-item"
-              v-for="(item, key) in slotsData"
+              v-for="(item, key) in filteredTimeSlots"
               :key="key"
             >
               <span>
-                {{ item.from }}
+                {{ item }}
               </span>
             </div>
           </div>
@@ -327,15 +327,17 @@ const filterSlots = (slots) => {
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
 };
-const filteredTimeSlots = ref();
+const filteredTimeSlots = ref([]);
 const spliceTimeSlots = () => {
   const timeSlots = slotsData.value.map((item) => {
     let splittedArray = item.from.split("");
     splittedArray.splice(splittedArray.length - 3, 3);
-    splittedArray.join("");
-    console.log(splittedArray);
+    let stringifySplittedArray = splittedArray.join("");
+    console.log(stringifySplittedArray);
+    filteredTimeSlots.value.push(stringifySplittedArray);
   });
-  filteredTimeSlots.value = timeSlots;
+  // filteredTimeSlots.value = timeSlots;
+  console.log(filteredTimeSlots.value);
 };
 
 //formatting functions => has problems
@@ -349,6 +351,8 @@ onMounted(() => {
   showDoctors();
   //for some reason, locale doesn't work
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
+  spliceTimeSlots();
+  console.log(filteredTimeSlots.value);
 });
 </script>
 
