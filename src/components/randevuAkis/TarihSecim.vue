@@ -121,7 +121,7 @@
             <div
               @click="spliceTimeSlots"
               class="hour-item"
-              v-for="(item, key) in filteredTimeSlots"
+              v-for="(item, key) in slicedTimeSlots"
               :key="key"
             >
               <span>
@@ -203,57 +203,6 @@ const deneme = (item) => {
 };
 const modules = ref([Navigation]);
 
-const dates = ref([
-  { dayInt: "01", month: "Haz", dayStr: "Pt" },
-  { dayInt: "02", month: "Haz", dayStr: "Sa" },
-  { dayInt: "03", month: "Haz", dayStr: "Ça" },
-  { dayInt: "04", month: "Haz", dayStr: "Pe" },
-  { dayInt: "05", month: "Haz", dayStr: "Cu" },
-  { dayInt: "06", month: "Haz", dayStr: "Ct" },
-  { dayInt: "07", month: "Haz", dayStr: "Pa" },
-  { dayInt: "08", month: "Haz", dayStr: "Pt" },
-  { dayInt: "09", month: "Haz", dayStr: "Sa" },
-  { dayInt: "10", month: "Haz", dayStr: "Ça" },
-  { dayInt: "11", month: "Haz", dayStr: "Pe" },
-  { dayInt: "12", month: "Haz", dayStr: "Cu" },
-  { dayInt: "13", month: "Haz", dayStr: "Ct" },
-  { dayInt: "14", month: "Haz", dayStr: "Pa" },
-  { dayInt: "15", month: "Haz", dayStr: "Pt" },
-  { dayInt: "16", month: "Haz", dayStr: "Sa" },
-  { dayInt: "17", month: "Haz", dayStr: "Ça" },
-  { dayInt: "18", month: "Haz", dayStr: "Pe" },
-  { dayInt: "19", month: "Haz", dayStr: "Cu" },
-  { dayInt: "20", month: "Haz", dayStr: "Ct" },
-  { dayInt: "21", month: "Haz", dayStr: "Pa" },
-  { dayInt: "22", month: "Haz", dayStr: "Pt" },
-  { dayInt: "23", month: "Haz", dayStr: "Sa" },
-  { dayInt: "24", month: "Haz", dayStr: "Ça" },
-  { dayInt: "25", month: "Haz", dayStr: "Pe" },
-  { dayInt: "26", month: "Haz", dayStr: "Cu" },
-  { dayInt: "27", month: "Haz", dayStr: "Ct" },
-  { dayInt: "28", month: "Haz", dayStr: "Pa" },
-]);
-
-const hours = ref([
-  "09:00",
-  "09:15",
-  "09:30",
-  "09:45",
-  "10:00",
-  "10:15",
-  "10:30",
-  "10:45",
-  "11:00",
-  "11:15",
-  "11:30",
-  "11:45",
-  "12:00",
-  "13:00",
-  "13:15",
-  "13:30",
-  "13:45",
-  "14:00",
-]);
 //the following is Gökhan's template
 //should push back to RandevuAkis on button click
 const setHospitalName = () => {
@@ -291,6 +240,8 @@ const handleSwiper = (item) => {
   chosenDay.value = item.day;
   filterSlots();
   filterSwiperByDay();
+  console.log("item day" + item.day);
+  console.log(chosenDay.value);
 };
 const changeFlowToken = () => {
   //set token to open randevu ozet
@@ -342,24 +293,27 @@ const changeDoctor = (item) => {
 const tryout = { jun: "haz" };
 
 const filterSlots = (slots) => {
-  const filteredSlots = slotsData.value.filter((slot) => {
+  const filteredSlots = filteredSwiperValues.value.filter((slot) => {
     return slot.day == chosenDay.value;
   });
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
 };
-const filteredTimeSlots = ref([]);
+
+const filterTimeSlotsByDay = () => {};
+
+const slicedTimeSlots = ref([]);
 const spliceTimeSlots = () => {
-  filteredTimeSlots.value = [];
+  slicedTimeSlots.value = [];
   const timeSlots = slotsData.value.map((item) => {
     let splittedArray = item.from.split("");
     splittedArray.splice(splittedArray.length - 3, 3);
     let stringifySplittedArray = splittedArray.join("");
     // console.log(stringifySplittedArray);
-    filteredTimeSlots.value.push(stringifySplittedArray);
+    slicedTimeSlots.value.push(stringifySplittedArray);
   });
-  // filteredTimeSlots.value = timeSlots;
-  console.log(filteredTimeSlots.value);
+  // slicedTimeSlots.value = timeSlots;
+  console.log(slicedTimeSlots.value);
   console.log(slotsData.value);
 };
 
@@ -377,7 +331,7 @@ onMounted(() => {
   //for some reason, locale doesn't work
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
   spliceTimeSlots();
-  console.log(filteredTimeSlots.value);
+  console.log(slicedTimeSlots.value);
 });
 // onUpdated(() => {
 //   console.log("I'm updated");
