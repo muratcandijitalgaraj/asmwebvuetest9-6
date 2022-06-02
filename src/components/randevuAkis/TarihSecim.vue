@@ -642,6 +642,8 @@ onMounted(() => {
 
 .doctor-list {
   margin-bottom: 30px;
+  height: 500px;
+  overflow: scroll;
 
   .item {
     display: flex;
