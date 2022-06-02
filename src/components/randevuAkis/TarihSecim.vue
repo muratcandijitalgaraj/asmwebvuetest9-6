@@ -334,6 +334,7 @@ const changeDoctor = (item) => {
   renderKey.value += 1;
   showDoctors();
 };
+const tryout = { jun: "haz" };
 
 const filterSlots = (slots) => {
   const filteredSlots = slotsData.value.filter((slot) => {
@@ -344,6 +345,7 @@ const filterSlots = (slots) => {
 };
 const filteredTimeSlots = ref([]);
 const spliceTimeSlots = () => {
+  filteredTimeSlots.value = [];
   const timeSlots = slotsData.value.map((item) => {
     let splittedArray = item.from.split("");
     splittedArray.splice(splittedArray.length - 3, 3);
