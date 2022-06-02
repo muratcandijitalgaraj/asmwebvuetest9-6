@@ -3,7 +3,10 @@
     <template v-slot:header><Header /></template>
     <template v-slot:sidebar><Sidebar /></template>
     <template v-slot:section>
-      <div class="main-container col-md-12 col-lg-8 col-xl-8 col-xxl-9">
+      <div
+        :key="renderKey"
+        class="main-container col-md-12 col-lg-8 col-xl-8 col-xxl-9"
+      >
         <div class="titles d-flex justify-content-between align-items-center">
           <span class="bigTitle">Randevu Alma</span>
         </div>
@@ -162,7 +165,14 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import { ref, onBeforeMount, onMounted, reactive, computed } from "vue";
+import {
+  ref,
+  onBeforeMount,
+  onMounted,
+  reactive,
+  computed,
+  onUpdated,
+} from "vue";
 // import hospitalLogoSvg from "../assets/img/randevuAkis/hospital.svg";
 import clinicLogoSvg from "../../assets/img/randevuAkis/clinic.svg";
 import doktorLogoBlueSvg from "../../assets/img/randevuAkis/doktorLogoBlue.svg";
@@ -176,6 +186,8 @@ import moment from "moment";
 
 //define router
 const router = useRouter();
+//re-render key variable
+let renderKey = ref(0);
 
 const onSwiper = (swiper) => {
   console.log(swiper);
@@ -319,6 +331,7 @@ const changeDoctor = (item) => {
   //commit to store
   store.commit("appointmentFlow/setDoctorName", item.fullName);
   store.commit("appointmentFlow/setDoctorId", item.id);
+  renderKey.value += 1;
 };
 
 const filterSlots = (slots) => {
@@ -356,6 +369,9 @@ onMounted(() => {
   spliceTimeSlots();
   console.log(filteredTimeSlots.value);
 });
+// onUpdated(() => {
+//   console.log("I'm updated");
+// });
 </script>
 
 <style scoped lang="scss">
