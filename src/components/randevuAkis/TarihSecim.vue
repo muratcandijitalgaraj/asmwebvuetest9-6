@@ -290,6 +290,7 @@ const showPhysicianSlots = async () => {
     console.log(res.data);
     slotsData.value = res.data.events;
     console.log(slotsData.value);
+    spliceTimeSlots();
   } catch (error) {
     console.log(error);
   }
@@ -338,6 +339,7 @@ const spliceTimeSlots = () => {
   });
   // filteredTimeSlots.value = timeSlots;
   console.log(filteredTimeSlots.value);
+  console.log(slotsData.value);
 };
 
 //formatting functions => has problems
