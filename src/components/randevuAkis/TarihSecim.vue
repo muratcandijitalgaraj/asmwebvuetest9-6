@@ -119,7 +119,6 @@
               </span>
             </div> -->
             <div
-              @click="spliceTimeSlots"
               class="hour-item"
               v-for="(item, key) in filteredTimeSlotsByDay"
               :key="key"
@@ -244,6 +243,17 @@ const handleSwiper = (item) => {
   console.log(chosenDay.value);
   filterTimeSlotsByDay();
 };
+const functionForOnmount = () => {
+  let mydate = new Date();
+  console.log(mydate);
+  console.log(mydate.toISOString());
+  chosenDay.value = mydate.toISOString();
+  console.log(chosenDay.value);
+  filterSlots();
+  filterSwiperByDay();
+  filterTimeSlotsByDay();
+};
+
 const changeFlowToken = () => {
   //set token to open randevu ozet
   store.commit("appointmentFlow/setFlowToken", 4);
@@ -258,7 +268,6 @@ const showPhysicianSlots = async () => {
     console.log(res.data);
     slotsData.value = res.data.events;
     console.log(slotsData.value);
-    spliceTimeSlots();
     filterSwiperByDay();
   } catch (error) {
     console.log(error);
@@ -314,21 +323,21 @@ const filterTimeSlotsByDay = () => {
   console.log(filteredTimeSlotsByDay.value);
   console.log(chosenDay.value);
 };
-
-const splicedTimeSlots = ref([]);
-const spliceTimeSlots = () => {
-  splicedTimeSlots.value = [];
-  const timeSlots = slotsData.value.map((item) => {
-    let splittedArray = item.from.split("");
-    splittedArray.splice(splittedArray.length - 3, 3);
-    let stringifySplittedArray = splittedArray.join("");
-    // console.log(stringifySplittedArray);
-    splicedTimeSlots.value.push(stringifySplittedArray);
-  });
-  // splicedTimeSlots.value = timeSlots;
-  console.log(splicedTimeSlots.value);
-  console.log(slotsData.value);
-};
+//this function is obsolete now
+// const splicedTimeSlots = ref([]);
+// const spliceTimeSlots = () => {
+//   splicedTimeSlots.value = [];
+//   const timeSlots = slotsData.value.map((item) => {
+//     let splittedArray = item.from.split("");
+//     splittedArray.splice(splittedArray.length - 3, 3);
+//     let stringifySplittedArray = splittedArray.join("");
+//     // console.log(stringifySplittedArray);
+//     splicedTimeSlots.value.push(stringifySplittedArray);
+//   });
+//   // splicedTimeSlots.value = timeSlots;
+//   console.log(splicedTimeSlots.value);
+//   console.log(slotsData.value);
+// };
 
 let filteredSwiperValues = ref([]);
 const filterSwiperByDay = () => {
@@ -343,13 +352,12 @@ onMounted(() => {
   showDoctors();
   //for some reason, locale doesn't work
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
-  spliceTimeSlots();
-  console.log(splicedTimeSlots.value);
   let mydate = new Date();
-  console.log(mydate);
-  console.log(mydate.toISOString());
-  chosenDay.value = mydate.toISOString();
-  console.log(chosenDay.value);
+  // console.log(mydate);
+  // console.log(mydate.toISOString());
+  // chosenDay.value = mydate.toISOString();
+  // console.log(chosenDay.value);
+  functionForOnmount();
 });
 // onUpdated(() => {
 //   console.log("I'm updated");
