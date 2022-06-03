@@ -121,7 +121,7 @@
             <div
               @click="spliceTimeSlots"
               class="hour-item"
-              v-for="(item, key) in slicedTimeSlots"
+              v-for="(item, key) in filteredTimeSlotsByDay"
               :key="key"
             >
               <span>
@@ -302,10 +302,11 @@ const filterSlots = (slots) => {
 };
 const filteredTimeSlotsByDay = ref([]);
 const filterTimeSlotsByDay = () => {
+  filteredTimeSlotsByDay.value = [];
   slotsData.value.forEach((item) => {
     if (item.day == chosenDay.value) {
       {
-        filteredTimeSlotsByDay.value.push(item);
+        filteredTimeSlotsByDay.value.push(item.from);
       }
     }
   });
@@ -313,18 +314,18 @@ const filterTimeSlotsByDay = () => {
   console.log(chosenDay.value);
 };
 
-const slicedTimeSlots = ref([]);
+const splicedTimeSlots = ref([]);
 const spliceTimeSlots = () => {
-  slicedTimeSlots.value = [];
+  splicedTimeSlots.value = [];
   const timeSlots = slotsData.value.map((item) => {
     let splittedArray = item.from.split("");
     splittedArray.splice(splittedArray.length - 3, 3);
     let stringifySplittedArray = splittedArray.join("");
     // console.log(stringifySplittedArray);
-    slicedTimeSlots.value.push(stringifySplittedArray);
+    splicedTimeSlots.value.push(stringifySplittedArray);
   });
-  // slicedTimeSlots.value = timeSlots;
-  console.log(slicedTimeSlots.value);
+  // splicedTimeSlots.value = timeSlots;
+  console.log(splicedTimeSlots.value);
   console.log(slotsData.value);
 };
 
@@ -342,7 +343,7 @@ onMounted(() => {
   //for some reason, locale doesn't work
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
   spliceTimeSlots();
-  console.log(slicedTimeSlots.value);
+  console.log(splicedTimeSlots.value);
 });
 // onUpdated(() => {
 //   console.log("I'm updated");
