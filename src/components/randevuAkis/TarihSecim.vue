@@ -305,9 +305,10 @@ const filterTimeSlotsByDay = () => {
   filteredTimeSlotsByDay.value = [];
   slotsData.value.forEach((item) => {
     if (item.day == chosenDay.value) {
-      {
-        filteredTimeSlotsByDay.value.push(item.from);
-      }
+      let splittedArray = item.from.split("");
+      splittedArray.splice(splittedArray.length - 3, 3);
+      let stringifySplittedArray = splittedArray.join("");
+      filteredTimeSlotsByDay.value.push(stringifySplittedArray);
     }
   });
   console.log(filteredTimeSlotsByDay.value);
@@ -344,6 +345,11 @@ onMounted(() => {
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
   spliceTimeSlots();
   console.log(splicedTimeSlots.value);
+  let mydate = new Date();
+  console.log(mydate);
+  console.log(mydate.toISOString());
+  chosenDay.value = mydate.toISOString();
+  console.log(chosenDay.value);
 });
 // onUpdated(() => {
 //   console.log("I'm updated");
