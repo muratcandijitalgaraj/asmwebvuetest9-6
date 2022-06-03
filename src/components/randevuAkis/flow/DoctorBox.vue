@@ -84,6 +84,12 @@ import { useRouter } from "vue-router";
 //define router
 const router = useRouter();
 
+const departmentType = {
+  1: "departmentType1",
+  2: "departmentType2",
+  3: "departmentType3",
+};
+
 //ultimate functionality logic:
 //if the clicked doctor works in more than one hospital, show dropdown
 //if the doctor works in multiple clinics in a chosen hospital, show modal
@@ -104,6 +110,7 @@ const props = defineProps({
   dropdownData: { required: true, type: Array },
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
+  generalData: { required: true, type: Object },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -137,7 +144,7 @@ const handleClick = async () => {
   departments.value = props.modalData;
   // console.log(departments.value);
   console.log("doktorun çalıştığı hastane length" + props.dropdownData.length);
-  router.push({ name: "TarihSaatSecimi" });
+  // router.push({ name: "TarihSaatSecimi" });
 };
 
 const handleCollapse = computed(() => {
@@ -156,15 +163,43 @@ const changeBorderRadius = () => {
 //if the doctor works in only one hospital, it'll return false, and collapse wont be showing off
 //else, it'll return true and the collapse will be available
 //very, very useful function.
-const handleShouldCollapse = () => {
-  if (departments.value.length > 1) {
+
+const findDepartmentType = (data) => {
+  let returnValue,
+    tenants = [];
+  if (data.departments.length > 1) {
+    returnValue = departmentType[3];
+    data.departments.forEach((value, index) => {
+      value.tenants.forEach((inValue, _index) => {
+        tenants.push(inValue.id);
+      });
+    });
+
+    if (tenants.filter((a, b) => tenants.indexOf(a) === b).length > 1) {
+      returnValue = departmentType[2];
+    } else {
+      returnValue = departmentType[3];
+    }
+  } else {
+    if (data.departments[0].tenants.length > 1) {
+      returnValue = departmentType[2];
+    } else {
+      returnValue = departmentType[1];
+    }
+  }
+  return returnValue;
+};
+
+const handleShouldCollapse = async () => {
+  let dropdownState = await findDepartmentType(props.generalData);
+  if (dropdownState === "departmentType2") {
     shouldCollapse.value = true;
-  } else if (props.dropdownData.length > 1) {
-    shouldCollapse.value = true;
-  } else if (departments.value.length == 1) {
+  } else {
     shouldCollapse.value = false;
   }
 };
+
+handleShouldCollapse();
 
 // else if (props.modalData.map) {
 //     shouldCollapse.value = true;

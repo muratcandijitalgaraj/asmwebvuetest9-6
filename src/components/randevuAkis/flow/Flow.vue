@@ -131,6 +131,7 @@
             :dropdownData="item.departments[0].tenants"
             :modalData="item.departments"
             v-model="appointmentType"
+            :generalData="item"
           />
         </div>
       </div>
