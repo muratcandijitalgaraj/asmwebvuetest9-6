@@ -17,7 +17,6 @@ export default {
     clinicId: "",
     doctorId: "",
     flowToken: 1,
-    todaysDate: "2022-06-03T10:53:13.550Z",
   },
 
   mutations: {
@@ -54,9 +53,6 @@ export default {
     },
     setFlowToken(state, payload) {
       state.flowToken = payload;
-    },
-    setTodaysDate(state, payload) {
-      state.todaysDate = payload;
     },
   },
 
