@@ -56,7 +56,10 @@
                   <div>lol</div>
                 </div>
               </swiper-slide> -->
-              <swiper-slide v-for="(item, key) in slotsData" :key="key">
+              <swiper-slide
+                v-for="(item, key) in filteredSwiperValues"
+                :key="key"
+              >
                 <div
                   @click="handleSwiper(item)"
                   class="date-item"
@@ -116,9 +119,8 @@
               </span>
             </div> -->
             <div
-              @click="spliceTimeSlots"
               class="hour-item"
-              v-for="(item, key) in filteredTimeSlots"
+              v-for="(item, key) in filteredTimeSlotsByDay"
               :key="key"
             >
               <span>
@@ -200,57 +202,6 @@ const deneme = (item) => {
 };
 const modules = ref([Navigation]);
 
-const dates = ref([
-  { dayInt: "01", month: "Haz", dayStr: "Pt" },
-  { dayInt: "02", month: "Haz", dayStr: "Sa" },
-  { dayInt: "03", month: "Haz", dayStr: "Ça" },
-  { dayInt: "04", month: "Haz", dayStr: "Pe" },
-  { dayInt: "05", month: "Haz", dayStr: "Cu" },
-  { dayInt: "06", month: "Haz", dayStr: "Ct" },
-  { dayInt: "07", month: "Haz", dayStr: "Pa" },
-  { dayInt: "08", month: "Haz", dayStr: "Pt" },
-  { dayInt: "09", month: "Haz", dayStr: "Sa" },
-  { dayInt: "10", month: "Haz", dayStr: "Ça" },
-  { dayInt: "11", month: "Haz", dayStr: "Pe" },
-  { dayInt: "12", month: "Haz", dayStr: "Cu" },
-  { dayInt: "13", month: "Haz", dayStr: "Ct" },
-  { dayInt: "14", month: "Haz", dayStr: "Pa" },
-  { dayInt: "15", month: "Haz", dayStr: "Pt" },
-  { dayInt: "16", month: "Haz", dayStr: "Sa" },
-  { dayInt: "17", month: "Haz", dayStr: "Ça" },
-  { dayInt: "18", month: "Haz", dayStr: "Pe" },
-  { dayInt: "19", month: "Haz", dayStr: "Cu" },
-  { dayInt: "20", month: "Haz", dayStr: "Ct" },
-  { dayInt: "21", month: "Haz", dayStr: "Pa" },
-  { dayInt: "22", month: "Haz", dayStr: "Pt" },
-  { dayInt: "23", month: "Haz", dayStr: "Sa" },
-  { dayInt: "24", month: "Haz", dayStr: "Ça" },
-  { dayInt: "25", month: "Haz", dayStr: "Pe" },
-  { dayInt: "26", month: "Haz", dayStr: "Cu" },
-  { dayInt: "27", month: "Haz", dayStr: "Ct" },
-  { dayInt: "28", month: "Haz", dayStr: "Pa" },
-]);
-
-const hours = ref([
-  "09:00",
-  "09:15",
-  "09:30",
-  "09:45",
-  "10:00",
-  "10:15",
-  "10:30",
-  "10:45",
-  "11:00",
-  "11:15",
-  "11:30",
-  "11:45",
-  "12:00",
-  "13:00",
-  "13:15",
-  "13:30",
-  "13:45",
-  "14:00",
-]);
 //the following is Gökhan's template
 //should push back to RandevuAkis on button click
 const setHospitalName = () => {
@@ -287,7 +238,22 @@ const handleSwiper = (item) => {
   console.log(item);
   chosenDay.value = item.day;
   filterSlots();
+  filterSwiperByDay();
+  console.log("item day" + item.day);
+  console.log(chosenDay.value);
+  filterTimeSlotsByDay();
 };
+const functionForOnmount = () => {
+  let mydate = new Date();
+  console.log(mydate);
+  console.log(mydate.toISOString());
+  chosenDay.value = mydate.toISOString();
+  console.log(chosenDay.value);
+  filterSlots();
+  filterSwiperByDay();
+  filterTimeSlotsByDay();
+};
+
 const changeFlowToken = () => {
   //set token to open randevu ozet
   store.commit("appointmentFlow/setFlowToken", 4);
@@ -302,7 +268,7 @@ const showPhysicianSlots = async () => {
     console.log(res.data);
     slotsData.value = res.data.events;
     console.log(slotsData.value);
-    spliceTimeSlots();
+    filterSwiperByDay();
   } catch (error) {
     console.log(error);
   }
@@ -334,41 +300,64 @@ const changeDoctor = (item) => {
   renderKey.value += 1;
   showDoctors();
 };
+const tryout = { jun: "haz" };
 
 const filterSlots = (slots) => {
-  const filteredSlots = slotsData.value.filter((slot) => {
+  const filteredSlots = filteredSwiperValues.value.filter((slot) => {
     return slot.day == chosenDay.value;
   });
   filteredSlotsData.value = filteredSlots;
   console.log(filteredSlotsData.value);
 };
-const filteredTimeSlots = ref([]);
-const spliceTimeSlots = () => {
-  const timeSlots = slotsData.value.map((item) => {
-    let splittedArray = item.from.split("");
-    splittedArray.splice(splittedArray.length - 3, 3);
-    let stringifySplittedArray = splittedArray.join("");
-    console.log(stringifySplittedArray);
-    filteredTimeSlots.value.push(stringifySplittedArray);
+const filteredTimeSlotsByDay = ref([]);
+const filterTimeSlotsByDay = () => {
+  filteredTimeSlotsByDay.value = [];
+  slotsData.value.forEach((item) => {
+    if (item.day == chosenDay.value) {
+      let splittedArray = item.from.split("");
+      splittedArray.splice(splittedArray.length - 3, 3);
+      let stringifySplittedArray = splittedArray.join("");
+      filteredTimeSlotsByDay.value.push(stringifySplittedArray);
+    }
   });
-  // filteredTimeSlots.value = timeSlots;
-  console.log(filteredTimeSlots.value);
-  console.log(slotsData.value);
+  console.log(filteredTimeSlotsByDay.value);
+  console.log(chosenDay.value);
 };
+//this function is obsolete now
+// const splicedTimeSlots = ref([]);
+// const spliceTimeSlots = () => {
+//   splicedTimeSlots.value = [];
+//   const timeSlots = slotsData.value.map((item) => {
+//     let splittedArray = item.from.split("");
+//     splittedArray.splice(splittedArray.length - 3, 3);
+//     let stringifySplittedArray = splittedArray.join("");
+//     // console.log(stringifySplittedArray);
+//     splicedTimeSlots.value.push(stringifySplittedArray);
+//   });
+//   // splicedTimeSlots.value = timeSlots;
+//   console.log(splicedTimeSlots.value);
+//   console.log(slotsData.value);
+// };
 
-//formatting functions => has problems
-// const formatDateFrom = "YYYY-MM-DD HH:mm:ss"
-// const formatDateTo = computed((chosenDay.value) => {
-//   return moment(chosenDay.value).format("DD.MM.YYYY");
-// });
+let filteredSwiperValues = ref([]);
+const filterSwiperByDay = () => {
+  filteredSwiperValues.value = slotsData.value.filter(
+    (value, index, self) => index === self.findIndex((t) => t.day === value.day)
+  );
+  console.log(filteredSwiperValues.value);
+};
 
 onMounted(() => {
   showPhysicianSlots();
   showDoctors();
   //for some reason, locale doesn't work
   console.log(moment("1964-06-20T00:00:00").locale("tr").format("D MMM dd"));
-  spliceTimeSlots();
-  console.log(filteredTimeSlots.value);
+  let mydate = new Date();
+  // console.log(mydate);
+  // console.log(mydate.toISOString());
+  // chosenDay.value = mydate.toISOString();
+  // console.log(chosenDay.value);
+  functionForOnmount();
 });
 // onUpdated(() => {
 //   console.log("I'm updated");

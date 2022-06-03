@@ -108,7 +108,9 @@ export default {
       let hospitalId = store.getters["appointmentFlow/_getHospitalId"];
       appAxios.defaults.headers.common["Authorization"] = "Bearer " + token;
       return await appAxios.get(
-        `endpoint/appointment-service/calendars/physician-slots?departmentId=${clinicId}&physicianId=${doctorId}&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=${hospitalId}&appointmentType=1&from=1964-06-20T13:02:18.328Z&to=1964-06-20T13:02:18.328Z`
+        `endpoint/appointment-service/calendars/physician-slots?departmentId=${clinicId}&physicianId=${doctorId}&facilityId=3a029fc2-135c-0e05-2d77-d817861825d8&tenantId=${hospitalId}&appointmentType=1&from=${new Date().toISOString()}&to=${new Date(
+          new Date().setDate(new Date().getDate() + 31)
+        ).toISOString()}`
       );
     },
     async filterDoctorsByDepartment() {
