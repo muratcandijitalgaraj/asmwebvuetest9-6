@@ -521,12 +521,16 @@ const searchclinicHospitalsList = computed(() => {
     return e.name.toLowerCase().match(search.value);
   });
 });
+let date = new Date();
+let dateISO = date.toISOString();
 
 onMounted(() => {
   // showInitialRequest();
   showDoctors();
   showClinics();
   showHospitals();
+  console.log("iso date=> " + dateISO);
+  store.commit("appointmentFlow/setTodaysDate", dateISO);
 });
 </script>
 
