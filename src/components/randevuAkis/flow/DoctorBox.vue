@@ -24,22 +24,22 @@
     </div>
   </div>
 
-  <!-- <div v-if="modalData.length > 1">
-    <div
-      v-if="shouldCollapse"
-      :class="{ collapsed: handleCollapse }"
-      class="hidden"
-    >
-      <Dropdown
-        v-for="(item, key) in dropdownData"
-        :key="key"
-        :hospital="item.name"
-        v-model="appointmentType"
-        :dropdownData="item.id"
-        :doctorName="title"
-      />
-    </div>
-  </div> -->
+  <!-- <div v-if="departmentType == 2 || departmentType == 3"> -->
+  <div
+    v-if="shouldCollapse"
+    :class="{ collapsed: handleCollapse }"
+    class="hidden"
+  >
+    <Dropdown
+      v-for="(item, key) in tenantsData"
+      :key="key"
+      :hospital="item"
+      v-model="appointmentType"
+      :dropdownData="item.id"
+      :doctorName="title"
+    />
+  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -101,19 +101,17 @@ const handleClick = async () => {
   }
   console.log(props.itemId);
   changeBorderRadius();
-  //send this data to the store
-  console.log("props title=>" + props.title);
+
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
   store.commit("appointmentFlow/setDoctorId", props.itemId);
 
   //modalData is item.departments coming from the parent
   //this is the important one, I'll use this one to create the functionality of the dropdown
-  console.log(props.modalData);
+  console.log(props.generalData);
   departments.value = props.modalData;
-  // console.log(departments.value);
-  console.log("doktorun çalıştığı hastane length" + props.dropdownData.length);
-  // router.push({ name: "TarihSaatSecimi" });
+  // console.log(props.generalData);
+  findDepartmentType(props.generalData);
 };
 
 const handleCollapse = computed(() => {
@@ -132,7 +130,7 @@ const changeBorderRadius = () => {
 //if the doctor works in only one hospital, it'll return false, and collapse wont be showing off
 //else, it'll return true and the collapse will be available
 //very, very useful function.
-
+const tenantsData = ref();
 const findDepartmentType = (data) => {
   let returnValue,
     tenants = [];
@@ -156,6 +154,9 @@ const findDepartmentType = (data) => {
       returnValue = departmentType[1];
     }
   }
+  console.log(returnValue);
+  console.log(tenants);
+  tenantsData.value = tenants;
   return returnValue;
 };
 
@@ -178,9 +179,10 @@ onMounted(() => {
   // console.log("dropdowndata" + JSON.stringify(props.dropdownData));
   departments.value = props.modalData;
   handleShouldCollapse();
-  console.log(props.modalData);
-  console.log("dropdown data => " + JSON.stringify(props.dropdownData));
-  console.log(` there are ${props.modalData.length} departments`);
+  // console.log(props.modalData);
+  // console.log("dropdown data => " + JSON.stringify(props.dropdownData));
+  // console.log(` there are ${props.modalData.length} departments`);
+  // findDepartmentType(props.generalData);
 });
 </script>
 

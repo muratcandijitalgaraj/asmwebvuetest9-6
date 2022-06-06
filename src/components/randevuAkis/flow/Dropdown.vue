@@ -122,6 +122,7 @@ const handleClick = async () => {
   //commit to store
   store.commit("appointmentFlow/setHospitalName", props.hospital);
   store.commit("appointmentFlow/setDoctorName", props.doctorName);
+  console.log(props.dropdownData);
 };
 
 const isCircleChosen = computed(() => {

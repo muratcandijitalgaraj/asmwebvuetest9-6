@@ -128,7 +128,7 @@
             :title="item.fullName"
             :subTitle="item.departments[0].name"
             :itemId="item.id"
-            :dropdownData="item.departments[0].tenants"
+            :dropdownData="item.departments"
             :modalData="item.departments"
             v-model="appointmentType"
             :generalData="item"
