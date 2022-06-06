@@ -31,9 +31,9 @@
     class="hidden"
   >
     <Dropdown
-      v-for="(item, key) in tenantsData"
+      v-for="(item, key) in dropdownData"
       :key="key"
-      :hospital="item"
+      :hospital="item.tenants.name"
       v-model="appointmentType"
       :dropdownData="item.id"
       :doctorName="title"
@@ -131,6 +131,7 @@ const changeBorderRadius = () => {
 //else, it'll return true and the collapse will be available
 //very, very useful function.
 const tenantsData = ref();
+const itemReturnValue = ref();
 const findDepartmentType = (data) => {
   let returnValue,
     tenants = [];
@@ -157,7 +158,29 @@ const findDepartmentType = (data) => {
   console.log(returnValue);
   console.log(tenants);
   tenantsData.value = tenants;
+  itemReturnValue.value = returnValue;
   return returnValue;
+};
+
+const solveItAll = (item) => {
+  let dataToBePassed = [];
+  if (itemReturnValue.value == 2) {
+    let idArray = [];
+    //push all the ids of tenants into the array above
+    item.departments[0].tenants.map((e) => {
+      idArray.push(e.id);
+    });
+    //use the set method and spread syntax to get rid of duplicate elements
+    let uniqIdArray = [...new Set(idArray)];
+    let uniqTenantNamesArray = uniqIdArray.map((e) => {
+      if (e == 1) {
+        return "Hastane id 1";
+      } else {
+        return "Hastane id 8";
+      }
+    });
+    dataToBePassed = uniqIdArray;
+  }
 };
 
 const handleShouldCollapse = async () => {
@@ -169,7 +192,7 @@ const handleShouldCollapse = async () => {
   }
 };
 
-handleShouldCollapse();
+// handleShouldCollapse();
 
 // else if (props.modalData.map) {
 //     shouldCollapse.value = true;
