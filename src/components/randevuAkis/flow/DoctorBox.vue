@@ -161,9 +161,10 @@ const findDepartmentType = (data) => {
   itemReturnValue.value = returnValue;
   return returnValue;
 };
-
+//this function should date a doctor's whole data as parameter
 const solveItAll = (item) => {
   let dataToBePassed = [];
+  //if there are 2 hospitals and 1 clinic...
   if (itemReturnValue.value == 2) {
     let idArray = [];
     //push all the ids of tenants into the array above
@@ -180,6 +181,15 @@ const solveItAll = (item) => {
       }
     });
     dataToBePassed = uniqIdArray;
+  }
+  // if there's 1 hospital but more clinics...
+  else if (itemReturnValue.value == 3) {
+    let departmentNamesArray = [];
+    item.departments.map((e) => {
+      departmentNamesArray.push(e.name);
+    });
+    let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
+    dataToBePassed = uniqDepartmentNamesArray;
   }
 };
 
