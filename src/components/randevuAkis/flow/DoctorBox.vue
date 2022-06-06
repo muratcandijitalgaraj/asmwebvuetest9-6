@@ -5,6 +5,7 @@
     class="doctorBox d-flex align-items-center"
   >
     <img :src="doctorImg" alt="" class="doctorImg" />
+
     <div class="textContainer d-flex flex-column">
       <div class="upperPart d-flex justify-content-between align-items-center">
         <div class="title">{{ title }}</div>
@@ -22,53 +23,21 @@
       </div>
     </div>
   </div>
-  <div v-if="modalData.length === 1">
-    <div
-      v-if="shouldCollapse"
-      :class="{ collapsed: handleCollapse }"
-      class="hidden"
-    >
-      <!-- first off, it should loop over modalData, not dropdownData -->
-      <Dropdown
-        v-for="(item, key) in dropdownData"
-        :key="key"
-        :hospital="item.name"
-        v-model="appointmentType"
-        :dropdownData="item.id"
-        :doctorName="title"
-      />
-    </div>
-  </div>
-  <div v-if="modalData.length > 1">
-    <div
-      v-if="shouldCollapse"
-      :class="{ collapsed: handleCollapse }"
-      class="hidden"
-    >
-      <Dropdown
-        v-for="(item, key) in dropdownData"
-        :key="key"
-        :hospital="item.name"
-        v-model="appointmentType"
-        :dropdownData="item.id"
-        :doctorName="title"
-      />
-    </div>
-  </div>
 
-  <!-- <div class="doctorBox" v-for="(item, index) in modalData" :key="index">
+  <!-- <div v-if="modalData.length > 1">
     <div
-      class="clinicDropdownContainer d-flex flex-row justify-content-start align-items-center"
+      v-if="shouldCollapse"
+      :class="{ collapsed: handleCollapse }"
+      class="hidden"
     >
-      <div
-        :class="{ chosenCircle: isCircleChosen }"
-        class="circle d-flex justify-content-center align-items-center"
-      >
-        <img :src="checkMark" alt="" />
-      </div>
-      <div class="dropdownText">{{ item.name }}</div>
-      <span> - </span>
-      <div class="dropdownText">{{ item.tenants[0].name }}</div>
+      <Dropdown
+        v-for="(item, key) in dropdownData"
+        :key="key"
+        :hospital="item.name"
+        v-model="appointmentType"
+        :dropdownData="item.id"
+        :doctorName="title"
+      />
     </div>
   </div> -->
 </template>
@@ -106,7 +75,7 @@ const props = defineProps({
   title: { required: true, type: String },
   subTitle: { required: true, type: String },
   collapseData: { required: true, type: Array },
-  data: { required: true, type: String },
+  itemId: { required: true, type: String },
   dropdownData: { required: true, type: Array },
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
@@ -123,20 +92,20 @@ const departments = ref();
 
 // const handle = ref(false);
 const handleClick = async () => {
-  await emit("update:modelValue", props.data);
+  await emit("update:modelValue", props.itemId);
 
-  if (props.modelValue == props.data) {
+  if (props.modelValue == props.itemId) {
     isCheck.value = true;
   } else {
     isCheck.value = false;
   }
-  console.log(props.data);
+  console.log(props.itemId);
   changeBorderRadius();
   //send this data to the store
   console.log("props title=>" + props.title);
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
-  store.commit("appointmentFlow/setDoctorId", props.data);
+  store.commit("appointmentFlow/setDoctorId", props.itemId);
 
   //modalData is item.departments coming from the parent
   //this is the important one, I'll use this one to create the functionality of the dropdown
@@ -148,7 +117,7 @@ const handleClick = async () => {
 };
 
 const handleCollapse = computed(() => {
-  if (isCheck.value && props.data === props.modelValue) {
+  if (isCheck.value && props.itemId === props.modelValue) {
     return true;
   }
 
