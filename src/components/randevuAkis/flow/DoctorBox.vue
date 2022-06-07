@@ -12,14 +12,27 @@
         <img v-if="shouldCollapse" :src="collapseImg" alt="" />
       </div>
       <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
-        <span class="subTitle">{{ subTitle }} </span>
-        <span class="subTitle"> - </span>
+        <span
+          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
+          class="subTitle"
+          >{{ subTitle }}
+        </span>
+        <span
+          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
+          class="subTitle"
+        >
+          -
+        </span>
         <!-- is this v-if really necessary? -->
         <span
           v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
           class="subTitle"
           >{{ modalData[0].tenants[0].name }}</span
         >
+
+        <span v-if="itemReturnValue == 'departmentType3'" class="subTitle">{{
+          modalData[0].tenants[0].name
+        }}</span>
       </div>
     </div>
   </div>
@@ -208,10 +221,7 @@ const solveItAll = (item) => {
 
 const handleShouldCollapse = async () => {
   let dropdownState = await findDepartmentType(props.generalData);
-  if (
-    dropdownState === "departmentType2" ||
-    dropdownState === "departmentType3"
-  ) {
+  if (dropdownState === "departmentType2") {
     shouldCollapse.value = true;
   } else {
     shouldCollapse.value = false;
