@@ -172,8 +172,11 @@ const solveItAll = (item) => {
   if (itemReturnValue.value == "departmentType2") {
     let idArray = [];
     //push all the ids of tenants into the array above
-    item.departments[0].tenants.map((e) => {
-      idArray.push(e.id);
+    //you have to loop over departments too
+    item.departments.forEach((el, index) => {
+      el.tenants.map((e) => {
+        idArray.push(e.id);
+      });
     });
     //use the set method and spread syntax to get rid of duplicate elements
     let uniqIdArray = [...new Set(idArray)];
@@ -186,7 +189,9 @@ const solveItAll = (item) => {
     });
     dataToChild = uniqTenantNamesArray;
     console.log(uniqTenantNamesArray + "names");
-    console.log("department type 3");
+    console.log("uniqIdArray " + uniqIdArray);
+    console.log("department type 2");
+    console.log("dataToChild " + dataToChild);
   }
   // if there's 1 hospital but more clinics...
   else if (itemReturnValue.value == "departmentType3") {
@@ -198,6 +203,7 @@ const solveItAll = (item) => {
     dataToChild = uniqDepartmentNamesArray;
     console.log("uniqDepartmentNamesArray" + uniqDepartmentNamesArray.length);
     console.log("department type 3");
+    console.log("dataToChild " + dataToChild);
   } else {
     console.log("if I'm showing, itemReturnValue is 1 & no dropdown needed");
   }
