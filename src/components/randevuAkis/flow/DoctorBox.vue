@@ -155,17 +155,21 @@ const findDepartmentType = (data) => {
       returnValue = departmentType[1];
     }
   }
-  console.log(returnValue);
-  console.log(tenants);
+  // console.log(returnValue);
+  // console.log(tenants);
   tenantsData.value = tenants;
   itemReturnValue.value = returnValue;
+  solveItAll(data);
+  // console.log("returnValue" + returnValue);
   return returnValue;
 };
-//this function should date a doctor's whole data as parameter
+//this function should take a doctor's whole data as parameter
 const solveItAll = (item) => {
-  let dataToBePassed = [];
+  console.log("itemReturnValue " + itemReturnValue.value);
+  //will loop over this data with v-for in dropdown
+  let dataToChild = [];
   //if there are 2 hospitals and 1 clinic...
-  if (itemReturnValue.value == 2) {
+  if (itemReturnValue.value == "departmentType2") {
     let idArray = [];
     //push all the ids of tenants into the array above
     item.departments[0].tenants.map((e) => {
@@ -175,27 +179,39 @@ const solveItAll = (item) => {
     let uniqIdArray = [...new Set(idArray)];
     let uniqTenantNamesArray = uniqIdArray.map((e) => {
       if (e == 1) {
-        return "Hastane id 1";
+        return "Pusula Developer (Gebze)";
       } else {
-        return "Hastane id 8";
+        return "Ataşehir";
       }
     });
-    dataToBePassed = uniqIdArray;
+    dataToChild = uniqTenantNamesArray;
+    console.log(uniqTenantNamesArray + "names");
+    console.log("department type 3");
   }
   // if there's 1 hospital but more clinics...
-  else if (itemReturnValue.value == 3) {
+  else if (itemReturnValue.value == "departmentType3") {
     let departmentNamesArray = [];
     item.departments.map((e) => {
       departmentNamesArray.push(e.name);
     });
     let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
-    dataToBePassed = uniqDepartmentNamesArray;
+    dataToChild = uniqDepartmentNamesArray;
+    console.log("uniqDepartmentNamesArray" + uniqDepartmentNamesArray.length);
+    console.log("department type 3");
+  } else {
+    console.log("if I'm showing, itemReturnValue is 1 & no dropdown needed");
   }
+  //if there's 1 hospital and 1 clinic...
+  // console.log("dataToChild " + dataToChild.length);
+  // console.log("this is " + JSON.stringify(item));
 };
 
 const handleShouldCollapse = async () => {
   let dropdownState = await findDepartmentType(props.generalData);
-  if (dropdownState === "departmentType2") {
+  if (
+    dropdownState === "departmentType2" ||
+    dropdownState === "departmentType3"
+  ) {
     shouldCollapse.value = true;
   } else {
     shouldCollapse.value = false;
