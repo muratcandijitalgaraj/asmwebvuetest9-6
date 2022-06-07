@@ -30,14 +30,7 @@
     :class="{ collapsed: handleCollapse }"
     class="hidden"
   >
-    <Dropdown
-      v-for="(item, key) in dropdownData"
-      :key="key"
-      :hospital="item.tenants.name"
-      v-model="appointmentType"
-      :dropdownData="item.id"
-      :doctorName="title"
-    />
+    <Dropdown v-for="(item, key) in dataToChild" :key="key" :hospital="item" />
   </div>
   <!-- </div> -->
 </template>
@@ -163,11 +156,12 @@ const findDepartmentType = (data) => {
   // console.log("returnValue" + returnValue);
   return returnValue;
 };
+let dataToChild = ref([]);
+
 //this function should take a doctor's whole data as parameter
 const solveItAll = (item) => {
   console.log("itemReturnValue " + itemReturnValue.value);
   //will loop over this data with v-for in dropdown
-  let dataToChild = [];
   //if there are 2 hospitals and 1 clinic...
   if (itemReturnValue.value == "departmentType2") {
     let idArray = [];
@@ -187,11 +181,11 @@ const solveItAll = (item) => {
         return "Ataşehir";
       }
     });
-    dataToChild = uniqTenantNamesArray;
+    dataToChild.value = uniqTenantNamesArray;
     console.log(uniqTenantNamesArray + "names");
     console.log("uniqIdArray " + uniqIdArray);
     console.log("department type 2");
-    console.log("dataToChild " + dataToChild);
+    console.log("dataToChild.value " + dataToChild.value);
   }
   // if there's 1 hospital but more clinics...
   else if (itemReturnValue.value == "departmentType3") {
@@ -200,10 +194,10 @@ const solveItAll = (item) => {
       departmentNamesArray.push(e.name);
     });
     let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
-    dataToChild = uniqDepartmentNamesArray;
+    dataToChild.value = uniqDepartmentNamesArray;
     console.log("uniqDepartmentNamesArray" + uniqDepartmentNamesArray.length);
     console.log("department type 3");
-    console.log("dataToChild " + dataToChild);
+    console.log("dataToChild.value " + dataToChild.value);
   } else {
     console.log("if I'm showing, itemReturnValue is 1 & no dropdown needed");
   }
