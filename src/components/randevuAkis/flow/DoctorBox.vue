@@ -1,5 +1,9 @@
 <template>
+  <!-- create 3 different divs according to itemReturnValue (departmentType1, departmentType2, departmentType3) -->
+  <!-- div for 1 hospital & 1 clinic only -->
+
   <div
+    v-if="itemReturnValue == 'departmentType1'"
     @click="handleClick"
     :class="{ clicked: handleCollapse }"
     class="doctorBox d-flex align-items-center"
@@ -9,43 +13,59 @@
     <div class="textContainer d-flex flex-column">
       <div class="upperPart d-flex justify-content-between align-items-center">
         <div class="title">{{ title }}</div>
-        <img v-if="shouldCollapse" :src="collapseImg" alt="" />
       </div>
-      <div v-if="shouldCollapse == false" class="subtitleContainer d-flex">
-        <span
-          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
-          class="subTitle"
-          >{{ subTitle }}
-        </span>
-        <span
-          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
-          class="subTitle"
-        >
-          -
-        </span>
-        <!-- is this v-if really necessary? -->
-        <span
-          v-if="modalData.length == 1 && modalData[0].tenants.length == 1"
-          class="subTitle"
-          >{{ modalData[0].tenants[0].name }}</span
-        >
-
-        <span v-if="itemReturnValue == 'departmentType3'" class="subTitle">{{
-          modalData[0].tenants[0].name
-        }}</span>
+      <div class="subtitleContainer d-flex">
+        <!-- show only if there's 1 hospital and 1 clinic only -->
+        <span class="subTitle">{{ subTitle }} </span>
+        <span class="subTitle"> - </span>
+        <span class="subTitle">{{ modalData[0].tenants[0].name }}</span>
+        <!-- show when there's 1 hospital but multiple clinics -->
+        <span class="subTitle">{{ modalData[0].tenants[0].name }}</span>
       </div>
     </div>
   </div>
 
-  <!-- <div v-if="departmentType == 2 || departmentType == 3"> -->
+  <!-- div for 2 hospitals (so, with dropdown) -->
+
   <div
-    v-if="shouldCollapse"
-    :class="{ collapsed: handleCollapse }"
-    class="hidden"
+    v-if="itemReturnValue == 'departmentType2'"
+    @click="handleClick"
+    :class="{ clicked: handleCollapse }"
+    class="doctorBox d-flex align-items-center"
   >
+    <img :src="doctorImg" alt="" class="doctorImg" />
+
+    <div class="textContainer d-flex flex-column">
+      <div class="upperPart d-flex justify-content-between align-items-center">
+        <div class="title">{{ title }}</div>
+        <img :src="collapseImg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div :class="{ collapsed: handleCollapse }" class="hidden">
     <Dropdown v-for="(item, key) in dataToChild" :key="key" :hospital="item" />
   </div>
-  <!-- </div> -->
+
+  <!-- div for 1 hospital, multiple clinics (so, with popup directly) -->
+
+  <div
+    v-if="itemReturnValue == 'departmentType3'"
+    @click="handleClick"
+    :class="{ clicked: handleCollapse }"
+    class="doctorBox d-flex align-items-center"
+  >
+    <img :src="doctorImg" alt="" class="doctorImg" />
+
+    <div class="textContainer d-flex flex-column">
+      <div class="upperPart d-flex justify-content-between align-items-center">
+        <div class="title">{{ title }}</div>
+      </div>
+      <div class="subtitleContainer d-flex">
+        <span class="subTitle">{{ modalData[0].tenants[0].name }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
