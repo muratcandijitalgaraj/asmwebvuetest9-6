@@ -15,11 +15,8 @@
         <div class="title">{{ title }}</div>
       </div>
       <div class="subtitleContainer d-flex">
-        <!-- show only if there's 1 hospital and 1 clinic only -->
         <span class="subTitle">{{ subTitle }} </span>
         <span class="subTitle"> - </span>
-        <span class="subTitle">{{ modalData[0].tenants[0].name }}</span>
-        <!-- show when there's 1 hospital but multiple clinics -->
         <span class="subTitle">{{ modalData[0].tenants[0].name }}</span>
       </div>
     </div>
@@ -43,13 +40,19 @@
     </div>
   </div>
 
-  <div :class="{ collapsed: handleCollapse }" class="hidden">
+  <div
+    v-if="itemReturnValue == 'departmentType2'"
+    :class="{ collapsed: handleCollapse }"
+    class="hidden"
+  >
     <Dropdown v-for="(item, key) in dataToChild" :key="key" :hospital="item" />
   </div>
 
   <!-- div for 1 hospital, multiple clinics (so, with popup directly) -->
 
   <div
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
     v-if="itemReturnValue == 'departmentType3'"
     @click="handleClick"
     :class="{ clicked: handleCollapse }"
@@ -66,6 +69,53 @@
       </div>
     </div>
   </div>
+
+  <!-- modal for the above case, i.e. 1 hospital, multiple clients -->
+  <teleport to="body">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div
+            class="modal-body d-flex flex-column justify-content-center align-items-center"
+          >
+            <div
+              v-for="(item, index) in dataToChild"
+              :key="index"
+              class="card d-flex flex-row justify-content-start align-items-center"
+              @click="handleModalClick(item)"
+            >
+              <div
+                :class="[item.modalToggle ? 'chosenCircle' : '']"
+                class="circle d-flex justify-content-center align-items-center"
+              >
+                <img :src="checkMark" alt="" />
+              </div>
+              <div class="modalPara">{{ item }}</div>
+            </div>
+
+            <button class="modalButton">
+              <div class="modalButtonText">Seç</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </teleport>
 </template>
 
 <script setup>
@@ -73,6 +123,7 @@ import { ref, computed, onMounted } from "vue";
 import store from "../../../store";
 import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
+import ModalBox from "./ModalBox.vue";
 import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
 //you need to import router in each component you want to use it for some reason
 import { useRouter } from "vue-router";
@@ -362,6 +413,56 @@ onMounted(() => {
   /* identical to box height, or 21px */
 
   /* Primary */
+  color: #3c4e69;
+}
+
+.modal-content {
+  width: 409px;
+  height: 321px;
+
+  background: #e9f3f9;
+  border-radius: 16px;
+}
+// modal styles
+.modal-header {
+  border: none;
+}
+.modalButton {
+  background: #ff7c32;
+  border: none;
+  border-radius: 6px;
+  width: 341px;
+  height: 50px;
+}
+.modalButtonText {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 130%;
+
+  /* identical to box height, or 21px */
+  text-align: center;
+
+  /* Beyaz */
+  color: #ffffff;
+}
+.card {
+  width: 341px;
+  height: auto;
+  background: #ffffff;
+  /* Boxx Shadow */
+  box-shadow: 0px 1px 3px rgba(42, 49, 55, 0.11);
+  border-radius: 6px;
+  padding: 1rem;
+}
+.modalPara {
+  /* text02 */
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 140%;
   color: #3c4e69;
 }
 </style>
