@@ -73,6 +73,7 @@
   <!-- modal for the above case, i.e. 1 hospital, multiple clients -->
   <teleport to="body">
     <div
+      :key="dataToChild"
       class="modal fade"
       id="exampleModal"
       tabindex="-1"
@@ -93,20 +94,15 @@
           <div
             class="modal-body d-flex flex-column justify-content-center align-items-center"
           >
-            <div
-              v-for="(item, index) in dataToChild"
-              :key="index"
-              class="card d-flex flex-row justify-content-start align-items-center"
-              @click="handleModalClick(item)"
-            >
-              <div
-                :class="[item.modalToggle ? 'chosenCircle' : '']"
-                class="circle d-flex justify-content-center align-items-center"
-              >
-                <img :src="checkMark" alt="" />
-              </div>
-              <div class="modalPara">{{ item }}</div>
-            </div>
+            <!-- <div v-for="(item, index) in dataToChild" :key="index">
+              {{ item }}
+            </div> -->
+
+            <modal-box
+              v-for="(item, key) in dropdownClinicData"
+              :key="key"
+              :clinic="item"
+            />
 
             <button class="modalButton">
               <div class="modalButtonText">Seç</div>
@@ -129,6 +125,11 @@ import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
 import { useRouter } from "vue-router";
 //define router
 const router = useRouter();
+const denemeData = ref([33, 44, 55]);
+
+const dropdownClinicData = computed(
+  () => store.getters["appointmentFlow/_getDropdownClinicData"]
+);
 
 const departmentType = {
   1: "departmentType1",
@@ -189,6 +190,7 @@ const handleClick = async () => {
   departments.value = props.modalData;
   // console.log(props.generalData);
   findDepartmentType(props.generalData);
+  console.log(dataToChild.value);
 };
 
 const handleCollapse = computed(() => {
@@ -240,7 +242,7 @@ const findDepartmentType = (data) => {
   // console.log("returnValue" + returnValue);
   return returnValue;
 };
-let dataToChild = ref([]);
+let dataToChild = ref();
 
 //this function should take a doctor's whole data as parameter
 const solveItAll = (item) => {
@@ -272,13 +274,19 @@ const solveItAll = (item) => {
     console.log("dataToChild.value " + dataToChild.value);
   }
   // if there's 1 hospital but more clinics...
-  else if (itemReturnValue.value == "departmentType3") {
+  if (itemReturnValue.value == "departmentType3") {
     let departmentNamesArray = [];
     item.departments.map((e) => {
       departmentNamesArray.push(e.name);
     });
     let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
     dataToChild.value = uniqDepartmentNamesArray;
+    //commit to the store
+    store.commit(
+      "appointmentFlow/setDropdownClinicData",
+      uniqDepartmentNamesArray
+    );
+
     console.log("uniqDepartmentNamesArray" + uniqDepartmentNamesArray.length);
     console.log("department type 3");
     console.log("dataToChild.value " + dataToChild.value);

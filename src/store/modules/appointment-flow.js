@@ -17,6 +17,7 @@ export default {
     clinicId: "",
     doctorId: "",
     flowToken: 1,
+    dropdownClinicData: [],
   },
 
   mutations: {
@@ -53,6 +54,9 @@ export default {
     },
     setFlowToken(state, payload) {
       state.flowToken = payload;
+    },
+    setDropdownClinicData(state, payload) {
+      state.dropdownClinicData = payload;
     },
   },
 
@@ -151,5 +155,6 @@ export default {
     _getClinicId: (state) => state.clinicId,
     _getDoctorId: (state) => state.doctorId,
     _getFlowToken: (state) => state.flowToken,
+    _getDropdownClinicData: (state) => state.dropdownClinicData,
   },
 };

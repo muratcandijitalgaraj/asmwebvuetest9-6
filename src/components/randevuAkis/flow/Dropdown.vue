@@ -230,6 +230,7 @@ onMounted(() => {
 .chosenCircle {
   background: #32a5df;
 }
+
 .modal-content {
   width: 409px;
   height: 321px;
