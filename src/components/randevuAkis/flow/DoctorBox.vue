@@ -94,20 +94,26 @@
           <div
             class="modal-body d-flex flex-column justify-content-center align-items-center"
           >
-            <div
+            <!-- <div
               v-for="(item, index) in dropdownClinicData"
               :key="index"
               class="card d-flex flex-row justify-content-start align-items-center"
               @click="handleModalClick(item)"
             >
               <div
-                :class="[item.modalToggle ? 'chosenCircle' : '']"
+                :class="[item.isGoing ? 'chosenCircle' : '']"
                 class="circle d-flex justify-content-center align-items-center"
               >
                 <img :src="checkMark" alt="" />
               </div>
-              <div class="modalPara">{{ item }}</div>
-            </div>
+              <div class="modalPara">{{ item.name }}</div>
+            </div> -->
+
+            <ModalBox
+              v-for="(item, index) in dropdownClinicData"
+              :key="index"
+              :clinic="item"
+            />
             <button class="modalButton">
               <div class="modalButtonText">Seç</div>
             </button>
@@ -125,6 +131,7 @@ import doctorImg from "../../../assets/img/randevuAkis/foto.svg";
 import Dropdown from "./Dropdown.vue";
 import ModalBox from "./ModalBox.vue";
 import collapseImg from "../../../assets/img/randevuAkis/collapse.svg";
+import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 //you need to import router in each component you want to use it for some reason
 import { useRouter } from "vue-router";
 //define router
@@ -134,6 +141,10 @@ const denemeData = ref([33, 44, 55]);
 const dropdownClinicData = computed(
   () => store.getters["appointmentFlow/_getDropdownClinicData"]
 );
+
+const handleModalClick = (item) => {
+  item.isGoing = !item.isGoing;
+};
 
 const departmentType = {
   1: "departmentType1",
@@ -281,7 +292,7 @@ const solveItAll = (item) => {
   if (itemReturnValue.value == "departmentType3") {
     let departmentNamesArray = [];
     item.departments.map((e) => {
-      departmentNamesArray.push(e.name);
+      departmentNamesArray.push({ name: e.name, id: e.id, isChosen: false });
     });
     let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
     dataToChild.value = uniqDepartmentNamesArray;
