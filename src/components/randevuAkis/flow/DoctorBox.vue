@@ -45,7 +45,12 @@
     :class="{ collapsed: handleCollapse }"
     class="hidden"
   >
-    <Dropdown v-for="(item, key) in dataToChild" :key="key" :hospital="item" />
+    <Dropdown
+      v-for="(item, key) in dataToChild"
+      :key="key"
+      :hospital="item"
+      :chosenItem="chosenItem"
+    />
   </div>
 
   <!-- div for 1 hospital, multiple clinics (so, with popup directly) -->
@@ -253,38 +258,65 @@ const findDepartmentType = (data) => {
   // console.log(tenants);
   tenantsData.value = tenants;
   itemReturnValue.value = returnValue;
+  console.log(tenantsData.value);
   solveItAll(data);
   // console.log("returnValue" + returnValue);
   return returnValue;
 };
 let dataToChild = ref();
-
+let chosenItem = ref();
+let departmentsWithIdOf1 = ref();
+let departmentsWithIdOf8 = ref();
 //this function should take a doctor's whole data as parameter
 const solveItAll = (item) => {
   console.log("itemReturnValue " + itemReturnValue.value);
   //will loop over this data with v-for in dropdown
   //if there are 2 hospitals and 1 clinic...
   if (itemReturnValue.value == "departmentType2") {
-    let idArray = [];
+    let fillerArray = [];
     //push all the ids of tenants into the array above
     //you have to loop over departments too
     item.departments.forEach((el, index) => {
       el.tenants.map((e) => {
-        idArray.push(e.id);
+        fillerArray.push({ id: e.id, name: e.name });
       });
     });
     //use the set method and spread syntax to get rid of duplicate elements
-    let uniqIdArray = [...new Set(idArray)];
-    let uniqTenantNamesArray = uniqIdArray.map((e) => {
-      if (e == 1) {
-        return "Pusula Developer (Gebze)";
-      } else {
-        return "Ataşehir";
-      }
+    // let uniqIdArray = [...new Set(fillerArray)];
+    fillerArray = fillerArray.filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex((t) => t.place === value.place && t.name === value.name)
+    );
+
+    let id1Departments = [];
+    let id8Departments = [];
+
+    item.departments.map((el, index) => {
+      el.tenants.map((e) => {
+        if (e.id == "1") {
+          id1Departments.push(el);
+        } else {
+          id8Departments.push(el);
+        }
+      });
     });
-    dataToChild.value = uniqTenantNamesArray;
-    console.log(uniqTenantNamesArray + "names");
-    console.log("uniqIdArray " + uniqIdArray);
+    console.log("id1 deps " + id1Departments);
+    departmentsWithIdOf1.value = id1Departments;
+    console.log(
+      "departments one " + JSON.stringify(departmentsWithIdOf1.value)
+    );
+    departmentsWithIdOf8.value = id8Departments;
+    console.log(
+      "departments eight " + JSON.stringify(departmentsWithIdOf8.value)
+    );
+
+    // let uniqTenantNamesArray = uniqIdArray.map((e) => {
+    //   return e;
+    // });
+    dataToChild.value = fillerArray;
+    // console.log(uniqTenantNamesArray + "names");
+    // console.log("uniqIdArray " + uniqIdArray);
     console.log("department type 2");
     console.log("dataToChild.value " + dataToChild.value);
   }
@@ -311,6 +343,8 @@ const solveItAll = (item) => {
   //if there's 1 hospital and 1 clinic...
   // console.log("dataToChild " + dataToChild.length);
   // console.log("this is " + JSON.stringify(item));
+
+  chosenItem.value = item;
 };
 
 const handleShouldCollapse = async () => {

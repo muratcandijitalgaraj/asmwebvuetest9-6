@@ -12,9 +12,9 @@
       <img :src="checkMark" alt="" />
     </div>
     <div class="dropdownText">
-      {{ hospital }}
+      {{ hospital.name }}
     </div>
-
+    <!-- 
     <teleport to="body">
       <div
         class="modal fade"
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-    </teleport>
+    </teleport> -->
   </div>
 </template>
 
@@ -115,7 +115,7 @@ const handleClick = async () => {
   chosenHospital.value = props.hospital;
   console.log("doctorName  => " + props.doctorName);
   doctorName.value = props.doctorName;
-  filterDoctorFunction();
+  // filterDoctorFunction();
   // console.log("filtered doctor name => " + filteredDoctor.value);
   // console.log(JSON.stringify(filteredDepartmentsArray.value));
   //commit to store
@@ -141,45 +141,45 @@ const isModalCircleChosen = computed(() => {
 
   return false;
 });
-const filterDoctorFunction = () => {
-  console.log(props.doctorName + props.hospital);
-  console.log(doctorData.value);
-  console.log(JSON.parse(JSON.stringify(doctorData.value)));
+// const filterDoctorFunction = () => {
+//   console.log(props.doctorName + props.hospital);
+//   console.log(doctorData.value);
+//   console.log(JSON.parse(JSON.stringify(doctorData.value)));
 
-  const filteredDoctor = doctorData.value.filter((item) => {
-    if (item.fullName === props.doctorName) {
-      return item;
-    }
-  });
+//   const filteredDoctor = doctorData.value.filter((item) => {
+//     if (item.fullName === props.doctorName) {
+//       return item;
+//     }
+//   });
 
-  let filteredDepartments = filteredDoctor.departments.filter((item) => {
-    if (item.tenants.length > 1) {
-      if (
-        item.tenants[0].name == props.hospital ||
-        item.tenants[1].name == props.hospital
-      ) {
-        return item;
-      } else if (item.tenants.length == 1) {
-        if (item.tenants[0].name == props.hospital) {
-          console.log(item);
-          return item;
-        }
-      }
-    }
-  });
+//   let filteredDepartments = filteredDoctor.departments.filter((item) => {
+//     if (item.tenants.length > 1) {
+//       if (
+//         item.tenants[0].name == props.hospital ||
+//         item.tenants[1].name == props.hospital
+//       ) {
+//         return item;
+//       } else if (item.tenants.length == 1) {
+//         if (item.tenants[0].name == props.hospital) {
+//           console.log(item);
+//           return item;
+//         }
+//       }
+//     }
+//   });
 
-  console.log("filtered doctor " + JSON.stringify(filteredDoctor));
-  console.log("filtered department" + JSON.stringify(filteredDepartments));
-  //add modal toggle element to each and every item in filteredDepartments
-  filteredDepartments.forEach((item) => {
-    Object.assign(item, { modalToggle: false });
-  });
-  filteredDepartmentsArray.value = filteredDepartments;
-  console.log(
-    "filtered departments array => " +
-      JSON.stringify(filteredDepartmentsArray.value)
-  );
-};
+//   console.log("filtered doctor " + JSON.stringify(filteredDoctor));
+//   console.log("filtered department" + JSON.stringify(filteredDepartments));
+//   //add modal toggle element to each and every item in filteredDepartments
+//   filteredDepartments.forEach((item) => {
+//     Object.assign(item, { modalToggle: false });
+//   });
+//   filteredDepartmentsArray.value = filteredDepartments;
+//   console.log(
+//     "filtered departments array => " +
+//       JSON.stringify(filteredDepartmentsArray.value)
+//   );
+// };
 
 const showDoctors = async () => {
   try {
