@@ -94,16 +94,20 @@
           <div
             class="modal-body d-flex flex-column justify-content-center align-items-center"
           >
-            <!-- <div v-for="(item, index) in dataToChild" :key="index">
-              {{ item }}
-            </div> -->
-
-            <modal-box
-              v-for="(item, key) in dropdownClinicData"
-              :key="key"
-              :clinic="item"
-            />
-
+            <div
+              v-for="(item, index) in dropdownClinicData"
+              :key="index"
+              class="card d-flex flex-row justify-content-start align-items-center"
+              @click="handleModalClick(item)"
+            >
+              <div
+                :class="[item.modalToggle ? 'chosenCircle' : '']"
+                class="circle d-flex justify-content-center align-items-center"
+              >
+                <img :src="checkMark" alt="" />
+              </div>
+              <div class="modalPara">{{ item }}</div>
+            </div>
             <button class="modalButton">
               <div class="modalButtonText">Seç</div>
             </button>
