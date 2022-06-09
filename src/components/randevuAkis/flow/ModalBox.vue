@@ -24,6 +24,7 @@ const props = defineProps({
 const handleModalClick = () => {
   props.clinic.isGoing = !props.clinic.isGoing;
   console.log(props.clinic.name);
+  console.log(props.clinic.id);
 };
 </script>
 

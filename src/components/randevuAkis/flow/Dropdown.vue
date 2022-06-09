@@ -79,6 +79,7 @@ const props = defineProps({
   modelValue: { required: true, type: Number },
   modalData: { required: true, type: Array },
   doctorName: { required: true, type: String },
+  chosenItem: { required: true, type: Object },
 });
 
 const handleModalClick = (item, index) => {
@@ -109,7 +110,7 @@ const handleClick = async () => {
     isCheck.value = false;
   }
   // console.log(props.dropdownData);
-  console.log("need" + props.modalData);
+  // console.log("need" + props.modalData);
   //here are the data I'll send to the store
   console.log("hospital name => " + props.hospital);
   chosenHospital.value = props.hospital;
@@ -122,6 +123,7 @@ const handleClick = async () => {
   store.commit("appointmentFlow/setHospitalName", props.hospital);
   store.commit("appointmentFlow/setDoctorName", props.doctorName);
   console.log(props.dropdownData);
+  console.log(props.chosenItem);
 };
 
 const isCircleChosen = computed(() => {

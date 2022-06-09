@@ -50,6 +50,7 @@
       :key="key"
       :hospital="item"
       :chosenItem="chosenItem"
+      @click="handleDropdown(item)"
     />
   </div>
 
@@ -114,12 +115,32 @@
               <div class="modalPara">{{ item.name }}</div>
             </div> -->
 
-            <ModalBox
-              v-for="(item, index) in dropdownClinicData"
+            <!-- <ModalBox
+              v-for="(item, index) in [{ name: 1 }, { name: 2 }]"
               :key="index"
               :clinic="item"
-            />
-            <button class="modalButton">
+            /> -->
+
+            <div v-if="dropdownTenantData == 1">
+              <ModalBox
+                v-for="(item, index) in departmentsWithIdOf1FromState"
+                :key="index"
+                :clinic="item"
+              />
+            </div>
+            <div v-else-if="dropdownTenantData == 8">
+              <ModalBox
+                v-for="(item, index) in departmentsWithIdOf8FromState"
+                :key="index"
+                :clinic="item"
+              />
+            </div>
+            <!-- <ModalBox
+                v-for="(item, index) in dropdownClinicData"
+                :key="index"
+                :clinic="item"
+              /> -->
+            <button @click="handleChoice" class="modalButton">
               <div class="modalButtonText">Seç</div>
             </button>
           </div>
@@ -146,6 +167,15 @@ const denemeData = ref([33, 44, 55]);
 const dropdownClinicData = computed(
   () => store.getters["appointmentFlow/_getDropdownClinicData"]
 );
+const dropdownTenantData = computed(
+  () => store.getters["appointmentFlow/_getDropdownTenantData"]
+);
+const departmentsWithIdOf1FromState = computed(
+  () => store.getters["appointmentFlow/_getDepartmentsWithIdOf1"]
+);
+const departmentsWithIdOf8FromState = computed(
+  () => store.getters["appointmentFlow/_getDepartmentsWithIdOf8"]
+);
 
 const handleModalClick = (item) => {
   item.isGoing = !item.isGoing;
@@ -155,6 +185,13 @@ const departmentType = {
   1: "departmentType1",
   2: "departmentType2",
   3: "departmentType3",
+};
+const handleDropdown = (item) => {
+  console.log("dropdown handled" + JSON.stringify(item));
+  //commit to store
+  store.commit("appointmentFlow/setDropdownTenantData", Number(item.id));
+  console.log(store.getters["appointmentFlow/_getDropdownTenantData"]);
+  console.log(typeof Number(item.id));
 };
 
 //ultimate functionality logic:
@@ -166,6 +203,9 @@ const departmentType = {
 const handleCircle = () => {
   isCircleChosen.value = !isCircleChosen.value;
   console.log("key" + key);
+};
+const handleChoice = () => {
+  console.log(dropdownTenantData.value);
 };
 const appointmentType = ref(0);
 
@@ -187,7 +227,10 @@ const isClicked = ref(false);
 const isCircleChosen = ref(false);
 const shouldCollapse = ref(false);
 const departments = ref();
-
+let dataToChild = ref();
+let chosenItem = ref();
+let departmentsWithIdOf1 = ref();
+let departmentsWithIdOf8 = ref();
 // const handle = ref(false);
 const handleClick = async () => {
   await emit("update:modelValue", props.itemId);
@@ -205,7 +248,6 @@ const handleClick = async () => {
   store.commit("appointmentFlow/setDoctorId", props.itemId);
 
   //modalData is item.departments coming from the parent
-  //this is the important one, I'll use this one to create the functionality of the dropdown
   console.log(props.generalData);
   departments.value = props.modalData;
   // console.log(props.generalData);
@@ -263,10 +305,7 @@ const findDepartmentType = (data) => {
   // console.log("returnValue" + returnValue);
   return returnValue;
 };
-let dataToChild = ref();
-let chosenItem = ref();
-let departmentsWithIdOf1 = ref();
-let departmentsWithIdOf8 = ref();
+
 //this function should take a doctor's whole data as parameter
 const solveItAll = (item) => {
   console.log("itemReturnValue " + itemReturnValue.value);
@@ -310,6 +349,9 @@ const solveItAll = (item) => {
     console.log(
       "departments eight " + JSON.stringify(departmentsWithIdOf8.value)
     );
+    //commit to store
+    store.commit("appointmentFlow/setDepartmentsWithIdOf1", id1Departments);
+    store.commit("appointmentFlow/setDepartmentsWithIdOf8", id8Departments);
 
     // let uniqTenantNamesArray = uniqIdArray.map((e) => {
     //   return e;
@@ -324,7 +366,11 @@ const solveItAll = (item) => {
   if (itemReturnValue.value == "departmentType3") {
     let departmentNamesArray = [];
     item.departments.map((e) => {
-      departmentNamesArray.push({ name: e.name, id: e.id, isChosen: false });
+      departmentNamesArray.push({
+        name: e.name,
+        id: e.departmentId,
+        isChosen: false,
+      });
     });
     let uniqDepartmentNamesArray = [...new Set(departmentNamesArray)];
     dataToChild.value = uniqDepartmentNamesArray;
@@ -338,7 +384,9 @@ const solveItAll = (item) => {
     console.log("department type 3");
     console.log("dataToChild.value " + dataToChild.value);
   } else {
-    console.log("if I'm showing, itemReturnValue is 1 & no dropdown needed");
+    console.log(
+      "if I'm showing, itemReturnValue is 1 & no dropdown needed or we're at dropdown modal flow"
+    );
   }
   //if there's 1 hospital and 1 clinic...
   // console.log("dataToChild " + dataToChild.length);

@@ -18,6 +18,9 @@ export default {
     doctorId: "",
     flowToken: 1,
     dropdownClinicData: [],
+    dropdownTenantData: "",
+    departmentsWithIdOf1: [],
+    departmentsWithIdOf8: [],
   },
 
   mutations: {
@@ -57,6 +60,15 @@ export default {
     },
     setDropdownClinicData(state, payload) {
       state.dropdownClinicData = payload;
+    },
+    setDropdownTenantData(state, payload) {
+      state.dropdownTenantData = payload;
+    },
+    setDepartmentsWithIdOf1(state, payload) {
+      state.departmentsWithIdOf1 = payload;
+    },
+    setDepartmentsWithIdOf8(state, payload) {
+      state.departmentsWithIdOf8 = payload;
     },
   },
 
@@ -156,5 +168,8 @@ export default {
     _getDoctorId: (state) => state.doctorId,
     _getFlowToken: (state) => state.flowToken,
     _getDropdownClinicData: (state) => state.dropdownClinicData,
+    _getDropdownTenantData: (state) => state.dropdownTenantData,
+    _getDepartmentsWithIdOf1: (state) => state.departmentsWithIdOf1,
+    _getDepartmentsWithIdOf8: (state) => state.departmentsWithIdOf8,
   },
 };
