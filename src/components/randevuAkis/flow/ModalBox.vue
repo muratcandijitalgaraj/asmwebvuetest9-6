@@ -14,6 +14,9 @@
 </template>
 
 <script setup>
+import store from "../../../store";
+import { useRouter } from "vue-router";
+
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 
 const props = defineProps({
@@ -21,10 +24,18 @@ const props = defineProps({
   // modelValue: { required: true, type: Number },
 });
 
+//define router
+const router = useRouter();
+
 const handleModalClick = () => {
   props.clinic.isGoing = !props.clinic.isGoing;
   console.log(props.clinic.name);
-  console.log(props.clinic.id);
+  console.log(props.clinic.departmentId);
+  console.log(props.clinic);
+  //commit to store the clinic name and id
+  store.commit("appointmentFlow/setClinicName", props.clinic.name);
+  store.commit("appointmentFlow/setClinicId", props.clinic.departmentId);
+  router.push({ name: "TarihSaatSecimi" });
 };
 </script>
 

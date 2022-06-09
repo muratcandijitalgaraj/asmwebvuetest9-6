@@ -178,6 +178,9 @@ const handleDropdown = (item) => {
   store.commit("appointmentFlow/setDropdownTenantData", Number(item.id));
   console.log(store.getters["appointmentFlow/_getDropdownTenantData"]);
   console.log(typeof Number(item.id));
+  //commit to store the hospital name and id
+  store.commit("appointmentFlow/setHospitalName", item.name);
+  store.commit("appointmentFlow/setHospitalId", item.id);
 };
 
 //ultimate functionality logic:
@@ -226,12 +229,14 @@ const handleClick = async () => {
   } else {
     isCheck.value = false;
   }
-  console.log(props.itemId);
+  console.log(props.item);
+  console.log(props.generalData);
   changeBorderRadius();
 
-  //commit to store
+  //commit to store the name and the id of the chosen doctor
   store.commit("appointmentFlow/setDoctorName", props.title);
   store.commit("appointmentFlow/setDoctorId", props.itemId);
+  console.log(props.title + props.itemId);
   store.commit("appointmentFlow/setDropdownTenantData", 3);
   console.log(store.getters["appointmentFlow/_getDropdownTenantData"]);
 
@@ -241,6 +246,27 @@ const handleClick = async () => {
   // console.log(props.generalData);
   findDepartmentType(props.generalData);
   console.log(dataToChild.value);
+
+  if (itemReturnValue.value == "departmentType1") {
+    //commit to store the hospital name, hospital id, department name, department id
+    store.commit(
+      "appointmentFlow/setHospitalName",
+      props.generalData.departments[0].tenants[0].name
+    );
+    store.commit(
+      "appointmentFlow/setHospitalId",
+      props.generalData.departments[0].tenants[0].id
+    );
+    store.commit(
+      "appointmentFlow/setClinicName",
+      props.generalData.departments[0].name
+    );
+    store.commit(
+      "appointmentFlow/setClinicId",
+      props.generalData.departments[0].departmentId
+    );
+    router.push({ name: "TarihSaatSecimi" });
+  }
 };
 
 const handleCollapse = computed(() => {
