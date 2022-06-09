@@ -267,6 +267,16 @@ const handleClick = async () => {
     );
     router.push({ name: "TarihSaatSecimi" });
   }
+  if (itemReturnValue.value == "departmentType3") {
+    store.commit(
+      "appointmentFlow/setHospitalName",
+      props.generalData.departments[0].tenants[0].name
+    );
+    store.commit(
+      "appointmentFlow/setHospitalId",
+      props.generalData.departments[0].tenants[0].id
+    );
+  }
 };
 
 const handleCollapse = computed(() => {

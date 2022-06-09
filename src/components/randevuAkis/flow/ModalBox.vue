@@ -16,7 +16,6 @@
 <script setup>
 import store from "../../../store";
 import { useRouter } from "vue-router";
-
 import checkMark from "../../../assets/img/randevuAkis/tick.svg";
 
 const props = defineProps({
