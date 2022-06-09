@@ -70,6 +70,7 @@
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
               v-model="appointmentType"
+              :generalData="item"
             />
             <!-- <div @click="filterDoctorsFunction">click me</div> -->
           </div>
@@ -116,6 +117,7 @@
               :dropdownData="item.departments[0].tenants"
               :modalData="item.departments"
               v-model="appointmentType"
+              :generalData="item"
             />
             <!-- <div @click="filterDoctorsFunction">click me</div> -->
           </div>

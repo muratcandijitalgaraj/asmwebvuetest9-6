@@ -44,11 +44,6 @@ const emit = defineEmits(["update:modelValue"]);
 
 const isCheck = ref(false);
 const isClicked = ref(false);
-const doctorData = ref();
-const chosenHospital = ref();
-const doctorName = ref();
-const filteredDoctor = ref();
-const filteredDepartmentsArray = ref();
 
 const handleClick = async () => {
   await emit("update:modelValue", props.dropdownData);
@@ -61,17 +56,14 @@ const handleClick = async () => {
   // console.log(props.dropdownData);
   // console.log("need" + props.modalData);
   //here are the data I'll send to the store
-  console.log("hospital name => " + props.hospital);
-  chosenHospital.value = props.hospital;
+  console.log("hospital name => " + JSON.stringify(props.hospital));
   console.log("doctorName  => " + props.doctorName);
-  doctorName.value = props.doctorName;
   // filterDoctorFunction();
   // console.log("filtered doctor name => " + filteredDoctor.value);
   // console.log(JSON.stringify(filteredDepartmentsArray.value));
   //commit to store
   store.commit("appointmentFlow/setHospitalName", props.hospital);
   store.commit("appointmentFlow/setDoctorName", props.doctorName);
-  console.log(props.dropdownData);
   console.log(props.chosenItem);
 };
 
@@ -93,19 +85,7 @@ const isModalCircleChosen = computed(() => {
   return false;
 });
 
-const showDoctors = async () => {
-  try {
-    const res = await store.dispatch("appointmentFlow/getDoctors");
-    doctorData.value = res.data.items;
-    // console.log(doctorData.value);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-onMounted(() => {
-  showDoctors();
-});
+onMounted(() => {});
 </script>
 
 <style scoped lang="scss">
