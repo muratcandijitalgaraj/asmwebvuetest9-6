@@ -100,27 +100,11 @@
           <div
             class="modal-body d-flex flex-column justify-content-center align-items-center"
           >
-            <!-- <div
-              v-for="(item, index) in dropdownClinicData"
-              :key="index"
-              class="card d-flex flex-row justify-content-start align-items-center"
-              @click="handleModalClick(item)"
-            >
-              <div
-                :class="[item.isGoing ? 'chosenCircle' : '']"
-                class="circle d-flex justify-content-center align-items-center"
-              >
-                <img :src="checkMark" alt="" />
-              </div>
-              <div class="modalPara">{{ item.name }}</div>
-            </div> -->
-
-            <!-- <ModalBox
-              v-for="(item, index) in [{ name: 1 }, { name: 2 }]"
-              :key="index"
-              :clinic="item"
-            /> -->
-
+            <!-- 
+this dropdownTenantdata is handle by both handleClick and handleDropdown functions 
+both of them, at some point, commit a number to the store 
+the first two v-if situations work with the case of dropdown => case 2
+while the last one works with pop-up directly=> case 3 -->
             <div v-if="dropdownTenantData == 1">
               <ModalBox
                 v-for="(item, index) in departmentsWithIdOf1FromState"
@@ -128,18 +112,20 @@
                 :clinic="item"
               />
             </div>
-            <div v-else-if="dropdownTenantData == 8">
+            <div v-if="dropdownTenantData == 8">
               <ModalBox
                 v-for="(item, index) in departmentsWithIdOf8FromState"
                 :key="index"
                 :clinic="item"
               />
             </div>
-            <!-- <ModalBox
+            <div v-if="dropdownTenantData == 3">
+              <ModalBox
                 v-for="(item, index) in dropdownClinicData"
                 :key="index"
                 :clinic="item"
-              /> -->
+              />
+            </div>
             <button @click="handleChoice" class="modalButton">
               <div class="modalButtonText">Seç</div>
             </button>
@@ -246,6 +232,8 @@ const handleClick = async () => {
   //commit to store
   store.commit("appointmentFlow/setDoctorName", props.title);
   store.commit("appointmentFlow/setDoctorId", props.itemId);
+  store.commit("appointmentFlow/setDropdownTenantData", 3);
+  console.log(store.getters["appointmentFlow/_getDropdownTenantData"]);
 
   //modalData is item.departments coming from the parent
   console.log(props.generalData);

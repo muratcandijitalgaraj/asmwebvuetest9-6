@@ -14,57 +14,6 @@
     <div class="dropdownText">
       {{ hospital.name }}
     </div>
-    <!-- 
-    <teleport to="body">
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Bölüm Seçin</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div
-              class="modal-body d-flex flex-column justify-content-center align-items-center"
-            >
-              <ModalBox
-                v-for="(item, key) in modalData"
-                :key="key"
-                :clinic="item.name"
-              />
-              <div
-                v-for="(item, index) in filteredDepartmentsArray"
-                :key="index"
-                class="card d-flex flex-row justify-content-start align-items-center"
-                @click="handleModalClick(item)"
-              >
-                <div
-                  :class="[item.modalToggle ? 'chosenCircle' : '']"
-                  class="circle d-flex justify-content-center align-items-center"
-                >
-                  <img :src="checkMark" alt="" />
-                </div>
-                <div class="modalPara">{{ item.name }}</div>
-              </div>
-
-              <button class="modalButton">
-                <div class="modalButtonText">Seç</div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </teleport> -->
   </div>
 </template>
 
@@ -143,45 +92,6 @@ const isModalCircleChosen = computed(() => {
 
   return false;
 });
-// const filterDoctorFunction = () => {
-//   console.log(props.doctorName + props.hospital);
-//   console.log(doctorData.value);
-//   console.log(JSON.parse(JSON.stringify(doctorData.value)));
-
-//   const filteredDoctor = doctorData.value.filter((item) => {
-//     if (item.fullName === props.doctorName) {
-//       return item;
-//     }
-//   });
-
-//   let filteredDepartments = filteredDoctor.departments.filter((item) => {
-//     if (item.tenants.length > 1) {
-//       if (
-//         item.tenants[0].name == props.hospital ||
-//         item.tenants[1].name == props.hospital
-//       ) {
-//         return item;
-//       } else if (item.tenants.length == 1) {
-//         if (item.tenants[0].name == props.hospital) {
-//           console.log(item);
-//           return item;
-//         }
-//       }
-//     }
-//   });
-
-//   console.log("filtered doctor " + JSON.stringify(filteredDoctor));
-//   console.log("filtered department" + JSON.stringify(filteredDepartments));
-//   //add modal toggle element to each and every item in filteredDepartments
-//   filteredDepartments.forEach((item) => {
-//     Object.assign(item, { modalToggle: false });
-//   });
-//   filteredDepartmentsArray.value = filteredDepartments;
-//   console.log(
-//     "filtered departments array => " +
-//       JSON.stringify(filteredDepartmentsArray.value)
-//   );
-// };
 
 const showDoctors = async () => {
   try {
