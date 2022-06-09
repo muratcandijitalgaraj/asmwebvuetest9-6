@@ -1,0 +1,1 @@
+import{_}from"./index.c60c1692.js";import{r as e,b as i,d,w as o,q as t}from"./vendor.eaf6a57f.js";const m={};function p(f,l){const r=e("Header"),n=e("Sidebar"),a=e("Main"),c=e("Footer"),s=e("Master");return i(),d(s,null,{header:o(()=>[t(r)]),sidebar:o(()=>[t(n)]),section:o(()=>[t(a)]),footer:o(()=>[t(c)]),_:1})}var x=_(m,[["render",p]]);export{x as default};
